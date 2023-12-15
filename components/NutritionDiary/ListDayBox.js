@@ -10,6 +10,7 @@ import React, {useEffect, useState} from 'react';
 import {width, height} from '../../constants/DeviceSize';
 import COLORS from '../../constants/Color';
 import moment from 'moment';
+import {Entypo} from '@expo/vector-icons';
 
 /**
  * @constant {number} width - DateBox width in pixels on figma = 40
@@ -35,14 +36,32 @@ const DateBox = props => {
         props.setSelectDate (data);
       }}
     >
-      <Text style={styles.dateText}>{nameDay}</Text>
-      <Text style={styles.dateText}>{numberDay}</Text>
+      <View style={{justifyContent: 'center', alignItems: 'center', flex: 3}}>
+        <Text style={styles.dateText}>{nameDay}</Text>
+        <Text style={styles.dateText}>{numberDay}</Text>
+      </View>
+
+      <View style={{flex: 1}}>
+        {props.dots === true
+          ? <Text>
+              {
+                <Entypo
+                  name="controller-record"
+                  size={10}
+                  color={COLORS.nutritionDiary.dots}
+                />
+              }
+            </Text>
+          : null}
+      </View>
+
     </TouchableOpacity>
   );
 };
 
 const ListDayBox = props => {
   const selectDate = props.selectDate;
+  
   const setSelectDate = props.setSelectDate;
   const [sevenDays, setSevenDays] = useState ([]);
 
@@ -51,7 +70,7 @@ const ListDayBox = props => {
       const sevenDaysArray = [];
       // Lặp qua 7 ngày, 3 ngày trước và 3 ngày sau ngày hôm nay
       for (let i = -3; i <= 3; i++) {
-        const day = selectDate.clone ().add (i, 'days');
+        const day = moment(selectDate).clone ().add (i, 'days');
         sevenDaysArray.push (day);
       }
 
@@ -59,32 +78,7 @@ const ListDayBox = props => {
     },
     [selectDate]
   );
-
-  const formattedDateTime = moment (selectDate).format (
-    `DD [tháng] MM [năm] YYYY`
-  );
-  // Chuyển đổi ngày trong tiếng Anh sang tiếng Việt
-  const englishDay = moment (selectDate).format ('dddd');
-
-  const vietnameseDay = englishDay => {
-    switch (englishDay.toLowerCase ()) {
-      case 'sunday':
-        return 'Chủ Nhật';
-      case 'monday':
-        return 'Thứ 2';
-      case 'tuesday':
-        return 'Thứ 3';
-      case 'wednesday':
-        return 'Thứ 4';
-      case 'thursday':
-        return 'Thứ 5';
-      case 'friday':
-        return 'Thứ 6';
-      case 'saturday':
-        return 'Thứ 7';
-    }
-  };
-
+    
   return (
     <View style={{alignItems: 'center'}}>
       <FlatList
@@ -95,13 +89,12 @@ const ListDayBox = props => {
             data={item}
             dateBoxOn={index === 3}
             setSelectDate={setSelectDate}
+            dots={index === 3 - 1}
           />
         )}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
-
-      <Text style={{marginVertical: 10, fontSize: 16}}>Nhật ký ngày: {vietnameseDay (englishDay)}, {formattedDateTime}</Text>
     </View>
   );
 };

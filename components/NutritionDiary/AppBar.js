@@ -5,10 +5,12 @@ import moment from 'moment';
 import {Ionicons} from '@expo/vector-icons';
 import {MaterialIcons} from '@expo/vector-icons';
 import COLORS from '../../constants/Color';
+import {AntDesign} from '@expo/vector-icons';
 
 const AppBar = props => {
   const today = props.today;
   const stateNotification = props.stateNotification;
+  const stateAddDiary = props.stateAddDiary;
 
   const formattedDateTime = moment (today).format (`DD [tháng] MM [năm] YYYY`);
   // Chuyển đổi ngày trong tiếng Anh sang tiếng Việt
@@ -33,18 +35,33 @@ const AppBar = props => {
     }
   };
 
+  const onPressShowModal = () => {
+    props.setIsVisible (!props.isVisible);
+  };
+
+  const onPressNotification = () => {
+    props.setStateNotification (!props.stateNotification);
+  };
+
+  const onPressAddDiary = () => {
+    props.setStateAddDiary (!props.stateAddDiary);
+  };
+
   return (
     <View style={styles.container}>
       <View>
-        <Text style={{fontSize: 16}}>Hôm nay</Text>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-          {vietnameseDay (englishDay)}, {formattedDateTime}
-        </Text>
+        <Text style={{fontSize: 16}}>{vietnameseDay (englishDay)}</Text>
+        <TouchableOpacity onPress={onPressShowModal}>
+          <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+            {`${formattedDateTime} `}
+            {<AntDesign name="caretdown" size={18} color="black" />}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View style={{flexDirection: 'row'}}>
         <View style={styles.icon}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressAddDiary}>
             <Ionicons
               name="add"
               size={36}
@@ -55,7 +72,7 @@ const AppBar = props => {
         </View>
 
         <View style={styles.icon}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressNotification}>
             {stateNotification === true
               ? <MaterialIcons
                   name="notifications-active"
@@ -63,7 +80,7 @@ const AppBar = props => {
                   color={COLORS.nutritionDiary.appBar.notification}
                 />
               : <MaterialIcons
-                  name="notifications"
+                  name="notifications-off"
                   size={36}
                   color={COLORS.nutritionDiary.appBar.notification}
                 />}
@@ -92,6 +109,6 @@ const styles = StyleSheet.create ({
     alignItems: 'center',
   },
   icon: {
-    paddingHorizontal: 5
-  }
+    paddingHorizontal: 5,
+  },
 });

@@ -6,11 +6,15 @@ Nutrition Tracker
     ```shell
     git clone https://github.com/hieuleminh03/IT4788-Project
     ```
-2. Install Dependencies
+2. Move to folder project
+    ```shel
+    cd IT4788-Project
+    ```
+3. Install Dependencies
     ```shell
     npm install
     ```
-3. Start Expo
+4. Start Expo
     - Android:
         ```
         npm run android
