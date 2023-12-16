@@ -4,7 +4,6 @@ import {width, height} from '../../constants/DeviceSize';
 import COLORS from '../../constants/Color';
 import {Ionicons} from '@expo/vector-icons';
 import {SimpleLineIcons} from '@expo/vector-icons';
-import ModalNewIngredient from './ModalNewIngredient';
 import NewNutritionDiary from './NewNutritionDiary';
 
 const TimeLineDish = props => {

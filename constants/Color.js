@@ -1,7 +1,6 @@
 const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
-
   nutritionDiary: {
     dateBoxOn: '#0073CC',
     dateBoxOff: '#7CB8E7',
@@ -40,6 +39,11 @@ const COLORS = {
       }
     ],
   },
+  login: {
+    borderFormInput: '#2F80ED',
+    text: '#2F80ED',
+    buttonSingIn: '#3505F4',
+  }
 };
 
 export default COLORS;

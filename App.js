@@ -1,14 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet, Text, View} from 'react-native';
 import NutritionDiary from './src/screens/User/NutritionDiary';
+import SignIn from './src/screens/SignIn';
+import SignUp from './src/screens/SignUp';
+import ForgotPassword from './src/screens/ForgotPassword';
+import ConfirmOTP from './src/screens/ConfirmOTP';
+import PasswordReset from './src/screens/PasswordReset';
 
-export default function App() {
-  return (
-    <NutritionDiary  />
-  );
+export default function App () {
+  return <ConfirmOTP />;
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   container: {
     flex: 1,
     backgroundColor: '#fff',
