@@ -5,27 +5,22 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React from 'react';
-import COLORS from '../../constants/Color';
-import {width, height} from '../../constants/DeviceSize';
-import FormInput from '../../components/Login/FormInput';
+import FormInput from '../../../components/Login/FormInput';
+import {width, height} from '../../../constants/DeviceSize';
+import COLORS from '../../../constants/Color';
+import Checkbox from 'expo-checkbox';
 
-const PasswordReset = () => {
+const SignIn = () => {
+  const [email, setEmail] = React.useState (null);
   const [password, setPassword] = React.useState (null);
-  const [confirmPassword, setConfirmPassword] = React.useState (null);
-
   const [isShowPassword, setIsShowPassword] = React.useState (false);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState (
-    false
-  );
+  const [isChecked, setIsChecked] = React.useState (false);
 
   const onPressShowPassword = () => {
     setIsShowPassword (!isShowPassword);
-  };
-
-  const onPressShowConfirmPassword = () => {
-    setIsShowConfirmPassword (!isShowConfirmPassword);
   };
 
   return (
@@ -35,24 +30,44 @@ const PasswordReset = () => {
         style={styles.imageBackground}
       >
         <View style={{paddingLeft: width * 0.07}}>
-          <Text style={styles.textTitle}>Đặt lại mật khẩu</Text>
+          <Text style={styles.textTitle}>Đăng nhập</Text>
+
           <FormInput
-            topic="Mật khẩu mới"
-            placeholder="Nhập mật khẩu mới"
+            topic="Email"
+            setValue={setEmail}
+            placeholder="Nhập email đăng nhập"
+          />
+
+          <FormInput
+            topic="Mật khẩu"
             setValue={setPassword}
+            placeholder="Nhập mật khẩu"
             category="password"
             statePassword={isShowPassword}
             setIsShow={onPressShowPassword}
           />
 
-          <FormInput
-            topic="Xác nhận mật khẩu mới"
-            placeholder="Nhập mật khẩu mới"
-            setValue={setConfirmPassword}
-            category="password"
-            statePassword={isShowConfirmPassword}
-            setIsShow={onPressShowConfirmPassword}
-          />
+          <View
+            style={{
+              flexDirection: 'row',
+              width: width * 0.75,
+              justifyContent: 'space-between',
+            }}
+          >
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{color: COLORS.login.text}}>Nhớ tài khoản</Text>
+              <Checkbox
+                value={isChecked}
+                onValueChange={setIsChecked}
+                color={COLORS.login.text}
+                style={{marginLeft: 5}}
+              />
+            </View>
+
+            <View>
+              <Text style={{color: COLORS.login.text}}>Quên mật khẩu</Text>
+            </View>
+          </View>
 
           <View
             style={{
@@ -63,7 +78,16 @@ const PasswordReset = () => {
             }}
           >
             <TouchableOpacity style={styles.buttonSingIn}>
-              <Text style={{color: COLORS.login.buttonSingIn}}>Xác nhận</Text>
+              <Text style={{color: COLORS.login.buttonSingIn}}>Đăng nhập</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity>
+              <Image source={require ('../../assets/IconGoogle.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source={require ('../../assets/IconFacebook.png')} />
             </TouchableOpacity>
           </View>
 
@@ -75,7 +99,7 @@ const PasswordReset = () => {
             }}
           >
             <Text style={{color: COLORS.login.text}}>
-              Bạn đã có tài khoản?
+              Bạn chưa có tài khoản?
             </Text>
             <TouchableOpacity>
               <Text
@@ -85,17 +109,18 @@ const PasswordReset = () => {
                   paddingLeft: 5,
                 }}
               >
-                Đăng nhập
+                Đăng ký ngay
               </Text>
             </TouchableOpacity>
           </View>
+
         </View>
       </ImageBackground>
     </SafeAreaView>
   );
 };
 
-export default PasswordReset;
+export default SignIn;
 
 const styles = StyleSheet.create ({
   imageBackground: {

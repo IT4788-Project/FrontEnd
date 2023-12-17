@@ -4,33 +4,14 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import COLORS from '../../constants/Color';
-import {width, height} from '../../constants/DeviceSize';
-import FormInput from '../../components/Login/FormInput';
+import COLORS from '../../../constants/Color';
+import {width, height} from '../../../constants/DeviceSize';
+import FormInput from '../../../components/Login/FormInput';
 
-const SignUp = () => {
-  const [name, setName] = React.useState (null);
-  const [password, setPassword] = React.useState (null);
-  const [confirmPassword, setConfirmPassword] = React.useState (null);
-  const [gmail, setGmail] = React.useState (null);
-
-  const [isShowPassword, setIsShowPassword] = React.useState (false);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState (
-    false
-  );
-
-  const onPressShowPassword = () => {
-    setIsShowPassword (!isShowPassword);
-  };
-
-  const onPressShowConfirmPassword = () => {
-    setIsShowConfirmPassword (!isShowConfirmPassword);
-  };
-
+const ForgotPassword = () => {
   return (
     <SafeAreaView>
       <ImageBackground
@@ -38,37 +19,9 @@ const SignUp = () => {
         style={styles.imageBackground}
       >
         <View style={{paddingLeft: width * 0.07}}>
-          <Text style={styles.textTitle}>Đăng ký tài khoản</Text>
+          <Text style={styles.textTitle}>Quên mật khẩu</Text>
 
-          <FormInput
-            topic="Họ và tên"
-            setValue={setName}
-            placeholder="Nhập họ và tên"
-          />
-
-          <FormInput
-            topic="Email"
-            setValue={setGmail}
-            placeholder="Nhập email đăng nhập"
-          />
-
-          <FormInput
-            topic="Mật khẩu"
-            setValue={setPassword}
-            placeholder="Nhập mật khẩu đăng nhập"
-            category="password"
-            statePassword={isShowPassword}
-            setIsShow={onPressShowPassword}
-          />
-
-          <FormInput
-            topic="Xác nhận mật khẩu"
-            setValue={setConfirmPassword}
-            placeholder="Nhập lại mật khẩu đăng nhập"
-            category="password"
-            statePassword={isShowConfirmPassword}
-            setIsShow={onPressShowConfirmPassword}
-          />
+          <FormInput topic="Email xác thực" placeholder="Nhập email xác thực" />
 
           <View
             style={{
@@ -79,7 +32,7 @@ const SignUp = () => {
             }}
           >
             <TouchableOpacity style={styles.buttonSingIn}>
-              <Text style={{color: COLORS.login.buttonSingIn}}>Đăng ký</Text>
+              <Text style={{color: COLORS.login.buttonSingIn}}>Tiếp tục</Text>
             </TouchableOpacity>
           </View>
 
@@ -105,14 +58,14 @@ const SignUp = () => {
               </Text>
             </TouchableOpacity>
           </View>
-
         </View>
       </ImageBackground>
+
     </SafeAreaView>
   );
 };
 
-export default SignUp;
+export default ForgotPassword;
 
 const styles = StyleSheet.create ({
   imageBackground: {
