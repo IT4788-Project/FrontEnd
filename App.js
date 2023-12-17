@@ -6,9 +6,11 @@ import SignUp from './src/screens/SignUp';
 import ForgotPassword from './src/screens/ForgotPassword';
 import ConfirmOTP from './src/screens/ConfirmOTP';
 import PasswordReset from './src/screens/PasswordReset';
+import HomeUser from './src/screens/User/HomeUser';
+import AuthenEmail from './src/screens/AuthenEmail';
 
 export default function App () {
-  return <SignIn />;
+  return <AuthenEmail />;
 }
 
 const styles = StyleSheet.create ({
