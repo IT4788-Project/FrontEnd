@@ -10,7 +10,7 @@ import HomeUser from './src/screens/User/HomeUser';
 import AuthenEmail from './src/screens/AuthenEmail';
 
 export default function App () {
-  return <AuthenEmail />;
+  return <HomeUser />;
 }
 
 const styles = StyleSheet.create ({

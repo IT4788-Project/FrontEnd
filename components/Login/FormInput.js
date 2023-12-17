@@ -24,6 +24,7 @@ const FormInput = props => {
           onChangeText={text => onChangeText (text)}
           placeholder={props.placeholder}
           secureTextEntry={props.statePassword === false && props.category === "password" ? true : null}
+          style={{width: props.category === 'password' ? '90%' : '100'}}
         />
         {props.category === 'password'
           ? props.statePassword === true

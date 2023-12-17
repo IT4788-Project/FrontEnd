@@ -36,14 +36,39 @@ const COLORS = {
       {
         backgroundColor: '#BFCBD1',
         line: '#003049',
-      }
+      },
     ],
   },
   login: {
     borderFormInput: '#2F80ED',
     text: '#2F80ED',
     buttonSingIn: '#3505F4',
-  }
+  },
+  homeUser: {
+    line: "#C9CCD1",
+    appBar: {
+      line: '#A4B6BC',
+      title: '#2F80ED',
+      search: '#2D3F7B',
+      textInput: '#6A6A6C',
+    },
+    newPost: {
+      uploadOn: {
+        background: '#0865FE',
+        text: '#FFFFFF',
+      },
+      uploadOff: {
+        background: '#E5E6EB',
+        text: '#DCDCDC',
+      },
+    },
+    post: {
+      like: {
+        off: "#EFF8FF",
+        on: "#1877F2"
+      }
+    }
+  },
 };
 
 export default COLORS;

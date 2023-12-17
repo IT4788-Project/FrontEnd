@@ -47,12 +47,6 @@ const SignUp = () => {
           />
 
           <FormInput
-            topic="Email"
-            setValue={setGmail}
-            placeholder="Nhập email đăng nhập"
-          />
-
-          <FormInput
             topic="Mật khẩu"
             setValue={setPassword}
             placeholder="Nhập mật khẩu đăng nhập"
