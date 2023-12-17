@@ -8,7 +8,7 @@ import ConfirmOTP from './src/screens/ConfirmOTP';
 import PasswordReset from './src/screens/PasswordReset';
 
 export default function App () {
-  return <ConfirmOTP />;
+  return <SignIn />;
 }
 
 const styles = StyleSheet.create ({
