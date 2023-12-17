@@ -1,9 +1,12 @@
 // ham call api chung
-const BASE_URL = 'backend';
+import API_CONFIG from "../../config/apiConfig";
+
+const BASE_URL = API_CONFIG.API_BASE_URL;
 
 // endpoint la router, options bao gom method, header, body
 export const fetchData = async (endpoint, options = {}) => {
   try {
+    console.log("endpoint: ", `${BASE_URL}/${endpoint}`)
     const response = await fetch(`${BASE_URL}/${endpoint}`, options);
 
     if (!response.ok) {

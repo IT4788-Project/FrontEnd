@@ -9,7 +9,7 @@ import PasswordReset from './src/screens/Authen/PasswordReset';
 import AuthenEmail from './src/screens/Authen/AuthenEmail';
 
 export default function App () {
-  return <AuthenEmail />;
+  return <SignIn />;
 }
 
 const styles = StyleSheet.create ({

@@ -9,27 +9,29 @@ import {
 } from 'react-native';
 import React from 'react';
 import FormInput from '../../../components/Authen/FormInput';
-import {width, height} from '../../../constants/DeviceSize';
+import { width, height } from '../../../constants/DeviceSize';
 import COLORS from '../../../constants/Color';
 import Checkbox from 'expo-checkbox';
 
+import { logIn, test } from '../../../services/api/auth';
+
 const SignIn = () => {
-  const [email, setEmail] = React.useState (null);
-  const [password, setPassword] = React.useState (null);
-  const [isShowPassword, setIsShowPassword] = React.useState (false);
-  const [isChecked, setIsChecked] = React.useState (false);
+  const [email, setEmail] = React.useState(null);
+  const [password, setPassword] = React.useState(null);
+  const [isShowPassword, setIsShowPassword] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState(false);
 
   const onPressShowPassword = () => {
-    setIsShowPassword (!isShowPassword);
+    setIsShowPassword(!isShowPassword);
   };
 
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../../assets/BackgroundLogin.jpg')}
+        source={require('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
-        <View style={{paddingLeft: width * 0.07}}>
+        <View style={{ paddingLeft: width * 0.07 }}>
           <Text style={styles.textTitle}>Đăng nhập</Text>
 
           <FormInput
@@ -54,18 +56,18 @@ const SignIn = () => {
               justifyContent: 'space-between',
             }}
           >
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{color: COLORS.login.text}}>Nhớ tài khoản</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ color: COLORS.login.text }}>Nhớ tài khoản</Text>
               <Checkbox
                 value={isChecked}
                 onValueChange={setIsChecked}
                 color={COLORS.login.text}
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
               />
             </View>
 
             <View>
-              <Text style={{color: COLORS.login.text}}>Quên mật khẩu</Text>
+              <Text style={{ color: COLORS.login.text }}>Quên mật khẩu</Text>
             </View>
           </View>
 
@@ -77,17 +79,23 @@ const SignIn = () => {
               marginVertical: 20,
             }}
           >
-            <TouchableOpacity style={styles.buttonSingIn}>
-              <Text style={{color: COLORS.login.buttonSingIn}}>Đăng nhập</Text>
+            <TouchableOpacity
+              style={styles.buttonSingIn}
+              onPress={() => {
+                test()
+              .then(res => console.log(res))
+              }}
+            >
+              <Text style={{ color: COLORS.login.buttonSingIn }}>Đăng nhập</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity>
-              <Image source={require ('../../../assets/IconGoogle.png')} />
+              <Image source={require('../../../assets/IconGoogle.png')} />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Image source={require ('../../../assets/IconFacebook.png')} />
+              <Image source={require('../../../assets/IconFacebook.png')} />
             </TouchableOpacity>
           </View>
 
@@ -98,7 +106,7 @@ const SignIn = () => {
               width: width * 0.7,
             }}
           >
-            <Text style={{color: COLORS.login.text}}>
+            <Text style={{ color: COLORS.login.text }}>
               Bạn chưa có tài khoản?
             </Text>
             <TouchableOpacity>
@@ -122,7 +130,7 @@ const SignIn = () => {
 
 export default SignIn;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
     height: '100%',

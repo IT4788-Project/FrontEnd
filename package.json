@@ -16,6 +16,7 @@
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-calendars": "^1.1302.0",
+    "react-native-config": "^1.5.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-styled-datepicker": "^1.2.1"
   },
