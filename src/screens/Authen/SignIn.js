@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import React from 'react';
-import FormInput from '../../../components/Login/FormInput';
+import FormInput from '../../../components/Authen/FormInput';
 import {width, height} from '../../../constants/DeviceSize';
 import COLORS from '../../../constants/Color';
 import Checkbox from 'expo-checkbox';
@@ -26,7 +26,7 @@ const SignIn = () => {
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../assets/BackgroundLogin.jpg')}
+        source={require ('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
         <View style={{paddingLeft: width * 0.07}}>
@@ -84,10 +84,10 @@ const SignIn = () => {
 
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity>
-              <Image source={require ('../../assets/IconGoogle.png')} />
+              <Image source={require ('../../../assets/IconGoogle.png')} />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Image source={require ('../../assets/IconFacebook.png')} />
+              <Image source={require ('../../../assets/IconFacebook.png')} />
             </TouchableOpacity>
           </View>
 

@@ -6,7 +6,6 @@ import SignUp from './src/screens/Authen/SignUp';
 import ForgotPassword from './src/screens/Authen/ForgotPassword';
 import ConfirmOTP from './src/screens/Authen/ConfirmOTP';
 import PasswordReset from './src/screens/Authen/PasswordReset';
-import HomeUser from './src/screens/User/HomeUser';
 import AuthenEmail from './src/screens/Authen/AuthenEmail';
 
 export default function App () {

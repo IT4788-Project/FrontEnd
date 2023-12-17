@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import COLORS from '../../../constants/Color';
 import {width, height} from '../../../constants/DeviceSize';
-import FormInput from '../../../components/Login/FormInput';
+import FormInput from '../../../components/Authen/FormInput';
 
 const PasswordReset = () => {
   const [password, setPassword] = React.useState (null);
@@ -31,7 +31,7 @@ const PasswordReset = () => {
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../assets/BackgroundLogin.jpg')}
+        source={require ('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
         <View style={{paddingLeft: width * 0.07}}>
