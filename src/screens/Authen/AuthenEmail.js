@@ -8,9 +8,9 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import React from 'react';
-import {width, height} from '../../constants/DeviceSize';
-import COLORS from '../../constants/Color';
-import FormInput from '../../components/Login/FormInput';
+import {width, height} from '../../../constants/DeviceSize';
+import COLORS from '../../../constants/Color';
+import FormInput from '../../../components/Authen/FormInput';
 import {Ionicons} from '@expo/vector-icons';
 
 const AuthenEmail = () => {
@@ -33,7 +33,7 @@ const AuthenEmail = () => {
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../assets/BackgroundLogin.jpg')}
+        source={require ('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
         <KeyboardAvoidingView behavior='padding'>

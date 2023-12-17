@@ -1,13 +1,12 @@
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
 import NutritionDiary from './src/screens/User/NutritionDiary';
-import SignIn from './src/screens/SignIn';
-import SignUp from './src/screens/SignUp';
-import ForgotPassword from './src/screens/ForgotPassword';
-import ConfirmOTP from './src/screens/ConfirmOTP';
-import PasswordReset from './src/screens/PasswordReset';
-import HomeUser from './src/screens/User/HomeUser';
-import AuthenEmail from './src/screens/AuthenEmail';
+import SignIn from './src/screens/Authen/SignIn';
+import SignUp from './src/screens/Authen/SignUp';
+import ForgotPassword from './src/screens/Authen/ForgotPassword';
+import ConfirmOTP from './src/screens/Authen/ConfirmOTP';
+import PasswordReset from './src/screens/Authen/PasswordReset';
+import AuthenEmail from './src/screens/Authen/AuthenEmail';
 
 export default function App () {
   return <HomeUser />;

@@ -7,21 +7,23 @@ import {
 } from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import COLORS from '../../constants/Color';
-import {width, height} from '../../constants/DeviceSize';
-import FormInput from '../../components/Login/FormInput';
+import COLORS from '../../../constants/Color';
+import {width, height} from '../../../constants/DeviceSize';
+import FormInput from '../../../components/Authen/FormInput';
 
-const ForgotPassword = () => {
+const ConfirmOTP = () => {
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../assets/BackgroundLogin.jpg')}
+        source={require ('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
         <View style={{paddingLeft: width * 0.07}}>
           <Text style={styles.textTitle}>Quên mật khẩu</Text>
 
-          <FormInput topic="Email xác thực" placeholder="Nhập email xác thực" />
+          <FormInput topic="Mã xác thực" placeholder="Nhập mã xác thực" />
+
+          <Text>Mã xác thực đã được gửi tới email.....</Text>
 
           <View
             style={{
@@ -32,7 +34,7 @@ const ForgotPassword = () => {
             }}
           >
             <TouchableOpacity style={styles.buttonSingIn}>
-              <Text style={{color: COLORS.login.buttonSingIn}}>Tiếp tục</Text>
+              <Text style={{color: COLORS.login.buttonSingIn}}>Xác nhận</Text>
             </TouchableOpacity>
           </View>
 
@@ -65,7 +67,7 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ConfirmOTP;
 
 const styles = StyleSheet.create ({
   imageBackground: {
