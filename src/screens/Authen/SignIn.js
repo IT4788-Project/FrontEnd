@@ -14,7 +14,7 @@ import { width, height } from '../../../constants/DeviceSize';
 import COLORS from '../../../constants/Color';
 import Checkbox from 'expo-checkbox';
 
-import loginAndSaveUser from '../../../utils/Auth/loginAndSaveUser';
+import { loginAndSaveUser } from '../../../utils/Auth/loginAndSaveUser';
 
 const SignIn = () => {
   const [email, setEmail] = React.useState(null);

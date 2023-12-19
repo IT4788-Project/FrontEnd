@@ -1,12 +1,11 @@
 // this function is used to login and save user in local storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logIn } from '../../services/api/auth';
 import { saveUserToLocal } from '../../services/local/dataStore';
 
 /*
     Return data for display in SignIn UI
 */
-const loginAndSaveUser = async (username, password) => {
+export const loginAndSaveUser = async (username, password) => {
     try {
         const response = await logIn(username, password);
         switch (response.statusCode) {
@@ -15,7 +14,8 @@ const loginAndSaveUser = async (username, password) => {
                 return { status: 'failed', reason: 'Bad request' };
             case 401:
                 // Unauthorized
-                return { status: 'failed', reason: 'Unauthorized' };
+                console.log(response)
+                return { status: 'failed', reason: 'Email hoặc mật khẩu không chính xác'};
             case 200:
                 // success
                 saveUserToLocal(username, password);
@@ -29,4 +29,3 @@ const loginAndSaveUser = async (username, password) => {
         return { status: 'failed', reason: 'Unknown error' };
     }
 }
-export default loginAndSaveUser;

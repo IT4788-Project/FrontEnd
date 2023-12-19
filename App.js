@@ -14,7 +14,7 @@ import CookingRecipe from './src/screens/User/CookingRecipe';
 import SearchPage from './src/screens/User/SearchPage';
 
 export default function App () {
-  return <HomeUser />;
+  return <ForgotPassword />;
 }
 
 const styles = StyleSheet.create ({

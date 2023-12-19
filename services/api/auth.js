@@ -1,11 +1,5 @@
 import { fetchData } from './base';
 
-function catchError( error ){
-
-  console.log( error );
-
-}
-
 export const logIn = async (username, password) => {
   try {
     const response = await fetchData('api/auths/login', {
@@ -24,9 +18,79 @@ export const logIn = async (username, password) => {
   }
 }
 
-export const test = async () => {
-  const response = await fetchData('api/users', {
-    method: 'GET',
-  });
-  return response;
+export const getAllUsers = async () => {
+  try {
+    const response = await fetchData('api/users', {
+      method: 'GET',
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const forgotPassword = async (email) => {
+  try {
+    const response = await fetchData('api/auths/forgotPassword', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: String(email)
+      }),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const checkCode = async (code) => {
+  try {
+    const response = await fetchData('api/auths/checkCode', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        code: Number(code)
+      }),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const resetPassword = async (newPassword) => {
+  try {
+    const response = await fetchData('api/auths/resetPassword', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        newPassword: String(newPassword)
+      }),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const logOut = async (accessToken) => {
+  try {
+    const response = await fetchData('api/auths/logout', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
