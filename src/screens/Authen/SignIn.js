@@ -63,6 +63,7 @@ const SignIn = () => {
           <FormInput
             topic="Email"
             placeholder="Nhập email đăng nhập"
+            category="email"
             setValue={setEmail}
           />
 
@@ -92,9 +93,9 @@ const SignIn = () => {
               />
             </View>
 
-            <View>
+            <TouchableOpacity>
               <Text style={{ color: COLORS.login.text }}>Quên mật khẩu</Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View

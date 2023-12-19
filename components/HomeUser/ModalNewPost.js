@@ -7,38 +7,88 @@ import {
   Image,
   TextInput,
   ScrollView,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {Ionicons} from '@expo/vector-icons';
 import COLORS from '../../constants/Color';
 import {MaterialIcons} from '@expo/vector-icons';
 import {width, height} from '../../constants/DeviceSize';
+import ImageUpload from './ImageUpload';
+import {firebase} from '../../config/firebaseConfig';
+import * as FileSystem from 'expo-file-system';
 
 const ModalNewPost = props => {
   const [content, setContent] = React.useState ('');
+  const [image, setImage] = React.useState (null); // image uri
+  const [loading, setLoading] = React.useState (false);
   const [uploadColor, setUploadColor] = React.useState (
     COLORS.homeUser.newPost.uploadOff
   );
 
   useEffect (
     () => {
-      if (content.length > 0) {
+      if (content.length > 0 || image !== null || loading === true) {
         setUploadColor (COLORS.homeUser.newPost.uploadOn);
       } else {
         setUploadColor (COLORS.homeUser.newPost.uploadOff);
       }
     },
-    [content]
+    [content, image]
   );
 
   const onPressBack = () => {
     setContent ('');
+    setImage (null);
     props.setIsVisible (false);
   };
 
   const onPressUpload = () => {
+    if (image !== null) {
+      uploadMedia ();
+    } else {
+      props.setIsVisible (false);
+    }
     setContent ('');
-    props.setIsVisible (false);
+    setImage (null);
+  };
+
+  // upload image to firebase storage
+  const uploadMedia = async () => {
+    setLoading (true);
+
+    try {
+      const {uri} = await FileSystem.getInfoAsync (image);
+      const blob = await new Promise ((resolve, reject) => {
+        const xhr = new XMLHttpRequest ();
+        xhr.onload = function () {
+          resolve (xhr.response);
+        };
+
+        xhr.onerror = e => {
+          reject (new TypeError ('Network request failed'));
+        };
+
+        xhr.responseType = 'blob';
+        xhr.open ('GET', uri, true);
+        xhr.send (null);
+      });
+
+      const filename = image.substring (image.lastIndexOf ('/') + 1);
+      const ref = firebase.storage ().ref ().child (filename);
+
+      await ref.put (blob);
+
+      props.setIsVisible(false);
+
+      setLoading (false);
+      console.log ('success');
+      setImage (null);
+    } catch (error) {
+      console.log (error);
+      setLoading (false);
+    }
   };
 
   return (
@@ -73,18 +123,20 @@ const ModalNewPost = props => {
           style={[styles.upload, {backgroundColor: uploadColor.background}]}
         >
           <TouchableOpacity
-            disabled={!(content.length > 0)}
+            disabled={!(content.length > 0 || image !== null) || loading}
             onPress={onPressUpload}
           >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: '500',
-                color: uploadColor.text,
-              }}
-            >
-              Đăng
-            </Text>
+            {loading === true
+              ? <ActivityIndicator size="small" color={COLORS.white} />
+              : <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: '500',
+                    color: uploadColor.text,
+                  }}
+                >
+                  Đăng
+                </Text>}
           </TouchableOpacity>
         </View>
       </View>
@@ -121,7 +173,9 @@ const ModalNewPost = props => {
           onChangeText={text => setContent (text)}
         />
       </ScrollView>
-
+      {image &&
+        <Image source={{uri: image}} style={{width: 200, height: 200}} />}
+      <ImageUpload setLoading={setLoading} image={image} setImage={setImage} />
     </Modal>
   );
 };

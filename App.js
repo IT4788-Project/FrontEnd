@@ -7,9 +7,14 @@ import ForgotPassword from './src/screens/Authen/ForgotPassword';
 import ConfirmOTP from './src/screens/Authen/ConfirmOTP';
 import PasswordReset from './src/screens/Authen/PasswordReset';
 import AuthenEmail from './src/screens/Authen/AuthenEmail';
+import HomeUser from './src/screens/User/HomeUser'
+import PersonalPage from './src/screens/User/PersonalPage';
+import SeeAllFollow from './src/screens/User/SeeAllFollow';
+import CookingRecipe from './src/screens/User/CookingRecipe';
+import SearchPage from './src/screens/User/SearchPage';
 
 export default function App () {
-  return <SignIn />;
+  return <HomeUser />;
 }
 
 const styles = StyleSheet.create ({

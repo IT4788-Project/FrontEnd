@@ -11,6 +11,7 @@ import React from 'react';
 import {MaterialIcons} from '@expo/vector-icons';
 import {AntDesign} from '@expo/vector-icons';
 import {FontAwesome} from '@expo/vector-icons';
+import {Entypo} from '@expo/vector-icons';
 import COLORS from '../../constants/Color';
 import {width, height} from '../../constants/DeviceSize';
 import ModalInforImage from './ModalInforImage';
@@ -32,6 +33,18 @@ const Post = props => {
   const link = [
     {
       id: 1,
+      image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
+    },
+    {
+      id: 2,
+      image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
+    },
+    {
+      id: 3,
+      image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
+    },
+    {
+      id: 4,
       image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
     },
   ];
@@ -61,24 +74,36 @@ const Post = props => {
           marginHorizontal: 15,
           marginVertical: 10,
           alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
-        <TouchableOpacity>
-          <Image
-            source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
-            style={{width: 45, height: 45, borderRadius: 30}}
-          />
-        </TouchableOpacity>
-
-        <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
           <TouchableOpacity>
-            <Text style={styles.nameUser}>{props.nameUser}</Text>
+            <Image
+              source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
+              style={{width: 45, height: 45, borderRadius: 30}}
+            />
           </TouchableOpacity>
-          <View style={styles.state}>
-            <MaterialIcons name="public" size={12} color="black" />
-            <Text style={{fontSize: 12, marginLeft: 5}}>Công khai</Text>
+
+          <View>
+            <TouchableOpacity>
+              <Text style={styles.nameUser}>{props.nameUser}</Text>
+            </TouchableOpacity>
+            <View style={styles.state}>
+              <MaterialIcons name="public" size={12} color="black" />
+              <Text style={{fontSize: 12, marginLeft: 5}}>Công khai</Text>
+            </View>
           </View>
         </View>
+
+        <TouchableOpacity>
+          <Entypo name="dots-three-horizontal" size={24} color="black" />
+        </TouchableOpacity>
       </View>
 
       <TouchableOpacity onPress={() => setShowFullContent (!showFullContent)}>
@@ -112,6 +137,7 @@ const Post = props => {
                     width: width / (link.length > 3 ? 3.2 : link.length),
                     height: 250,
                     marginHorizontal: 1,
+                    borderRadius: 10,
                   }}
                 />
               </TouchableOpacity>
