@@ -8,15 +8,10 @@ export const fetchData = async (endpoint, options = {}) => {
   try {
     console.log("endpoint: ", `${BASE_URL}/${endpoint}`)
     const response = await fetch(`${BASE_URL}/${endpoint}`, options);
-
-    if (!response.ok) {
-      // neu response ko phai 2xx thi throw error
-      throw new Error(`HTTP error! Status: ${response.status}` + response.statusText);
-    }
     // tach json tu response
     return await response.json();
   } catch (error) {
-    console.error('API error:', error);
-    throw error;
+    console.error('API error:', error, "(base fetch function)");
+    throw error; // throw to the nearest catch block
   }
 };

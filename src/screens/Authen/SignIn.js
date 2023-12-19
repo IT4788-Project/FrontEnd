@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Alert
 } from 'react-native';
 import React from 'react';
 import FormInput from '../../../components/Authen/FormInput';
@@ -13,16 +14,41 @@ import { width, height } from '../../../constants/DeviceSize';
 import COLORS from '../../../constants/Color';
 import Checkbox from 'expo-checkbox';
 
-import { logIn, test } from '../../../services/api/auth';
+import loginAndSaveUser from '../../../utils/Auth/loginAndSaveUser';
 
 const SignIn = () => {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const [isShowPassword, setIsShowPassword] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
-  const onPressShowPassword = () => {
+  const handleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
+  };
+
+  const handleSignIn = async () => {
+    try {
+      if (!email || !password) {
+        alert('Vui lòng nhập đầy đủ thông tin');
+        return;
+      } else {
+        const res = await loginAndSaveUser(email, password);
+        switch (res.status) {
+          case 'success':
+            Alert.alert('Login successful', "You're logged in");
+            break;
+          case 'failed':
+            Alert.alert('Login Failed', res.reason);
+            break;
+          default:
+            Alert.alert('Error', 'Something went wrong');
+        }
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Something went wrong');
+    }
+
   };
 
   return (
@@ -36,8 +62,8 @@ const SignIn = () => {
 
           <FormInput
             topic="Email"
-            setValue={setEmail}
             placeholder="Nhập email đăng nhập"
+            setValue={setEmail}
           />
 
           <FormInput
@@ -46,7 +72,7 @@ const SignIn = () => {
             placeholder="Nhập mật khẩu"
             category="password"
             statePassword={isShowPassword}
-            setIsShow={onPressShowPassword}
+            setIsShow={handleShowPassword}
           />
 
           <View
@@ -81,10 +107,7 @@ const SignIn = () => {
           >
             <TouchableOpacity
               style={styles.buttonSingIn}
-              onPress={() => {
-                test()
-              .then(res => console.log(res))
-              }}
+              onPress={handleSignIn}
             >
               <Text style={{ color: COLORS.login.buttonSingIn }}>Đăng nhập</Text>
             </TouchableOpacity>

@@ -1,14 +1,27 @@
 import { fetchData } from './base';
 
+function catchError( error ){
+
+  console.log( error );
+
+}
+
 export const logIn = async (username, password) => {
-  const response = await fetchData('/api/users', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username, password }),
-  });
-  return response;
+  try {
+    const response = await fetchData('api/auths/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: String(username),
+        password: String(password),
+      }),
+    })
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export const test = async () => {
