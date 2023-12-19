@@ -9,8 +9,8 @@ const Stack = createStackNavigator();
 export const AppStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="HomeUser" component={HomeUser} />
-            <Stack.Screen name="NutritionDiary" component={NutritionDiary} />
+            <Stack.Screen name="HomeUser" component={HomeUser} options={{ headerShown: false }} />
+            <Stack.Screen name="NutritionDiary" component={NutritionDiary} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };

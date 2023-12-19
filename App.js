@@ -1,5 +1,6 @@
-import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, Text, View} from 'react-native';
+import 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 import NutritionDiary from './src/screens/User/NutritionDiary';
 import SignIn from './src/screens/Authen/SignIn';
 import SignUp from './src/screens/Authen/SignUp';
@@ -13,11 +14,19 @@ import SeeAllFollow from './src/screens/User/SeeAllFollow';
 import CookingRecipe from './src/screens/User/CookingRecipe';
 import SearchPage from './src/screens/User/SearchPage';
 
-export default function App () {
-  return <ForgotPassword />;
+import { AuthProvider } from './contexts/authContext';
+import { Router } from './routes/Router';
+
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
+  )
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',

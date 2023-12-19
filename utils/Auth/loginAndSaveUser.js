@@ -3,7 +3,7 @@ import { logIn } from '../../services/api/auth';
 import { saveUserToLocal } from '../../services/local/dataStore';
 
 /*
-    Return data for display in SignIn UI
+    Function làm việc với API và AsyncStorage
 */
 export const loginAndSaveUser = async (username, password) => {
     try {
@@ -15,11 +15,12 @@ export const loginAndSaveUser = async (username, password) => {
             case 401:
                 // Unauthorized
                 console.log(response)
-                return { status: 'failed', reason: 'Email hoặc mật khẩu không chính xác'};
+                return { status: 'failed', reason: response.error};
             case 200:
                 // success
-                saveUserToLocal(username, password);
-                return { status: 'success' };
+                // this works as a filter to pass only the token to saveUserToLocal and return it to _signIn
+                saveUserToLocal(username, password, response.text.accessToken);
+                return { status: 'success', token: String(response.text.accessToken) };
             default:
                 // null/500/300
                 return { status: 'failed', reason: 'Unknown error' };

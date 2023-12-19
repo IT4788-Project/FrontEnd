@@ -15,13 +15,16 @@ import COLORS from '../../../constants/Color';
 import Checkbox from 'expo-checkbox';
 
 import { loginAndSaveUser } from '../../../utils/Auth/loginAndSaveUser';
+import { useAuth } from '../../../contexts/authContext';
 
-const SignIn = () => {
+export const SignIn = () => {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const [isShowPassword, setIsShowPassword] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+
+  const auth = useAuth();
 
   const handleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
@@ -33,7 +36,7 @@ const SignIn = () => {
         alert('Vui lòng nhập đầy đủ thông tin');
         return;
       } else {
-        const res = await loginAndSaveUser(email, password);
+        const res = await auth._signIn(email, password);
         switch (res.status) {
           case 'success':
             Alert.alert('Login successful', "You're logged in");
