@@ -69,6 +69,39 @@ const COLORS = {
       }
     }
   },
+  personalPage: {
+    follow: {
+      border: '#1877F2',
+      text: "#1877F2"
+    }
+  },
+  seeAllFollow: {
+    background: '#F1F4F5',
+    text: '#5898EF',
+    personFollow: {
+      text: "#3A4B83"
+    }
+  },
+  cookingRecipe: {
+    text: "#7D4242",
+    likeOn: {
+      icon: "#1877F2",
+      background: "#B2D1FA"
+    },
+    likeOff: {
+      icon: "#B2D1FA",
+      background: "#F5F5F5"
+    },
+    tag: "#B2D1FA"
+  },
+  searchPage: {
+    background: [
+      "#87D3F4",
+      "#9CF487",
+      "#FFA6D1",
+      "#FFCCA6"
+    ]
+  }
 };
 
 export default COLORS;

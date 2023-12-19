@@ -1,13 +1,14 @@
 import {
   View,
   Text,
-  SafeAreaView,
   TextInput,
   StyleSheet,
   ScrollView,
   Image,
   TouchableOpacity,
   FlatList,
+  SafeAreaView,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import AppBar from '../../../components/HomeUser/AppBar';
@@ -24,7 +25,9 @@ const HomeUser = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{flex: 1, paddingtop: Platform.OS === 'android' ? 25 : 0} }
+    >
       <AppBar title="BodyFast" search={true} />
 
       <ScrollView style={{height: height * 0.8}}>
