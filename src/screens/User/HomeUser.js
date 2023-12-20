@@ -25,8 +25,7 @@ const HomeUser = ({navigation}) => {
   };
 
   const onPressAvatar = () => {
-    console.log(navigation)
-    // navigation.navigate ('PersonalPage');
+    navigation.navigate ('PersonalPage');
   }
 
   return (

@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   Image,
   ScrollView,
   TouchableOpacity,
@@ -13,10 +12,17 @@ import {width, height} from '../../../constants/DeviceSize';
 import COLORS from '../../../constants/Color';
 import Post from '../../../components/HomeUser/Post';
 import {Ionicons} from '@expo/vector-icons';
+import ModalInforImage from '../../../components/HomeUser/ModalInforImage';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const PersonalPage = () => {
+const PersonalPage = props => {
+  const [isVisibleCoverImage, setIsVisibleCoverImage] = React.useState (false);
+  const imageCover =
+    'https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/deba0baf-1ebc-4373-baea-0a4ce1bf3713.jpeg?alt=media&token=21b26da7-ee9d-4378-8a91-2e461d46d8f3';
+
+  const avatar= "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/0f64df7a-19d4-4da2-a139-595287184145.jpeg?alt=media&token=96a470a2-3876-4c49-b670-98cfcd2e6a9a"
   return (
-    <SafeAreaView style={{paddingTop: Platform.OS === 'android' ? 25 : 0}}>
+    <SafeAreaView>
       <View
         style={{
           alignItems: 'center',
@@ -25,7 +31,7 @@ const PersonalPage = () => {
           marginBottom: 10,
         }}
       >
-        <TouchableOpacity onPress={() => props.setIsVisible (false)}>
+        <TouchableOpacity onPress={() => props.navigation.goBack ()}>
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <View style={{width: '80%', alignItems: 'center'}}>
@@ -35,17 +41,14 @@ const PersonalPage = () => {
 
       <ScrollView style={{height: height - 70}}>
         <View style={{height: height * 0.5}}>
-          <TouchableOpacity>
-            <Image
-              // source={require ('../../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg')}
-              style={styles.coverImage}
-            />
+          <TouchableOpacity onPress={() => setIsVisibleCoverImage (true)}>
+            <Image source={{uri: imageCover}} style={styles.coverImage} />
           </TouchableOpacity>
 
           <View style={styles.avatar}>
             <TouchableOpacity>
               <Image
-                // source={require ('../../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
+                source={{uri: avatar}}
                 style={{
                   width: height * 0.2,
                   height: height * 0.2,
@@ -87,11 +90,17 @@ const PersonalPage = () => {
         </View>
 
         <View style={styles.body}>
-          <Post/>
+          <Post />
           <Post />
           <Post />
         </View>
       </ScrollView>
+
+      <ModalInforImage
+        isVisible={isVisibleCoverImage}
+        linkImage={imageCover}
+        setIsVisible={setIsVisibleCoverImage}
+      />
     </SafeAreaView>
   );
 };
