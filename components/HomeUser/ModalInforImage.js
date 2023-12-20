@@ -28,7 +28,7 @@ const ModalInforImage = props => {
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <View style={{width: '80%', alignItems: 'center'}}>
-          <Text style={{fontSize: 18, fontWeight: '500'}}>Bài viết</Text>
+          <Text style={{fontSize: 18, fontWeight: '500'}}>{props.title}</Text>
         </View>
       </View>
 

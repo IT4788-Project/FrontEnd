@@ -20,8 +20,6 @@ const SearchPage = () => {
   const category = ['Nguyên liệu', 'Bài viết', 'Người dùng'];
   const [selectedCategory, setSelectedCategory] = React.useState (null);
 
-  console.log (selectedCategory);
-
   return (
     <SafeAreaView>
       <ScrollView>

@@ -3,12 +3,15 @@ import React from 'react';
 import {width, height} from '../../constants/DeviceSize';
 import COLORS from '../../constants/Color';
 import {MaterialIcons} from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const ButtonNavigation = props => {
+  const navigation = useNavigation();
+
   return (
     <TouchableOpacity style={styles.container}>
       <Text style={styles.text}>{props.title}</Text>
-      {props.navigation === true
+      {props.nextScreen === true
         ? <MaterialIcons
             name="navigate-next"
             size={30}

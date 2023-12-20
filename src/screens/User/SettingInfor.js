@@ -5,24 +5,24 @@ import AppBar from '../../../components/SettingInfor/AppBar';
 import COLORS from '../../../constants/Color';
 import ButtonNavigation
   from '../../../components/SettingInfor/ButtonNavigation';
-import { width } from '../../../constants/DeviceSize';
+import {width} from '../../../constants/DeviceSize';
 
-const SettingInfor = () => {
+const SettingInfor = props => {
   return (
     <SafeAreaView style={styles.container}>
-      <AppBar namePage="Cài đặt"/>
+      <AppBar namePage="Cài đặt" />
       <View style={{marginVertical: 20}}>
         <Text style={styles.textTopic}>Tài khoản của bạn: ????</Text>
       </View>
-      <ButtonNavigation title="Thông tin cá nhân" />
-      <ButtonNavigation title="Thông báo" />
+      <ButtonNavigation title="Thông tin cá nhân" nextScreen={true} />
+      <ButtonNavigation title="Thông báo" nextScreen={true} />
 
       <Text style={[styles.textTopic, {marginVertical: 20}]}>
         Hỗ trợ và thông tin thêm
       </Text>
 
-      <ButtonNavigation title="Trợ giúp & hỗ trợ" />
-      <ButtonNavigation title="Chính sách" />
+      <ButtonNavigation title="Trợ giúp & hỗ trợ" nextScreen={true} />
+      <ButtonNavigation title="Chính sách" nextScreen={true} />
 
       <View style={{width: width, alignItems: 'center'}}>
         <TouchableOpacity style={styles.logOutButton}>
@@ -57,6 +57,6 @@ const styles = StyleSheet.create ({
     color: COLORS.inforMe.textName,
     fontSize: 20,
     fontWeight: 'bold',
-    marginLeft: width * 0.05
-  }
+    marginLeft: width * 0.05,
+  },
 });

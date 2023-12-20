@@ -3,11 +3,14 @@ import React from 'react';
 import {Ionicons} from '@expo/vector-icons';
 import COLORS from '../../constants/Color';
 import {width, height} from '../../constants/DeviceSize';
+import { useNavigation } from '@react-navigation/native';
 
 const AppBar = (props) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <Ionicons name="md-arrow-back-circle-outline" size={30} color={COLORS.black} />
       </TouchableOpacity>
       <Text style={styles.text}>{props.namePage}</Text>

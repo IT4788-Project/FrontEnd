@@ -23,11 +23,13 @@ const Line = props => {
   return (
     <View style={styles.line}>
       <TextInput
+        multiline={true}
+        color={COLORS.black}
         placeholder={props.placeholder}
         onChangeText={onChangeText}
         editable={props.editable}
         defaultValue={props.defaultValue ? String (props.defaultValue) : ''}
-        style={{textAlign: 'left', width: width * 0.5}}
+        style={{textAlign: 'left', width: width * 0.75}}
       />
       {props.addIngredient === true
         ? <TouchableOpacity onPress={onPressAdd}>

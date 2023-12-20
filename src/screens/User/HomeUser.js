@@ -9,7 +9,7 @@ import {
   FlatList,
   Platform,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import AppBar from '../../../components/HomeUser/AppBar';
 import COLORS from '../../../constants/Color';
 import {width, height} from '../../../constants/DeviceSize';
@@ -29,11 +29,12 @@ const HomeUser = ({navigation}) => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: COLORS.white}}>
       <AppBar title="BodyFast" search={true} />
 
-      <ScrollView style={{height: height * 0.8}}>
-        <View style={{flexDirection: 'row', paddingHorizontal: 15}}>
+      {/* NavBar height 0.08,  AppBar 0.08*/}
+      <ScrollView style={{height: height * 0.84}}>
+        <View style={{flexDirection: 'row', paddingHorizontal: 15, paddingTop: 10}}>
           <TouchableOpacity style={styles.newPostImage} onPress={onPressAvatar}>
             <Image
               source={{uri: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e"}}

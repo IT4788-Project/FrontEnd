@@ -6,13 +6,16 @@ import {width, height} from '../../../constants/DeviceSize';
 import {Fontisto} from '@expo/vector-icons';
 import Inficator from '../../../components/InforMe/Indicator';
 
-const InforMe = () => {
+const InforMe = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
 
         <Text style={styles.textName}>Họ và tên</Text>
-        <TouchableOpacity style={{position: 'absolute', right: width * 0.05}}>
+        <TouchableOpacity
+          style={{position: 'absolute', right: width * 0.05}}
+          onPress={() => navigation.navigate ('SettingInfor')}
+        >
           <Fontisto
             name="player-settings"
             size={24}

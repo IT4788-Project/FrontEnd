@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import COLORS from '../../constants/Color';
 import {Ionicons} from '@expo/vector-icons';
+import { height } from '../../constants/DeviceSize';
 
 const AppBar = props => {
   return (
@@ -25,8 +26,8 @@ export default AppBar;
 
 const styles = StyleSheet.create ({
   container: {
+    height: height * 0.08,
     marginHorizontal: 30,
-    marginBottom: 15,
     paddingHorizontal: 10,
     paddingBottom: 10,
     borderBottomWidth: 1,

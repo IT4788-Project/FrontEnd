@@ -17,36 +17,40 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 const PersonalPage = props => {
   const [isVisibleCoverImage, setIsVisibleCoverImage] = React.useState (false);
+  const [isVisibleAvatar, setIsVisibleAvatar] = React.useState (false);
+
   const imageCover =
     'https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/deba0baf-1ebc-4373-baea-0a4ce1bf3713.jpeg?alt=media&token=21b26da7-ee9d-4378-8a91-2e461d46d8f3';
 
-  const avatar= "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/0f64df7a-19d4-4da2-a139-595287184145.jpeg?alt=media&token=96a470a2-3876-4c49-b670-98cfcd2e6a9a"
+  const avatar =
+    'https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5';
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: COLORS.white}}>
       <View
         style={{
           alignItems: 'center',
           flexDirection: 'row',
           paddingHorizontal: 15,
-          marginBottom: 10,
+          height: height * 0.05,
         }}
       >
         <TouchableOpacity onPress={() => props.navigation.goBack ()}>
           <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <View style={{width: '80%', alignItems: 'center'}}>
-          <Text style={{fontSize: 18, fontWeight: '500'}}>Bài viết</Text>
+          <Text style={{fontSize: 18, fontWeight: '500'}}>Trang cá nhân</Text>
         </View>
       </View>
 
-      <ScrollView style={{height: height - 70}}>
+      {/* NavBar 0.08, AppBar 0.05 */}
+      <ScrollView style={{height: height * 0.87}}>
         <View style={{height: height * 0.5}}>
           <TouchableOpacity onPress={() => setIsVisibleCoverImage (true)}>
             <Image source={{uri: imageCover}} style={styles.coverImage} />
           </TouchableOpacity>
 
           <View style={styles.avatar}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsVisibleAvatar (true)}>
               <Image
                 source={{uri: avatar}}
                 style={{
@@ -97,9 +101,17 @@ const PersonalPage = props => {
       </ScrollView>
 
       <ModalInforImage
+        title="Ảnh bìa"
         isVisible={isVisibleCoverImage}
         linkImage={imageCover}
         setIsVisible={setIsVisibleCoverImage}
+      />
+
+      <ModalInforImage
+        title="Ảnh đại diện"
+        isVisible={isVisibleAvatar}
+        linkImage={avatar}
+        setIsVisible={setIsVisibleAvatar}
       />
     </SafeAreaView>
   );
