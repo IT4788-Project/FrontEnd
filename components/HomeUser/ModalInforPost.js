@@ -61,7 +61,7 @@ const ModalInforPost = props => {
         >
           <TouchableOpacity>
             <Image
-              source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
+              // source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
               style={{width: 45, height: 45, borderRadius: 30}}
             />
           </TouchableOpacity>
@@ -124,7 +124,7 @@ const ModalInforPost = props => {
           <View key={item.id}>
             <TouchableOpacity onPress={() => onPressImage(item.image)} >
               <Image
-                source={item.image}
+                source={{uri: item.image}}
                 style={{
                   height: height /
                     (listImage.length > 2 ? 2 : listImage.length),

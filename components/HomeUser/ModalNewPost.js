@@ -18,6 +18,7 @@ import {width, height} from '../../constants/DeviceSize';
 import ImageUpload from './ImageUpload';
 import {firebase} from '../../config/firebaseConfig';
 import * as FileSystem from 'expo-file-system';
+import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 
 const ModalNewPost = props => {
   const [content, setContent] = React.useState ('');
@@ -76,15 +77,23 @@ const ModalNewPost = props => {
       });
 
       const filename = image.substring (image.lastIndexOf ('/') + 1);
-      const ref = firebase.storage ().ref ().child (filename);
 
-      await ref.put (blob);
+      const storageRef = ref (firebase.storage (), filename);
 
-      props.setIsVisible(false);
+      await uploadBytes (storageRef, blob);
+
+      // Lấy URL của file sau khi tải lên thành công
+      const downloadURL = await getDownloadURL (storageRef);
+      console.log ('URL of uploaded file:', downloadURL);
+
+      props.setIsVisible (false);
 
       setLoading (false);
       console.log ('success');
       setImage (null);
+
+      // Trả về URL của file
+      return downloadURL;
     } catch (error) {
       console.log (error);
       setLoading (false);
@@ -153,7 +162,7 @@ const ModalNewPost = props => {
         }}
       >
         <Image
-          source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
+          // source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
           style={{width: 50, height: 50, borderRadius: 30}}
         />
         <View>
