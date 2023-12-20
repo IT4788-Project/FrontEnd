@@ -8,7 +8,7 @@ const PersonFollow = () => {
     <TouchableOpacity style={styles.container}>
         <View>
             <Image
-                source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
+                // source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
                 style={{
                 width: width * 0.2,
                 height: width * 0.2,

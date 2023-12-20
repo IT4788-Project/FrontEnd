@@ -1,13 +1,26 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomeUser from '../../src/screens/User/HomeUser';
+import PersonalPage from '../../src/screens/User/PersonalPage';
+import {NavigationContainer} from '@react-navigation/native';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator ();
 
 export const HomeUserStack = () => {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="HomeUser" component={HomeUser} options={{ headerShown: false }} />
-        </Stack.Navigator>
-    );
-}
+  return (
+    <NavigationContainer independent = 'true'>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="HomeUser"
+          component={HomeUser}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PersonalPage"
+          component={PersonalPage}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};

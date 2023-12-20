@@ -28,7 +28,6 @@ const styles = StyleSheet.create ({
     marginHorizontal: 30,
     marginBottom: 15,
     paddingHorizontal: 10,
-    paddingTop: 30,
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.homeUser.appBar.line,

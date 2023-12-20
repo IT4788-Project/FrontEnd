@@ -33,19 +33,19 @@ const Post = props => {
   const link = [
     {
       id: 1,
-      image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
+      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
     },
     {
       id: 2,
-      image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
+      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
     },
     {
       id: 3,
-      image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
+      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
     },
     {
       id: 4,
-      image: require ('../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg'),
+      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
     },
   ];
 
@@ -85,7 +85,7 @@ const Post = props => {
         >
           <TouchableOpacity>
             <Image
-              source={require ('../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
+              source={{uri: link[0].image}}
               style={{width: 45, height: 45, borderRadius: 30}}
             />
           </TouchableOpacity>
@@ -132,7 +132,7 @@ const Post = props => {
             return (
               <TouchableOpacity onPress={onPressImage}>
                 <Image
-                  source={item.image}
+                  source={{uri: item.image}}
                   style={{
                     width: width / (link.length > 3 ? 3.2 : link.length),
                     height: 250,
@@ -179,7 +179,7 @@ const Post = props => {
           alignItems: 'center',
         }}
       >
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', paddingHorizontal: 10}}>
           <TouchableOpacity style={styles.icon}>
             <AntDesign name="like1" size={20} color={COLORS.white} />
           </TouchableOpacity>

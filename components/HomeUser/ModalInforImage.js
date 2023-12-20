@@ -33,7 +33,7 @@ const ModalInforImage = props => {
       </View>
 
       <Image
-        source={linkImage}
+        source={{uri: linkImage}}
         style={{
           height: height * 0.8,
           width: width,

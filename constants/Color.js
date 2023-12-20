@@ -45,7 +45,7 @@ const COLORS = {
     buttonSingIn: '#3505F4',
   },
   homeUser: {
-    line: "#C9CCD1",
+    line: '#C9CCD1',
     appBar: {
       line: '#A4B6BC',
       title: '#2F80ED',
@@ -64,44 +64,53 @@ const COLORS = {
     },
     post: {
       like: {
-        off: "#EFF8FF",
-        on: "#1877F2"
-      }
-    }
+        off: '#EFF8FF',
+        on: '#1877F2',
+      },
+    },
   },
   personalPage: {
     follow: {
       border: '#1877F2',
-      text: "#1877F2"
-    }
+      text: '#1877F2',
+    },
   },
   seeAllFollow: {
     background: '#F1F4F5',
     text: '#5898EF',
     personFollow: {
-      text: "#3A4B83"
-    }
+      text: '#3A4B83',
+    },
   },
   cookingRecipe: {
-    text: "#7D4242",
+    text: '#7D4242',
     likeOn: {
-      icon: "#1877F2",
-      background: "#B2D1FA"
+      icon: '#1877F2',
+      background: '#B2D1FA',
     },
     likeOff: {
-      icon: "#B2D1FA",
-      background: "#F5F5F5"
+      icon: '#B2D1FA',
+      background: '#F5F5F5',
     },
-    tag: "#B2D1FA"
+    tag: '#B2D1FA',
   },
   searchPage: {
-    background: [
-      "#87D3F4",
-      "#9CF487",
-      "#FFA6D1",
-      "#FFCCA6"
-    ]
-  }
+    search: '#87D3F4',
+    dropDownCategory: "#87D3F4",
+    listCategory: "#D5EFEE",
+    searchButton: "#65D793",
+  },
+  inforMe: {
+    background: '#EEEBE3',
+    textName: '#7A6E6D',
+  },
+  settingInfor: {
+    buttonNavigation: {
+      text: '#51BCAF',
+    },
+    background: '#EEEBE3',
+    logOutButton: "#51BCAF"
+  },
 };
 
 export default COLORS;

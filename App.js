@@ -13,6 +13,9 @@ import PersonalPage from './src/screens/User/PersonalPage';
 import SeeAllFollow from './src/screens/User/SeeAllFollow';
 import CookingRecipe from './src/screens/User/CookingRecipe';
 import SearchPage from './src/screens/User/SearchPage';
+import InforMe from './src/screens/User/InforMe';
+import SettingInfor from './src/screens/User/SettingInfor';
+import SettingInforPerson from './src/screens/User/SettingInforPerson';
 
 import { AuthProvider } from './contexts/authContext';
 import { Router } from './routes/Router';
@@ -20,9 +23,10 @@ import { Router } from './routes/Router';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Router />
-    </AuthProvider>
+    // <AuthProvider>
+    //   <Router />
+    // </AuthProvider>
+    <HomeUser />
   )
 }
 

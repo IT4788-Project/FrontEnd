@@ -37,7 +37,7 @@ const PersonalPage = () => {
         <View style={{height: height * 0.5}}>
           <TouchableOpacity>
             <Image
-              source={require ('../../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg')}
+              // source={require ('../../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg')}
               style={styles.coverImage}
             />
           </TouchableOpacity>
@@ -45,7 +45,7 @@ const PersonalPage = () => {
           <View style={styles.avatar}>
             <TouchableOpacity>
               <Image
-                source={require ('../../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
+                // source={require ('../../../assets/chup-anh-dep-bang-dien-thoai-25.jpg')}
                 style={{
                   width: height * 0.2,
                   height: height * 0.2,

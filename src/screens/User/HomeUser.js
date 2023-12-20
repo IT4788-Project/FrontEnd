@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
   Platform,
 } from 'react-native';
 import React from 'react';
@@ -16,25 +15,29 @@ import COLORS from '../../../constants/Color';
 import {width, height} from '../../../constants/DeviceSize';
 import ModalNewPost from '../../../components/HomeUser/ModalNewPost';
 import Post from '../../../components/HomeUser/Post';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const HomeUser = () => {
+const HomeUser = ({navigation}) => {
   const [isVisibleNewPost, setIsVisibleNewPost] = React.useState (false);
 
   const onPressNewPost = () => {
     setIsVisibleNewPost (true);
   };
 
+  const onPressAvatar = () => {
+    console.log(navigation)
+    // navigation.navigate ('PersonalPage');
+  }
+
   return (
-    <SafeAreaView
-      style={{flex: 1, paddingtop: Platform.OS === 'android' ? 25 : 0} }
-    >
+    <SafeAreaView>
       <AppBar title="BodyFast" search={true} />
 
       <ScrollView style={{height: height * 0.8}}>
         <View style={{flexDirection: 'row', paddingHorizontal: 15}}>
-          <TouchableOpacity style={styles.newPostImage}>
+          <TouchableOpacity style={styles.newPostImage} onPress={onPressAvatar}>
             <Image
-              source={require ('../../../assets/777-anh-gai-xinh-tam-hon-to-tron.jpg')}
+              source={{uri: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e"}}
               style={{width: 45, height: 45, borderRadius: 30}}
             />
           </TouchableOpacity>
