@@ -8,37 +8,45 @@ import {
   TouchableOpacity,
   FlatList,
   Platform,
-} from 'react-native';
-import React, {useState} from 'react';
-import AppBar from '../../../components/HomeUser/AppBar';
-import COLORS from '../../../constants/Color';
-import {width, height} from '../../../constants/DeviceSize';
-import ModalNewPost from '../../../components/HomeUser/ModalNewPost';
-import Post from '../../../components/HomeUser/Post';
-import {SafeAreaView} from 'react-native-safe-area-context';
+} from "react-native";
+import React, { useState } from "react";
+import AppBar from "../../../components/HomeUser/AppBar";
+import COLORS from "../../../constants/Color";
+import { width, height } from "../../../constants/DeviceSize";
+import ModalNewPost from "../../../components/HomeUser/ModalNewPost";
+import Post from "../../../components/HomeUser/Post";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const HomeUser = ({navigation}) => {
-  const [isVisibleNewPost, setIsVisibleNewPost] = React.useState (false);
+const HomeUser = ({ navigation }) => {
+  const [isVisibleNewPost, setIsVisibleNewPost] = React.useState(false);
 
   const onPressNewPost = () => {
-    setIsVisibleNewPost (true);
+    setIsVisibleNewPost(true);
   };
 
   const onPressAvatar = () => {
-    navigation.navigate ('PersonalPage');
-  }
+    navigation.navigate("PersonalPage");
+  };
 
   return (
-    <SafeAreaView style={{backgroundColor: COLORS.white}}>
+    <SafeAreaView style={{ backgroundColor: COLORS.white }}>
       <AppBar title="BodyFast" search={true} />
 
       {/* NavBar height 0.08,  AppBar 0.08*/}
-      <ScrollView style={{height: height * 0.84}}>
-        <View style={{flexDirection: 'row', paddingHorizontal: 15, paddingTop: 10}}>
+      <ScrollView style={{ height: height * 0.84 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 15,
+            paddingTop: 10,
+          }}
+        >
           <TouchableOpacity style={styles.newPostImage} onPress={onPressAvatar}>
             <Image
-              source={{uri: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e"}}
-              style={{width: 45, height: 45, borderRadius: 30}}
+              source={{
+                uri: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
+              }}
+              style={{ width: 45, height: 45, borderRadius: 30 }}
             />
           </TouchableOpacity>
 
@@ -67,10 +75,10 @@ const HomeUser = ({navigation}) => {
 
 export default HomeUser;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   newPostImage: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   newPostTextInput: {
     borderRadius: 20,
@@ -78,7 +86,7 @@ const styles = StyleSheet.create ({
     borderColor: COLORS.homeUser.appBar.textInput,
     width: width * 0.7,
     marginLeft: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingHorizontal: 20,
   },
 });

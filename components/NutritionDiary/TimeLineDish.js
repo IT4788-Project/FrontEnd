@@ -106,6 +106,7 @@ const Dish = props => {
 
           </View>
         </View>
+        
         {isVisibleCalo === true
           ? <View style={{marginHorizontal: 20, marginVertical: 20}}>
               <View>

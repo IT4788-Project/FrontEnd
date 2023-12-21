@@ -235,7 +235,6 @@ export default NewNutritionDiary;
 
 const styles = StyleSheet.create ({
   container: {
-    marginVertical: 40,
   },
   line: {
     marginHorizontal: width * 0.05,

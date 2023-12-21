@@ -112,13 +112,12 @@ const DishTags = ({ route, navigation }) => {
 
       <View style={styles.body}>
         <RNMultiSelect
-          disableAbsolute
           data={tagDishConstants}
           onSelect={(selectedItems) =>
             setSelectedTeams(selectedItems.map((item) => item.value))
           }
           menuItemTextStyle={{ paddingVertical: 5 }}
-          menuBarContainerHeight={600}
+          menuBarContainerHeight={height * 0.7}
           menuBarContainerWidth={width * 0.9}
           placeholder="Tìm loại món ăn"
           width={width * 0.9}

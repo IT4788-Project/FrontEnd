@@ -43,8 +43,12 @@ const AppBar = props => {
     props.setStateNotification (!props.stateNotification);
   };
 
-  const onPressAddDiary = () => {
-    props.setStateAddDiary (!props.stateAddDiary);
+  const onPressAdd = () => {
+    if (props.category === 'Ăn uống') {
+      props.setStateAddDiary (!props.stateAddDiary);
+    } else {
+      props.setStateAddPractice (!props.stateAddPractice);
+    }
   };
 
   return (
@@ -61,7 +65,7 @@ const AppBar = props => {
 
       <View style={{flexDirection: 'row'}}>
         <View style={styles.icon}>
-          <TouchableOpacity onPress={onPressAddDiary}>
+          <TouchableOpacity onPress={onPressAdd}>
             <Ionicons
               name="add"
               size={36}

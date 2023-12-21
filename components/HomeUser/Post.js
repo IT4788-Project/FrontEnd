@@ -6,55 +6,51 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
-} from 'react-native';
-import React from 'react';
-import {MaterialIcons} from '@expo/vector-icons';
-import {AntDesign} from '@expo/vector-icons';
-import {FontAwesome} from '@expo/vector-icons';
-import {Entypo} from '@expo/vector-icons';
-import COLORS from '../../constants/Color';
-import {width, height} from '../../constants/DeviceSize';
-import ModalInforImage from './ModalInforImage';
-import ModalInforPost from './ModalInforPost';
+} from "react-native";
+import React from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import COLORS from "../../constants/Color";
+import { width, height } from "../../constants/DeviceSize";
+import ModalInforImage from "./ModalInforImage";
+import ModalInforPost from "./ModalInforPost";
 
-const Post = props => {
-  const [showFullContent, setShowFullContent] = React.useState (false);
-  const [linkImage, setLinkImage] = React.useState (null);
-  const [isShowModalInforImage, setIsShowModalInforImage] = React.useState (
-    false
-  );
-  const [isShowModalInforPost, setIsShowModalInforPost] = React.useState (
-    false
-  );
+const Post = (props) => {
+  const [showFullContent, setShowFullContent] = React.useState(false);
+  const [linkImage, setLinkImage] = React.useState(null);
+  const [isShowModalInforImage, setIsShowModalInforImage] =
+    React.useState(false);
+  const [isShowModalInforPost, setIsShowModalInforPost] = React.useState(false);
 
   const longText = `at FlowParserMixin.jsxParseElementAt (C:\Users\PC\Documents\GitHub\IT4788_PTUDDNT_Project\FrontEnd\node_modules\@babel\parser\lib\index.js:6858:32)`;
-  const shortText = longText.slice (0, 60) + '...';
+  const shortText = longText.slice(0, 60) + "...";
 
   const link = [
     {
       id: 1,
-      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
     },
     {
       id: 2,
-      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
     },
     {
       id: 3,
-      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
-    },
-    {
-      id: 4,
-      image: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/6af30380-ed32-4e9e-a86e-b6876e564ad0.jpeg?alt=media&token=8cba03f8-297c-4d0b-96e4-a7bf1d7fc43e",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
     },
   ];
 
   const onPressImage = () => {
     if (link.length === 1) {
-      setLinkImage (link[0].image);
-      setIsShowModalInforImage (true);
+      setLinkImage(link[0].image);
+      setIsShowModalInforImage(true);
     } else {
-      setIsShowModalInforPost (true);
+      setIsShowModalInforPost(true);
     }
   };
 
@@ -70,23 +66,23 @@ const Post = props => {
 
       <View
         style={{
-          flexDirection: 'row',
+          flexDirection: "row",
           marginHorizontal: 15,
           marginVertical: 10,
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <TouchableOpacity>
             <Image
-              source={{uri: link[0].image}}
-              style={{width: 45, height: 45, borderRadius: 30}}
+              source={{ uri: link[0].image }}
+              style={{ width: 45, height: 45, borderRadius: 30 }}
             />
           </TouchableOpacity>
 
@@ -96,7 +92,7 @@ const Post = props => {
             </TouchableOpacity>
             <View style={styles.state}>
               <MaterialIcons name="public" size={12} color="black" />
-              <Text style={{fontSize: 12, marginLeft: 5}}>Công khai</Text>
+              <Text style={{ fontSize: 12, marginLeft: 5 }}>Công khai</Text>
             </View>
           </View>
         </View>
@@ -106,33 +102,33 @@ const Post = props => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={() => setShowFullContent (!showFullContent)}>
+      <TouchableOpacity onPress={() => setShowFullContent(!showFullContent)}>
         <Text style={styles.inputContent}>
           {showFullContent ? longText : shortText}
-          {showFullContent === false && longText.length > 50
-            ? <TouchableOpacity onPress={() => setShowFullContent (true)}>
-                <Text
-                  style={{
-                    color: COLORS.homeUser.appBar.textInput,
-                    top: 4,
-                  }}
-                >
-                  {'   '}Xem thêm
-                </Text>
-              </TouchableOpacity>
-            : null}
+          {showFullContent === false && longText.length > 50 ? (
+            <TouchableOpacity onPress={() => setShowFullContent(true)}>
+              <Text
+                style={{
+                  color: COLORS.homeUser.appBar.textInput,
+                  top: 4,
+                }}
+              >
+                {"   "}Xem thêm
+              </Text>
+            </TouchableOpacity>
+          ) : null}
         </Text>
       </TouchableOpacity>
 
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <FlatList
           data={link}
           showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
               <TouchableOpacity onPress={onPressImage}>
                 <Image
-                  source={{uri: item.image}}
+                  source={{ uri: item.image }}
                   style={{
                     width: width / (link.length > 3 ? 3.2 : link.length),
                     height: 250,
@@ -174,12 +170,12 @@ const Post = props => {
         */}
       <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <View style={{flexDirection: 'row', paddingHorizontal: 10}}>
+        <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
           <TouchableOpacity style={styles.icon}>
             <AntDesign name="like1" size={20} color={COLORS.white} />
           </TouchableOpacity>
@@ -189,9 +185,9 @@ const Post = props => {
           </TouchableOpacity>
         </View>
 
-        <View style={{flexDirection: 'row'}}>
-          <Text>Hieu, Van và 3 người khác{' '}</Text>
-          <Image source={require ('../../assets/IconLike.png')} />
+        <View style={{ flexDirection: "row" }}>
+          <Text>Hieu, Van và 3 người khác </Text>
+          <Image source={require("../../assets/IconLike.png")} />
         </View>
       </View>
     </View>
@@ -200,15 +196,15 @@ const Post = props => {
 
 export default Post;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   nameUser: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: 10,
   },
   state: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginLeft: 10,
   },
   inputContent: {
@@ -219,8 +215,8 @@ const styles = StyleSheet.create ({
   icon: {
     height: 40,
     width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 20,
     backgroundColor: COLORS.homeUser.post.like.on,
     marginHorizontal: 5,
