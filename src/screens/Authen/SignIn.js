@@ -17,7 +17,7 @@ import Checkbox from 'expo-checkbox';
 import { loginAndSaveUser } from '../../../utils/Auth/loginAndSaveUser';
 import { useAuth } from '../../../contexts/authContext';
 
-export const SignIn = () => {
+export const SignIn = ({navigation}) => {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const [isShowPassword, setIsShowPassword] = React.useState(false);
@@ -26,6 +26,7 @@ export const SignIn = () => {
 
   const auth = useAuth();
 
+  // UI handler functions
   const handleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
   };
@@ -39,7 +40,7 @@ export const SignIn = () => {
         const res = await auth._signIn(email, password);
         switch (res.status) {
           case 'success':
-            Alert.alert('Login successful', "You're logged in");
+            Alert.alert('Đăng nhập thành công', "You're logged in");
             break;
           case 'failed':
             Alert.alert('Login Failed', res.reason);
@@ -136,7 +137,9 @@ export const SignIn = () => {
             <Text style={{ color: COLORS.login.text }}>
               Bạn chưa có tài khoản?
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {navigation.navigate("SignUp")}}
+            >
               <Text
                 style={{
                   color: COLORS.login.text,

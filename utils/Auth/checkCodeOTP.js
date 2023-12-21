@@ -8,19 +8,19 @@ export const checkCodeOTP = async (code) => {
         switch (response.statusCode) {
             case 400:
                 // Bad request in body
-                return { status: 'failed', reason: 'Code không chính xác' };
+                return { status: 'failed', message: 'Code không chính xác' };
             case 200:
                 // success
                 return { status: 'success' };
             case 500:
                 // internal server error
-                return { status: 'failed', reason: 'Server is busy, check again later !' };
+                return { status: 'failed', message: 'Server is busy, check again later !' };
             default:
                 // null/500/300
-                return { status: 'failed', reason: 'Unknown error' };
+                return { status: 'failed', message: 'Unknown error' };
         }
     } catch (error) {
         console.error(error, "(catch in function checkCodeOTP)");
-        return { status: 'failed', reason: 'Unknown error' };
+        return { status: 'failed', message: 'Unknown error' };
     }
 }
