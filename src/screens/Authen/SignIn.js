@@ -21,7 +21,6 @@ export const SignIn = ({navigation}) => {
   const [password, setPassword] = React.useState(null);
   const [isShowPassword, setIsShowPassword] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
 
   const auth = useAuth();
 
@@ -51,7 +50,6 @@ export const SignIn = ({navigation}) => {
     } catch (error) {
       Alert.alert('Lỗi', 'Lỗi giao thức: ' + error);
     }
-
   };
 
   return (

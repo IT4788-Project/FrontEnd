@@ -76,20 +76,20 @@ const AuthProvider = ({ children }) => {
 
     // khi logout sẽ xóa user trong AsyncStorage để đưa về auth stack
     // đây là logout ở client, tuy nhiên vẫn gọi API để logout ở server
+    // ko cần quan tâm đến response của API nên ko cần filter response
     const _logOut = async () => {
         try {
             const token = user.token;
-            if (!token) {
+            if (token) {
                 // logout ở server
                 const response = await logOut(token);
-                if (!response.ok) {
-                    console.log("Error in logOut function (Auth): ", response);
-                }
                 // xử lý logout ở client
                 await AsyncStorage.removeItem('user');
                 // mặc định thì kill app cũng sẽ xóa data ở state 
+                console.log("Logout successfully, response from server: ", response);
                 setUser(null);
             } else {
+                setUser(null);
                 console.log("Error in logOut function (Auth): No token found for current user");
             }
         } catch (error) {
