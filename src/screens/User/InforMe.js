@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../../constants/Color";
 import { width, height } from "../../../constants/DeviceSize";
 import { Fontisto } from "@expo/vector-icons";
-import Inficator from "../../../components/InforMe/Indicator";
+import Indicator from "../../../components/InforMe/Indicator";
 import { LineChart } from "react-native-gifted-charts";
 import AnimatedProgressBar from "react-native-simple-animated-progress-bar";
 import { ScrollView } from "react-native-gesture-handler";
@@ -75,12 +75,12 @@ const InforMe = ({ navigation }) => {
         </View>
 
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <Inficator title="Tổng thời gian tập luyện" value={`${20}h`} />
-          <Inficator title="BMI" value="25.4" />
+          <Indicator title="Tổng thời gian tập luyện" value={`${20}h`} />
+          <Indicator title="BMI" value="25.4" />
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <Inficator title="Vòng 3" value={`${20}cm`} />
-          <Inficator title="Vòng 2" value={`${20}cm`} />
+          <Indicator title="Vòng 3" value={`${20}cm`} />
+          <Indicator title="Vòng 2" value={`${20}cm`} />
         </View>
 
         <View style={{ marginVertical: 20 }}>
