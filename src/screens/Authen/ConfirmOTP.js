@@ -4,24 +4,49 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  Alert
 } from 'react-native';
-import React from 'react';
-import {SafeAreaView} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native';
 import COLORS from '../../../constants/Color';
-import {width, height} from '../../../constants/DeviceSize';
+import { width, height } from '../../../constants/DeviceSize';
 import FormInput from '../../../components/Authen/FormInput';
 
-const ConfirmOTP = () => {
+import { checkCodeOTP } from '../../../utils/Auth/checkCodeOTP';
+
+const ConfirmOTP = ({ route, navigation }) => {
+  const [OTP, setOTP] = useState('')
+  const { mail } = route.params;
+
+  const handleCheckOTP = () => {
+    if (OTP === '') {
+      Alert.alert("Mã OTP trống", "Vui lòng nhập mã OTP")
+    } else {
+      // call api check otp
+      const res = checkCodeOTP(OTP, mail);
+      if (res.status === 'success') {
+        Alert.alert("Thành công", res.message)
+        navigation.navigate('ResetPassword', { mail: mail })
+      } else {
+        Alert.alert("Thất bại", res.message)
+      }
+    }
+  }
+
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../../assets/BackgroundLogin.jpg')}
+        source={require('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
-        <View style={{paddingLeft: width * 0.07}}>
+        <View style={{ paddingLeft: width * 0.07 }}>
           <Text style={styles.textTitle}>Quên mật khẩu</Text>
 
-          <FormInput topic="Mã xác thực" placeholder="Nhập mã xác thực" />
+          <FormInput
+            topic="Mã xác thực"
+            placeholder="Nhập mã xác thực"
+            setValue={setOTP}
+          />
 
           <Text>Mã xác thực đã được gửi tới email.....</Text>
 
@@ -33,8 +58,11 @@ const ConfirmOTP = () => {
               marginVertical: 20,
             }}
           >
-            <TouchableOpacity style={styles.buttonSingIn}>
-              <Text style={{color: COLORS.login.buttonSingIn}}>Xác nhận</Text>
+            <TouchableOpacity
+              style={styles.buttonSingIn}
+              onPress={handleCheckOTP}
+            >
+              <Text style={{ color: COLORS.login.buttonSingIn }}>Xác nhận</Text>
             </TouchableOpacity>
           </View>
 
@@ -45,10 +73,14 @@ const ConfirmOTP = () => {
               width: width * 0.7,
             }}
           >
-            <Text style={{color: COLORS.login.text}}>
+            <Text style={{ color: COLORS.login.text }}>
               Bạn đã có tài khoản?
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+            >
               <Text
                 style={{
                   color: COLORS.login.text,
@@ -69,7 +101,7 @@ const ConfirmOTP = () => {
 
 export default ConfirmOTP;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
     height: '100%',

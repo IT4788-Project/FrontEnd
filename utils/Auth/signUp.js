@@ -5,6 +5,7 @@ import { createUser } from "../../services/api/user";
 export const signUp = async (username, password, email) => {
     try {
         const response = await createUser(username, password, email);
+        // api res filter for session and UI
         switch (response.statusCode) {
             case 400:
                 // Bad request

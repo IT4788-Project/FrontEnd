@@ -46,7 +46,7 @@ export const forgotPassword = async (email) => {
   }
 }
 
-export const checkCode = async (code) => {
+export const checkCode = async (code, mail) => {
   try {
     const response = await fetchData('api/auths/checkCode', {
       method: 'POST',
@@ -54,7 +54,8 @@ export const checkCode = async (code) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        code: Number(code)
+        email: String(mail),
+        verificationCode: Number(code)
       }),
     });
     return response;

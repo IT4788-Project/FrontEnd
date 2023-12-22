@@ -11,7 +11,7 @@ import COLORS from '../../../constants/Color';
 import {width, height} from '../../../constants/DeviceSize';
 import FormInput from '../../../components/Authen/FormInput';
 
-const PasswordReset = () => {
+const ResetPassword = ({navigation}) => {
   const [password, setPassword] = React.useState (null);
   const [confirmPassword, setConfirmPassword] = React.useState (null);
 
@@ -95,7 +95,7 @@ const PasswordReset = () => {
   );
 };
 
-export default PasswordReset;
+export default ResetPassword;
 
 const styles = StyleSheet.create ({
   imageBackground: {

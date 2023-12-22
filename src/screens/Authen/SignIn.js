@@ -14,7 +14,6 @@ import { width, height } from '../../../constants/DeviceSize';
 import COLORS from '../../../constants/Color';
 import Checkbox from 'expo-checkbox';
 
-import { loginAndSaveUser } from '../../../utils/Auth/loginAndSaveUser';
 import { useAuth } from '../../../contexts/authContext';
 
 export const SignIn = ({navigation}) => {
@@ -34,23 +33,23 @@ export const SignIn = ({navigation}) => {
   const handleSignIn = async () => {
     try {
       if (!email || !password) {
-        alert('Vui lòng nhập đầy đủ thông tin');
+        Alert.alert('Thiếu thông tin','Vui lòng nhập đầy đủ thông tin đăng nhập');
         return;
       } else {
         const res = await auth._signIn(email, password);
         switch (res.status) {
           case 'success':
-            Alert.alert('Đăng nhập thành công', "You're logged in");
+            Alert.alert('Đăng nhập thành công', res.message);
             break;
           case 'failed':
-            Alert.alert('Login Failed', res.reason);
+            Alert.alert('Đăng nhập thất bại', res.message);
             break;
           default:
-            Alert.alert('Error', 'Something went wrong');
+            Alert.alert('Lỗi', 'Dữ liệu bất đồng bộ!');
         }
       }
     } catch (error) {
-      Alert.alert('Error', 'Something went wrong');
+      Alert.alert('Lỗi', 'Lỗi giao thức: ' + error);
     }
 
   };
@@ -97,7 +96,9 @@ export const SignIn = ({navigation}) => {
               />
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {navigation.navigate("ForgotPassword")}}
+            >
               <Text style={{ color: COLORS.login.text }}>Quên mật khẩu</Text>
             </TouchableOpacity>
           </View>
