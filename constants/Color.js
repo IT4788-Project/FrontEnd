@@ -105,6 +105,10 @@ const COLORS = {
   inforMe: {
     background: "#EEEBE3",
     textName: "#7A6E6D",
+    chart: {
+      background: "#61B8A3",
+      textValue: "blue"
+    },
   },
   settingInfor: {
     buttonNavigation: {

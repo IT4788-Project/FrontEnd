@@ -3,10 +3,11 @@ import React from 'react';
 import COLORS from '../../constants/Color';
 import {width, height} from '../../constants/DeviceSize';
 
-const Indicator = () => {
+const Indicator = (props) => {
   return (
     <View style={styles.container}>
-      <Text>Indicator</Text>
+      <Text style={styles.text}>{props.title}</Text>
+      <Text style={[styles.text, {fontSize: 18}]}>{props.value}</Text>
     </View>
   );
 };
@@ -15,13 +16,16 @@ export default Indicator;
 
 const styles = StyleSheet.create ({
   container: {
-    width: width * 0.4,
-    height: height * 0.15,
-    borderRadius: 40,
-    justifyContent: 'center',
+    width: width * 0.45,
+    height: height * 0.1,
+    borderRadius: 30,
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: COLORS.white,
-    marginHorizontal: width * 0.05,
-    marginVertical: height * 0.02
+    marginVertical: height * 0.01
   },
+  text: {
+    fontWeight: 'bold',
+    color: COLORS.inforMe.textName,
+  }
 });
