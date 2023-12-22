@@ -107,7 +107,7 @@ const COLORS = {
     textName: "#7A6E6D",
     chart: {
       background: "#61B8A3",
-      textValue: "blue"
+      textValue: "blue",
     },
   },
   settingInfor: {
@@ -121,6 +121,10 @@ const COLORS = {
     appBar: {
       background: "#EBEBEB",
     },
+  },
+  manageMedal: {
+    timeStart: "#A1DDA0",
+    timeEnd: "#DDCCA0",
   },
 };
 
