@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
                 setUser({ username, password, token: response.token });
             } else {
                 setUser(null);
-                console.log("SignIn failed: ", response.reason);
+                console.log("SignIn failed: ", response.message);
             }
             return response;
         } catch (error) {

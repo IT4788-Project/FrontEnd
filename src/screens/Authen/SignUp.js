@@ -5,45 +5,72 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Alert
 } from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import COLORS from '../../../constants/Color';
-import {width, height} from '../../../constants/DeviceSize';
+import { width, height } from '../../../constants/DeviceSize';
 import FormInput from '../../../components/Authen/FormInput';
 
-const SignUp = () => {
-  const [name, setName] = React.useState (null);
-  const [password, setPassword] = React.useState (null);
-  const [confirmPassword, setConfirmPassword] = React.useState (null);
-  const [gmail, setGmail] = React.useState (null);
+import { signUp } from '../../../utils/Auth/signUp';
 
-  const [isShowPassword, setIsShowPassword] = React.useState (false);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState (
-    false
-  );
+const SignUp = ({ navigation }) => {
+  const [name, setName] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [gmail, setGmail] = React.useState('');
 
+  const [isShowPassword, setIsShowPassword] = React.useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState(false);
+
+  // UI hanlder functions
+
+  const handleSignUp = async () => {
+    if (name === '' || password === '' || confirmPassword === '' || gmail === '') {
+      Alert.alert('Thiếu thông tin', 'Vui lòng nhập đầy đủ thông tin');
+      return;
+    } else {
+      try {
+        const res = await signUp(name, password, gmail);
+        if (res.status === 'success') {
+          Alert.alert('Đăng ký thành công', res.message);
+          navigation.navigate('SignIn');
+        } else {
+          Alert.alert('Đăng ký thất bại', res.message);
+        }
+      } catch (error) {
+        Alert.alert("Error", error)
+      }
+    }
+
+  }
   const onPressShowPassword = () => {
-    setIsShowPassword (!isShowPassword);
+    setIsShowPassword(!isShowPassword);
   };
 
   const onPressShowConfirmPassword = () => {
-    setIsShowConfirmPassword (!isShowConfirmPassword);
+    setIsShowConfirmPassword(!isShowConfirmPassword);
   };
 
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../../assets/BackgroundLogin.jpg')}
+        source={require('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
-        <View style={{paddingLeft: width * 0.07}}>
+        <View style={{ paddingLeft: width * 0.07 }}>
           <Text style={styles.textTitle}>Đăng ký tài khoản</Text>
 
           <FormInput
             topic="Họ và tên"
             setValue={setName}
             placeholder="Nhập họ và tên"
+          />
+          <FormInput
+            topic="Email"
+            setValue={setGmail}
+            placeholder="Nhập email"
           />
 
           <FormInput
@@ -72,8 +99,11 @@ const SignUp = () => {
               marginVertical: 20,
             }}
           >
-            <TouchableOpacity style={styles.buttonSingIn}>
-              <Text style={{color: COLORS.login.buttonSingIn}}>Đăng ký</Text>
+            <TouchableOpacity
+              style={styles.buttonSingIn}
+              onPress={handleSignUp}
+            >
+              <Text style={{ color: COLORS.login.buttonSingIn }}>Đăng ký</Text>
             </TouchableOpacity>
           </View>
 
@@ -84,10 +114,12 @@ const SignUp = () => {
               width: width * 0.7,
             }}
           >
-            <Text style={{color: COLORS.login.text}}>
+            <Text style={{ color: COLORS.login.text }}>
               Bạn đã có tài khoản?
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => { navigation.navigate('SignIn') }}
+            >
               <Text
                 style={{
                   color: COLORS.login.text,
@@ -108,7 +140,7 @@ const SignUp = () => {
 
 export default SignUp;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
     height: '100%',
