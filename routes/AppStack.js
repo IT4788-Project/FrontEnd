@@ -26,12 +26,15 @@ const screenOptions = {
     height: height * 0.08,
     background: "#fff",
   },
+  tabBarHideOnKeyboard: true,
 };
 
 // stack sau khi đăng nhập
 export const AppStack = () => {
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Navigator
+      screenOptions={screenOptions}
+    >
       <Tab.Screen
         name="HomeUserStack"
         component={HomeUserStack}
