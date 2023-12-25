@@ -64,7 +64,7 @@ export const checkCode = async (code, mail) => {
   }
 }
 
-export const resetPassword = async (newPassword) => {
+export const resetPassword = async (mail, newPassword) => {
   try {
     const response = await fetchData('api/auths/resetPassword', {
       method: 'PUT',
@@ -72,6 +72,7 @@ export const resetPassword = async (newPassword) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        email: String(mail),
         newPassword: String(newPassword)
       }),
     });

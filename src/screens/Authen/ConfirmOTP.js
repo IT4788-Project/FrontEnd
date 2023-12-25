@@ -18,12 +18,12 @@ const ConfirmOTP = ({ route, navigation }) => {
   const [OTP, setOTP] = useState('')
   const { mail } = route.params;
 
-  const handleCheckOTP = () => {
+  const handleCheckOTP = async () => {
     if (OTP === '') {
       Alert.alert("Mã OTP trống", "Vui lòng nhập mã OTP")
     } else {
       // call api check otp
-      const res = checkCodeOTP(OTP, mail);
+      const res = await checkCodeOTP(OTP, mail);
       if (res.status === 'success') {
         Alert.alert("Thành công", res.message)
         navigation.navigate('ResetPassword', { mail: mail })

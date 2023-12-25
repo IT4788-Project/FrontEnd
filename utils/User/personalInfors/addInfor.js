@@ -1,18 +1,17 @@
-// this function is used to send OTP code typed by user
+import { addPersonalInfor } from "../../../services/api/personalInfors";
 
-import { checkCode } from "../../services/api/auth";
-
-export const checkCodeOTP = async (code, mail) => {
+// them thong tin cho user
+export const addInfor = async (data, token) => {
     try {
-        const response = await checkCode(code, mail);
+        const response = await addPersonalInfor(data, token);
         console.log(response.statusCode);
         switch (response.statusCode) {
             case 400:
                 // Bad request in body
-                return { status: 'failed', message: 'Code không chính xác' };
-            case 200:
+                return { status: 'failed', message: 'Thông tin cung cấp không hợp lệ' };
+            case 201:
                 // success
-                return { status: 'success', message: 'Xác thực thành công' };
+                return { status: 'success', message: 'Thêm thông tin thành công' };
             case 500:
                 // internal server error
                 return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!' };
@@ -21,7 +20,7 @@ export const checkCodeOTP = async (code, mail) => {
                 return { status: 'failed', message: 'Lỗi bất định!' };
         }
     } catch (error) {
-        console.error(error, "(catch in function checkCodeOTP)");
+        console.error(error, "(catch in function addInfor)");
         return { status: 'failed', message: 'Lỗi kết nối!' };
     }
 }

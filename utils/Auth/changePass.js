@@ -1,18 +1,18 @@
 // this function is used to send OTP code typed by user
 
-import { checkCode } from "../../services/api/auth";
+import { resetPassword } from "../../services/api/auth";
 
-export const checkCodeOTP = async (code, mail) => {
+export const changePass = async (mail, newPassword) => {
     try {
-        const response = await checkCode(code, mail);
+        const response = await resetPassword(mail, newPassword);
         console.log(response.statusCode);
         switch (response.statusCode) {
             case 400:
                 // Bad request in body
-                return { status: 'failed', message: 'Code không chính xác' };
+                return { status: 'failed', message: 'Mật khẩu không đúng định dạng' };
             case 200:
                 // success
-                return { status: 'success', message: 'Xác thực thành công' };
+                return { status: 'success', message: 'Đổi mật khẩu thành công' };
             case 500:
                 // internal server error
                 return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!' };
@@ -21,7 +21,7 @@ export const checkCodeOTP = async (code, mail) => {
                 return { status: 'failed', message: 'Lỗi bất định!' };
         }
     } catch (error) {
-        console.error(error, "(catch in function checkCodeOTP)");
+        console.error(error, "(catch in function changePass)");
         return { status: 'failed', message: 'Lỗi kết nối!' };
     }
 }

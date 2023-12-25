@@ -5,11 +5,10 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const saveUserToLocal = async (username, password, token) => {
+export const saveUserToLocal = async (username, password) => {
     const user = {
         'email': String(username),
-        'password': String(password),
-        'token': String(token)
+        'password': String(password)
     }
     // clear before save
     await AsyncStorage.removeItem('user');

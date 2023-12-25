@@ -5,36 +5,56 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import React from 'react';
 import COLORS from '../../../constants/Color';
-import {width, height} from '../../../constants/DeviceSize';
+import { width, height } from '../../../constants/DeviceSize';
 import FormInput from '../../../components/Authen/FormInput';
+import { changePass } from '../../../utils/Auth/changePass';
 
-const ResetPassword = ({navigation}) => {
-  const [password, setPassword] = React.useState (null);
-  const [confirmPassword, setConfirmPassword] = React.useState (null);
+const ResetPassword = ({ route, navigation }) => {
+  const { mail } = route.params;
+  const [password, setPassword] = React.useState(null);
+  const [confirmPassword, setConfirmPassword] = React.useState(null);
 
-  const [isShowPassword, setIsShowPassword] = React.useState (false);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState (
+  const [isShowPassword, setIsShowPassword] = React.useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState(
     false
   );
 
   const onPressShowPassword = () => {
-    setIsShowPassword (!isShowPassword);
+    setIsShowPassword(!isShowPassword);
   };
 
   const onPressShowConfirmPassword = () => {
-    setIsShowConfirmPassword (!isShowConfirmPassword);
-  };
+    setIsShowConfirmPassword(!isShowConfirmPassword);
+  }; 4
+
+  const handleResetPassword = async () => {
+    if (password === '' || confirmPassword === '') {
+      Alert.alert('Mật khẩu trống', 'Vui lòng nhập mật khẩu');
+    } else if (password !== confirmPassword) {
+      Alert.alert('Mật khẩu không khớp', 'Vui lòng nhập lại mật khẩu');
+    } else {
+      // call api reset password
+      const res = await changePass(mail, password);
+      if (res.status === 'success') {
+        Alert.alert('Thành công', res.message);
+        navigation.navigate('SignIn');
+      } else {
+        Alert.alert('Thất bại', res.message);
+      }
+    }
+  }
 
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require ('../../../assets/BackgroundLogin.jpg')}
+        source={require('../../../assets/BackgroundLogin.jpg')}
         style={styles.imageBackground}
       >
-        <View style={{paddingLeft: width * 0.07}}>
+        <View style={{ paddingLeft: width * 0.07 }}>
           <Text style={styles.textTitle}>Đặt lại mật khẩu</Text>
           <FormInput
             topic="Mật khẩu mới"
@@ -62,8 +82,11 @@ const ResetPassword = ({navigation}) => {
               marginVertical: 20,
             }}
           >
-            <TouchableOpacity style={styles.buttonSingIn}>
-              <Text style={{color: COLORS.login.buttonSingIn}}>Xác nhận</Text>
+            <TouchableOpacity
+              style={styles.buttonSingIn}
+              onPress={handleResetPassword}
+            >
+              <Text style={{ color: COLORS.login.buttonSingIn }}>Xác nhận</Text>
             </TouchableOpacity>
           </View>
 
@@ -74,10 +97,15 @@ const ResetPassword = ({navigation}) => {
               width: width * 0.7,
             }}
           >
-            <Text style={{color: COLORS.login.text}}>
+            <Text style={{ color: COLORS.login.text }}>
               Bạn đã có tài khoản?
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }
+              }
+            >
               <Text
                 style={{
                   color: COLORS.login.text,
@@ -97,7 +125,7 @@ const ResetPassword = ({navigation}) => {
 
 export default ResetPassword;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
     height: '100%',

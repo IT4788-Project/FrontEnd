@@ -15,7 +15,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     // dữ liệu user này được sử dụng trong session hiện tại của app
     // dữ liệu user trong session này sẽ bị xóa khi app bị kill
-    // user thực sự sẽ được lưu trong AsyncStorage
+    // user thực sự sẽ được lưu trong AsyncStorage (username và password)
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        console.log('user in async storage (authContext): ', user);
+        console.log('user in session (authContext): ', user);
     }, [user]);
 
     // function này sẽ tự động đăng nhập mỗi khi khởi động app
@@ -38,8 +38,13 @@ const AuthProvider = ({ children }) => {
                 // thử đăng nhập lại với user lấy được từ AsyncStorage
                 const response = await logIn(user.username, user.password);
                 if (response.ok) {
-                    // user data có username, password, token
-                    setUser({ username, password, token: response.text.accessToken });
+                    // user data có username, password, token, userId
+                    setUser({
+                        username: String(username),
+                        password: String(password),
+                        userId: String(response.text.userData.id),
+                        token: String(response.text.accessToken)
+                    });
                     setLoading(false);
                 } else {
                     // nếu đăng nhập thất bại thì xóa user trong AsyncStorage
@@ -63,7 +68,7 @@ const AuthProvider = ({ children }) => {
             const response = await loginAndSaveUser(username, password);
             // làm việc với session
             if (response.status === 'success') {
-                setUser({ username, password, token: response.token });
+                setUser(response.userData);
             } else {
                 setUser(null);
                 console.log("SignIn failed: ", response.message);

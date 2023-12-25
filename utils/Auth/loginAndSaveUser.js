@@ -19,8 +19,17 @@ export const loginAndSaveUser = async (username, password) => {
             case 200:
                 // success
                 // this works as a filter to pass only the token to saveUserToLocal and return it to _signIn
-                saveUserToLocal(username, password, response.text.accessToken);
-                return { status: 'success', token: String(response.text.accessToken), message: "Đăng nhập thành công!" };
+                saveUserToLocal(username, password);
+                return { 
+                    status: 'success', 
+                    message: "Đăng nhập thành công!",
+                    userData: {
+                        username: String(username),
+                        password: String(password),
+                        userId: String(response.text.userData.id),
+                        token: String(response.text.accessToken)
+                    }    
+                };
             default:
                 // null/500/300
                 return { status: 'failed', message: 'Unknown error' };
