@@ -1,11 +1,30 @@
 import { getPersonalInfor } from "../../../services/api/personalInfors";
 
-// lay thong tin cho user
-// data = {id: 1}
 export const getInfor = async (data, token) => {
+    /*
+    Usage: lấy thông tin cá nhân khi đăng nhập
+    Params:
+    data = {
+        id: Number (bắt buộc)
+    }
+    token = String (bắt buộc)
+    Return: {
+        status: String,
+        message: String ||     
+        data = {
+        gender: String,
+        nutritionGoal: String,
+        initialWeight: Number,
+        currentWeight: Number,
+        targetWeight: Number,
+        hip: Number,
+        waist: Number,
+        userId: Number
+        }
+    }
+    */
     try {
         const response = await getPersonalInfor(data, token);
-        console.log(response.statusCode);
         switch (response.statusCode) {
             case 404:
                 // Bad request in body
