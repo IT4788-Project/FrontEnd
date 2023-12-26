@@ -1,19 +1,21 @@
 import { changeInformation } from "../../../services/api/personalInfors";
 
-// API đang bị lỗi, chưa thể sử dụng
 export const changeInfor = async (data, token) => {
     /*
     Usage: sửa thông tin cá nhân trong luồng sử dụng
     Params: 
     data = {
-        gender: String (bắt buộc),
-        nutritionGoal: String,
-        initialWeight: Number,
-        currentWeight: Number,
-        targetWeight: Number,
-        hip: Number,
-        waist: Number,
-        userId: Number (bắt buộc)
+        fullName: String || null,
+        birthDay: Date || null,
+        height: Number || null,
+        gender: String || null,
+        nutritionGoal: String || null,
+        initialWeight: Number || null,
+        currentWeight: Number || null,
+        targetWeight: Number || null,
+        hip: Number || null,
+        waist: Number || null,
+        userId: Number || null
     }
     token = String (bắt buộc)
     Return: {
@@ -27,7 +29,7 @@ export const changeInfor = async (data, token) => {
             case 404:
                 // Bad request in body
                 return { status: 'failed', message: 'Không tìm thấy thông tin người dùng, liên hệ NPH' };
-            case 201:
+            case 200:
                 // success
                 return { status: 'success', message: 'Sửa thông tin thành công' };
             case 500:

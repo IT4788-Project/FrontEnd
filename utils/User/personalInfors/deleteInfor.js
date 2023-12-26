@@ -1,6 +1,5 @@
 import { deletePersonalInfor } from "../../../services/api/personalInfors";
 
-// API đang bị lỗi, chưa thể sử dụng
 export const deleteInfor = async (data, token) => {
     /*
     Usage: xóa thông tin cá nhân trong luồng sử dụng

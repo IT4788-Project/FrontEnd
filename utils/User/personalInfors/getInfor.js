@@ -5,21 +5,14 @@ export const getInfor = async (data, token) => {
     Usage: lấy thông tin cá nhân khi đăng nhập
     Params:
     data = {
-        id: Number (bắt buộc)
+        userId: Number (bắt buộc)
     }
     token = String (bắt buộc)
     Return: {
         status: String,
         message: String ||     
         data = {
-        gender: String,
-        nutritionGoal: String,
-        initialWeight: Number,
-        currentWeight: Number,
-        targetWeight: Number,
-        hip: Number,
-        waist: Number,
-        userId: Number
+            tự console ra xem chứ t mệt quá rồi
         }
     }
     */

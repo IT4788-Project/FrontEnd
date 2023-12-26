@@ -5,13 +5,16 @@ export const addInfor = async (data, token) => {
     Usage: thêm thông tin cá nhân khi đăng ký tài khoản mới
     Params: 
     data = {
+        fullName: String (bắt buộc),
+        birthDay: Date || null,
+        height: Number || null,
         gender: String (bắt buộc),
-        nutritionGoal: String,
-        initialWeight: Number,
-        currentWeight: Number,
-        targetWeight: Number,
-        hip: Number,
-        waist: Number,
+        nutritionGoal: String || null,
+        initialWeight: Number || null,
+        currentWeight: Number || null,
+        targetWeight: Number || null,
+        hip: Number || null,
+        waist: Number || null,
         userId: Number (bắt buộc)
     }
     token = String (bắt buộc)
