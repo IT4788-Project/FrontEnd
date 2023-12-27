@@ -15,7 +15,13 @@ import { addInfor } from "../../../utils/User/personalInfors/addInfor";
 import { deleteInfor } from "../../../utils/User/personalInfors/deleteInfor";
 import { changeInfor } from "../../../utils/User/personalInfors/changeInfor";
 import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeightHistory";
+import { getAllGoals } from "../../../utils/User/healthyGoals/getAllGoals";
+import { getOneGoal } from "../../../utils/User/healthyGoals/getOneGoal";
+import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
+import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
+import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
 import {useAuth} from "../../../contexts/authContext";
+
 
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
@@ -28,18 +34,23 @@ const InforMe = ({ navigation }) => {
     { value: 42, label: "Jan", dataPointText: "42" },
   ];
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const token = auth.user.token;
-    //   const data = {
-    //     "fullName":"Hoang trung",
-    //     "currentWeight": 20,
-    //     "gender":"nam"
-    // }
-    //   const res = await getUserWeightHistory(token);
-    //   console.log(res);
-    //   return res;
-    // }
-    // fetchData();
+    //const test = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXIiOnsiaWQiOjUsIm5hbWUiOiJoaWV1IiwiZW1haWwiOiI5QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGVacko4aTczMTJsU2c5Ry9oS0oya09zZmFDZmVCalFYRGU1Sm40WVJzb2JpTWl3Y0Z1NTlxIiwicGFzc3dvcmRDaGFuZ2VkQXQiOm51bGwsInBhc3N3b3JkQ29kZSI6bnVsbCwiY29kZVJlc2V0RXhwaXJlcyI6bnVsbCwic3RhdHVzIjp0cnVlLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmdzIjpbNV0sImNyZWF0ZWRBdCI6IjIwMjMtMTItMjdUMTQ6MDg6NDkuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMTItMjdUMTQ6MDg6NDkuMDAwWiJ9fSwiaWF0IjoxNzAzNjk0MzA4LCJleHAiOjE3MDQyOTkxMDgsImp0aSI6IjIifQ.-IHfJ3RibQQkNrWSihT16taW448kt5aDwfU_LWWF6Hc"
+    const fetchData = async () => {
+      const token = auth.user.token;
+      const data = {
+        "targetName":"le minh hieu",
+        "currentWeight":78.2,
+        "targetWeight":68.0,
+        "sumCalories":60000,
+        "timeStart":"2023/11/10",
+        "timeEnd":"2023/11/21",
+        "healthyGoalId":9
+    }
+      const res = await updateOneGoal(data, token);
+      console.log(res);
+      return res;
+    }
+    fetchData();
   }, [])
 
   return (
