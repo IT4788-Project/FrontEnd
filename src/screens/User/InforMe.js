@@ -15,11 +15,13 @@ import { addInfor } from "../../../utils/User/personalInfors/addInfor";
 import { deleteInfor } from "../../../utils/User/personalInfors/deleteInfor";
 import { changeInfor } from "../../../utils/User/personalInfors/changeInfor";
 import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeightHistory";
+import { changeCurrentWeight } from "../../../utils/User/userWeight/changeCurrentWeight";
 import { getAllGoals } from "../../../utils/User/healthyGoals/getAllGoals";
 import { getOneGoal } from "../../../utils/User/healthyGoals/getOneGoal";
 import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
 import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
 import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
+
 import {useAuth} from "../../../contexts/authContext";
 
 
@@ -34,21 +36,15 @@ const InforMe = ({ navigation }) => {
     { value: 42, label: "Jan", dataPointText: "42" },
   ];
   useEffect(() => {
-    const fetchData = async () => {
-      const token = auth.user.token;
-      const data = {
-        healthyGoalId: 10,
-        "targetName":"ok",
-        "currentWeight":78.2,
-        "targetWeight":68.0,
-        "sumCalories":60000,
-        "timeStart":"2023/11/10",
-        "timeEnd":"2023/11/21"
-    }
-      const res = await updateOneGoal(data, token);
-      console.log(res);
-      return res;
-    }
+    // const fetchData = async () => {
+    //   const token = auth.user.token;
+    //   const data = {
+    //     "currentWeight": 1000,
+    // }
+    //   const res = await changeCurrentWeight(data, token);
+    //   console.log(res);
+    //   return res;
+    // }
     //fetchData();
   }, [])
 
