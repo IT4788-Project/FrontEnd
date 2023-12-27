@@ -34,23 +34,22 @@ const InforMe = ({ navigation }) => {
     { value: 42, label: "Jan", dataPointText: "42" },
   ];
   useEffect(() => {
-    //const test = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXIiOnsiaWQiOjUsIm5hbWUiOiJoaWV1IiwiZW1haWwiOiI5QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGVacko4aTczMTJsU2c5Ry9oS0oya09zZmFDZmVCalFYRGU1Sm40WVJzb2JpTWl3Y0Z1NTlxIiwicGFzc3dvcmRDaGFuZ2VkQXQiOm51bGwsInBhc3N3b3JkQ29kZSI6bnVsbCwiY29kZVJlc2V0RXhwaXJlcyI6bnVsbCwic3RhdHVzIjp0cnVlLCJmb2xsb3dlcnMiOltdLCJmb2xsb3dpbmdzIjpbNV0sImNyZWF0ZWRBdCI6IjIwMjMtMTItMjdUMTQ6MDg6NDkuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMTItMjdUMTQ6MDg6NDkuMDAwWiJ9fSwiaWF0IjoxNzAzNjk0MzA4LCJleHAiOjE3MDQyOTkxMDgsImp0aSI6IjIifQ.-IHfJ3RibQQkNrWSihT16taW448kt5aDwfU_LWWF6Hc"
     const fetchData = async () => {
       const token = auth.user.token;
       const data = {
-        "targetName":"le minh hieu",
+        healthyGoalId: 10,
+        "targetName":"ok",
         "currentWeight":78.2,
         "targetWeight":68.0,
         "sumCalories":60000,
         "timeStart":"2023/11/10",
-        "timeEnd":"2023/11/21",
-        "healthyGoalId":9
+        "timeEnd":"2023/11/21"
     }
       const res = await updateOneGoal(data, token);
       console.log(res);
       return res;
     }
-    fetchData();
+    //fetchData();
   }, [])
 
   return (

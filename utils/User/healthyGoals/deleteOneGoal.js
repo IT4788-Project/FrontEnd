@@ -1,6 +1,21 @@
 import { deleteGoal } from "../../../services/api/healthyGoal";
 
 export const deleteOneGoal = async (data, token) => {
+    /*
+    Usage: xóa một mục tiêu của user
+
+    Params:
+    data = {
+        healthyGoalId: Number (bắt buộc)
+    }
+    token = String (bắt buộc)
+
+    Return: {
+        status: String,
+        message: String  
+        code: Number
+    }
+    */
     try {
         const response = await deleteGoal(data, token);
         switch (response.statusCode) {
@@ -9,7 +24,7 @@ export const deleteOneGoal = async (data, token) => {
                 return { status: 'failed', message: 'Lỗi xác minh, vui lòng đăng nhập lại', code: 401 };
             case 404:
                 // Bad request in body
-                return { status: 'failed', message: 'Không tìm thấy thông tin', code: 404 };
+                return { status: 'failed', message: 'Không tìm thấy mục tiêu đã chọn', code: 404 };
             case 200:
                 // success
                 return { status: 'success', message: 'Đã xóa thành công', code: 200 };

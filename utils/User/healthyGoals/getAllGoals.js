@@ -1,6 +1,40 @@
 import { getAll } from "../../../services/api/healthyGoal";
 
 export const getAllGoals = async (token) => {
+    /*
+    Usage: lấy thông tin các mục tiêu của user
+
+    Params:
+    token = String (bắt buộc)
+
+    Return: {
+        status: String,
+        message: String ||     
+        data = [
+                {
+                "id": 9,
+                "targetName": "le minh hieu",
+                "currentWeight": 78.2,
+                "targetWeight": 68,
+                "sumCalories": 60000,
+                "timeStart": "2023-11-10",
+                "timeEnd": "2023-11-21",
+                "userId": 5
+                },
+                {
+                "id": 10,
+                "targetName": "hoang trng",
+                "currentWeight": 78.2,
+                "targetWeight": 68,
+                "sumCalories": 60000,
+                "timeStart": "2023-11-10",
+                "timeEnd": "2023-11-21",
+                "userId": 5
+                }
+        ],
+        code: Number
+    }
+    */
     try {
         const response = await getAll(token);
         switch (response.statusCode) {

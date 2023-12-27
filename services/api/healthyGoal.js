@@ -49,8 +49,7 @@ export const addGoal = async (data, token) => {
 
 export const deleteGoal = async (data, token) => {
     try {
-        const url = `api/healthyGoals/`+data.healthyGoalId;
-        const response = await fetchData(url, {
+        const response = await fetchData(`api/healthyGoals/${data.healthyGoalId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +65,7 @@ export const deleteGoal = async (data, token) => {
 export const updateGoal = async (data, token) => {
     try {
         const {healthyGoalId, ...dataBody} = data;
-        const response = await fetchData(`api/healthyGoals/`+data.healthyGoalId, {
+        const response = await fetchData(`api/healthyGoals/${data.healthyGoalId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,6 +1,31 @@
 import { getOne } from "../../../services/api/healthyGoal";
 
 export const getOneGoal = async (data, token) => {
+    /*
+    Usage: lấy thông tin một mục tiêu của user
+
+    Params:
+    data = {
+        healthyGoalId: Number (bắt buộc)
+    }
+    token = String (bắt buộc)
+
+    Return: {
+        status: String,
+        message: String ||     
+        data = {
+            "id": 9,
+            "targetName": "le minh hieu",
+            "currentWeight": 78.2,
+            "targetWeight": 68,
+            "sumCalories": 60000,
+            "timeStart": "2023-11-10",
+            "timeEnd": "2023-11-21",
+            "userId": 5
+        },
+        code: Number
+    }
+    */
     try {
         const response = await getOne(data, token);
         switch (response.statusCode) {

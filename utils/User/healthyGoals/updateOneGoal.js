@@ -1,6 +1,27 @@
 import { updateGoal } from "../../../services/api/healthyGoal";
 
 export const updateOneGoal = async (data, token) => {
+    /*
+    Usage: cập nhật thông tin một mục tiêu của user
+
+    Params:
+    data = {
+        healthyGoalId: Number (bắt buộc),
+        targetName: String (bắt buộc),
+        currentWeight: Number (bắt buộc),
+        targetWeight: Number (bắt buộc),
+        sumCalories: Number (bắt buộc),
+        timeStart: Date (bắt buộc),
+        timeEnd: Date (bắt buộc)
+    }
+    token = String (bắt buộc)
+
+    Return: {
+        status: String,
+        message: String,
+        code: Number
+    }
+    */
     try {
         const response = await updateGoal(data, token);
         switch (response.statusCode) {
@@ -12,7 +33,7 @@ export const updateOneGoal = async (data, token) => {
                 return { status: 'failed', message: 'Không tìm thấy thông tin', code: 404 };
             case 200:
                 // success
-                return { status: 'success', data: response.data, code: 200 };
+                return { status: 'success', message: 'Cập nhật thông tin thành công', code: 200 };
             case 500:
                 // internal server error
                 return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!', code: 500 };
