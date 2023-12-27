@@ -11,36 +11,39 @@ export const addInfor = async (data, token) => {
         gender: String (bắt buộc),
         nutritionGoal: String || null,
         initialWeight: Number || null,
-        currentWeight: Number || null,
+        currentWeight: Number (bắt buộc),
         targetWeight: Number || null,
         hip: Number || null,
-        waist: Number || null,
-        userId: Number (bắt buộc)
+        waist: Number || null
     }
     token = String (bắt buộc)
     Return: {
         status: String,
-        message: String
+        message: String,
+        code: Number
     }
     */
     try {
         const response = await addPersonalInfor(data, token);
         switch (response.statusCode) {
+            case 401:
+                // Unauthorized
+                return { status: 'failed', message: 'Lỗi xác minh, vui lòng đăng nhập lại', code: 401 };
             case 400:
                 // Bad request in body
-                return { status: 'failed', message: 'Thông tin cung cấp không hợp lệ' };
+                return { status: 'failed', message: 'Thông tin cung cấp không hợp lệ hoặc thông tin đã tồn tại', code: 400 };
             case 201:
                 // success
-                return { status: 'success', message: 'Thêm thông tin thành công' };
+                return { status: 'success', message: 'Thêm thông tin thành công', code: 201 };
             case 500:
                 // internal server error
-                return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!' };
+                return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!', code: 500 };
             default:
-                // null/500/300
-                return { status: 'failed', message: 'Lỗi bất định!' };
+                // null/300
+                return { status: 'failed', message: 'Lỗi bất định!', code: 500 };
         }
     } catch (error) {
         console.error(error, "(catch in function addInfor)");
-        return { status: 'failed', message: 'Lỗi kết nối!' };
+        return { status: 'failed', message: 'Lỗi kết nối!', code: 500 };
     }
 }

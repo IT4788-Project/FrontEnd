@@ -6,26 +6,25 @@ export const addPersonalInfor = async (data, token) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
-            authorization: `Bearer ${token}`,
             body: JSON.stringify(data),
         })
+        console.log(response);
         return response;
     } catch (error) {
         throw error;
     }
 }
 
-// data = {id: 1}
-export const getPersonalInfor = async (data, token) => {
+export const getPersonalInfor = async (token) => {
     try {
-        const response = await fetchData('api/personalInfos', {
+        const response = await fetchData(`api/personalInfos`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            authorization: `Bearer ${token}`,
-            params: data
+                'Authorization': `Bearer ${token}`,
+            }
         })
         return response;
     } catch (error) {
@@ -40,8 +39,8 @@ export const changeInformation = async (data, token) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
-            authorization: `Bearer ${token}`,
             body: JSON.stringify(data),
         })
         return response;
@@ -51,15 +50,14 @@ export const changeInformation = async (data, token) => {
 }
 
 // need later double check with backend
-export const deletePersonalInfor = async (data, token) => {
+export const deletePersonalInfor = async (token) => {
     try {
         const response = await fetchData('api/personalInfos', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
-            authorization: `Bearer ${token}`,
-            params: data
         })
         return response;
     } catch (error) {

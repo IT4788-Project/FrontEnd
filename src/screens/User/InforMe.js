@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../../constants/Color";
 import { width, height } from "../../../constants/DeviceSize";
@@ -10,8 +10,16 @@ import AnimatedProgressBar from "react-native-simple-animated-progress-bar";
 import { ScrollView } from "react-native-gesture-handler";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+import { getInfor } from "../../../utils/User/personalInfors/getInfor";
+import { addInfor } from "../../../utils/User/personalInfors/addInfor";
+import { deleteInfor } from "../../../utils/User/personalInfors/deleteInfor";
+import { changeInfor } from "../../../utils/User/personalInfors/changeInfor";
+import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeightHistory";
+import {useAuth} from "../../../contexts/authContext";
+
 const InforMe = ({ navigation }) => {
-  const data = [
+  const auth = useAuth();
+  const _data = [
     { value: 40, label: "16/12", dataPointText: "40" },
     { value: 45, label: "Jan", dataPointText: "45" },
     { value: 48, label: "Jan", dataPointText: "48" },
@@ -19,6 +27,20 @@ const InforMe = ({ navigation }) => {
     { value: 43, label: "Jan", dataPointText: "43" },
     { value: 42, label: "Jan", dataPointText: "42" },
   ];
+  useEffect(() => {
+    // const fetchData = async () => {
+    //   const token = auth.user.token;
+    //   const data = {
+    //     "fullName":"Hoang trung",
+    //     "currentWeight": 20,
+    //     "gender":"nam"
+    // }
+    //   const res = await getUserWeightHistory(token);
+    //   console.log(res);
+    //   return res;
+    // }
+    // fetchData();
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -89,7 +111,7 @@ const InforMe = ({ navigation }) => {
             height={height * 0.5}
             width={width * 0.9}
             areaChart
-            data={data}
+            data={_data}
             startFillColor={COLORS.inforMe.chart.background}
             endFillColor="rgb(203, 241, 250)"
             focusEnabled
