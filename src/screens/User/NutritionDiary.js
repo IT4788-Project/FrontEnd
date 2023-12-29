@@ -33,6 +33,7 @@ const NutritionDiary = () => {
   const [stateAddPractice, setStateAddPractice] = useState(false);
 
   useEffect(() => {
+    setNutritionDiaryId(-1);
     // Xử lý hiển thị nút chấm đỏ
     const sevenDayArray = [];
     const getDiary = async () => {
@@ -72,6 +73,9 @@ const NutritionDiary = () => {
         if (response.status === "success") {
           setPractice(response.data);
         } else {
+          if (nutritionDiaryId === "") {
+            setPractice([]);
+          }
           setPractice([]);
         }
       } catch (error) {
@@ -152,6 +156,7 @@ const NutritionDiary = () => {
                   setAddDiary={setAddDiary}
                   setStateAddDiary={setStateAddDiary}
                   stateToday={stateSevenDay.includes(0)}
+                  todayDate={selectDate}
                 />
               ) : (
                 <TimeLineDiary listDish={addDiary} />
@@ -168,7 +173,10 @@ const NutritionDiary = () => {
                   todayDate={selectDate}
                 />
               ) : (
-                <TimeLinePractice listPractice={practice} />
+                <TimeLinePractice
+                  listPractice={practice}
+                  todayDate={selectDate}
+                />
               )}
             </View>
           )}

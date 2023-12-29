@@ -8,25 +8,35 @@ import {
 import React from "react";
 import COLORS from "../../constants/Color";
 import { width, height } from "../../constants/DeviceSize";
-import { Ionicons } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import NewPractice from "./NewPractice";
+import moment from "moment";
+import { deleteExercise } from "../../utils/User/exercise/deleteExercise";
+import { useAuth } from "../../contexts/authContext";
 
 const TimeLinePractice = (props) => {
-  const listPractice = props.listPractice;
+  const [listPractice, setListPractice] = React.useState(props.listPractice);
 
   return (
     <View style={{ marginVertical: 20 }}>
       <FlatList
         style={{ marginBottom: 100, height: height * 0.6 }}
         data={listPractice}
-        renderItem={({ item, index }) => <Practice data={item} />}
+        renderItem={({ item, index }) => (
+          <Practice
+            data={item}
+            todayDate={props.todayDate}
+            setListPractice={setListPractice}
+          />
+        )}
       />
     </View>
   );
 };
 
 const Practice = (props) => {
+  const auth = useAuth();
   const [data, setData] = React.useState(props.data);
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -42,13 +52,36 @@ const Practice = (props) => {
     setIsVisible(true);
   };
 
+  const onPressDelete = async () => {
+    const dataDelete = {
+      exerciseId: data.id,
+      nutritionDiaryId: data.nutritionDiaryId,
+    };
+    
+    const responseDelete = await deleteExercise(dataDelete, auth.user.token);
+    
+    if (responseDelete.status !== "success") {
+      return;
+    } else {
+      props.setListPractice((prev) => {
+        const newList = prev.filter((item) => item.id !== data.id);
+        return newList;
+      });
+    }
+  };
+
   return isVisible === true ? (
-    <NewPractice setIsVisible={setIsVisible} edit={true} data={data} />
+    <NewPractice
+      setIsVisible={setIsVisible}
+      edit={true}
+      data={data}
+      todayDate={props.todayDate}
+    />
   ) : (
     <View>
       <View style={styles.container}>
         <View style={styles.timeAndLine}>
-          <Text>{data.exerciseTime}</Text>
+          <Text>{moment(data.exerciseTime, "HH:mm:ss").format("HH:mm")}</Text>
           <View
             style={[
               styles.line,
@@ -62,7 +95,7 @@ const Practice = (props) => {
 
           <View style={[{ padding: 10, flex: 4 }]}>
             <Text style={styles.nameMeal}>{data.exercise_name}</Text>
-            <Text>{data.exercise_decription}</Text>
+            <Text>{data.exercise_description}</Text>
           </View>
 
           <View
@@ -73,11 +106,11 @@ const Practice = (props) => {
               flex: 2,
             }}
           >
-            <TouchableOpacity>
-              <Ionicons name="book-outline" size={24} color="black" />
-            </TouchableOpacity>
             <TouchableOpacity onPress={onPressEdit}>
               <SimpleLineIcons name="pencil" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onPressDelete}>
+              <AntDesign name="delete" size={24} color="black" />
             </TouchableOpacity>
           </View>
         </View>
