@@ -22,6 +22,8 @@ import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
 import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
 import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
 
+import {getNutrition} from "../../../utils/User/nutritionDiary/getNutrition";
+
 import {useAuth} from "../../../contexts/authContext";
 
 
@@ -43,17 +45,13 @@ const InforMe = ({ navigation }) => {
     const fetchData = async () => {
       const token = auth.user.token;
       const data = {
-        "exerciseTime":"22:00:00",
-        "exercise_name":"bai  sang",
-        "exercise_description": "tap cho vui",
-        "nutritionDiaryId": 1,
-        "exerciseId": 2
+        "time":"2023-12-31"
     }
-      const res = await updateExercise(data, token);
+      const res = await getNutrition(data, token);
       console.log(res);
       return res;
     }
-    //fetchData();
+    fetchData();
   }, [])
 
   return (

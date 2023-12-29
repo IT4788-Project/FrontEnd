@@ -1,22 +1,24 @@
-import { findOneNutritionDiary } from "../../../services/api/nutritionDiary";
+import { updateOne } from "../../../services/api/lunch";
 
-export const getNutrition = async (data, token) => {
-    /*
-    Usage: lấy thông tin dinh dưỡng
+export const updateOneLunch = async (data, token) => {
+    /* 
+    Uasge: cập nhật 1 lunch
     Params:
-    data = {
-        "time": "2021-05-31"
-    }
-    token = String (bắt buộc)
+        data = {
+            nutritionDiaryId: Number (bắt buộc),
+            lunchId: Number (bắt buộc),
+            timeLunch: String || null,
+            name: String || null
+        }
+        token = String (bắt buộc)
     Return: {
         status: String,
         message: String,
-        code: Number,
-        data: Object
+        code: Number
     }
     */
     try {
-        const response = await findOneNutritionDiary(data, token);
+        const response = await updateOne(data, token);
         switch (response.statusCode) {
             case 401:
                 // Unauthorized
@@ -26,16 +28,17 @@ export const getNutrition = async (data, token) => {
                 return { status: 'failed', message: 'Không tìm thấy thông tin', code: 404 };
             case 200:
                 // success
-                return { status: 'success', message: 'Lấy thông tin thành công', code: 200, data: response.data };
+                return { status: 'success', message: 'Cập nhật thành công' , code: 200 };
             case 500:
                 // internal server error
                 return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!', code: 500 };
             default:
+                console.log(response);
                 // null/300
                 return { status: 'failed', message: 'Lỗi bất định!', code: 500 };
         }
     } catch (error) {
-        console.error(error, "(catch in function getNutrition)");
+        console.error(error, "(catch in function updateOneLunch)");
         return { status: 'failed', message: 'Lỗi kết nối!', code: 500 };
     }
 }

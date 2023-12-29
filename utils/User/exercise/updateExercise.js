@@ -5,9 +5,9 @@ export const updateExercise = async (data, token) => {
     Usage: cập nhật một bài tập của user trong ngày
     Params:
     data = {
-        exercise_name: String (bắt buộc),
-        exerciseTime: Time (bắt buộc),
-        exercise_decription: String (bắt buộc),
+        exercise_name: String || null,
+        exerciseTime: Time || null,
+        exercise_decription: String || null,
         nutritionDiaryId: Number (bắt buộc),
         exerciseId: Number (bắt buộc)
     }
