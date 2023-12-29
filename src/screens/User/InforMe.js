@@ -21,6 +21,14 @@ import { getOneGoal } from "../../../utils/User/healthyGoals/getOneGoal";
 import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
 import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
 import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
+import { getNutrition } from "../../../utils/User/nutritionDiary/getNutrition";
+import { addNutrition } from "../../../utils/User/nutritionDiary/addNutrition";
+
+import { getAllExercise } from "../../../utils/User/exercise/getAllExercise";
+import { addExercise } from "../../../utils/User/exercise/addExercise";
+import { getExercise } from "../../../utils/User/exercise/getOneExercise";
+import { deleteExercise } from "../../../utils/User/exercise/deleteExercise";
+import { updateExercise } from "../../../utils/User/exercise/updateExercise";
 
 import {useAuth} from "../../../contexts/authContext";
 
@@ -36,15 +44,19 @@ const InforMe = ({ navigation }) => {
     { value: 42, label: "Jan", dataPointText: "42" },
   ];
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const token = auth.user.token;
-    //   const data = {
-    //     "currentWeight": 1000,
-    // }
-    //   const res = await changeCurrentWeight(data, token);
-    //   console.log(res);
-    //   return res;
-    // }
+    const fetchData = async () => {
+      const token = auth.user.token;
+      const data = {
+        "exerciseTime":"22:00:00",
+        "exercise_name":"bai  sang",
+        "exercise_description": "tap cho vui",
+        "nutritionDiaryId": 1,
+        "exerciseId": 2
+    }
+      const res = await updateExercise(data, token);
+      console.log(res);
+      return res;
+    }
     //fetchData();
   }, [])
 
