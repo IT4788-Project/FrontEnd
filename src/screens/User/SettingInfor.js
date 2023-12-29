@@ -6,7 +6,6 @@ import COLORS from '../../../constants/Color';
 import ButtonNavigation
   from '../../../components/SettingInfor/ButtonNavigation';
 import { width } from '../../../constants/DeviceSize';
-
 import { useAuth } from '../../../contexts/authContext';
 
 const SettingInfor = props => {
@@ -19,7 +18,7 @@ const SettingInfor = props => {
     <SafeAreaView style={styles.container}>
       <AppBar namePage="Cài đặt" />
       <View style={{ marginVertical: 20 }}>
-        <Text style={styles.textTopic}>Tài khoản của bạn: ????</Text>
+        <Text style={styles.textTopic}>Tài khoản của bạn</Text>
       </View>
       <ButtonNavigation title="Thông tin cá nhân" nextScreen={true} nameNextScreen="SettingInforPerson"/>
       <ButtonNavigation title="Thông báo" nextScreen={true} />

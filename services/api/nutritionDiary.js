@@ -10,7 +10,6 @@ export const addNewNutritionDiary = async (data, token) => {
             },
             body: JSON.stringify(data),
         })
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -27,7 +26,6 @@ export const findOneNutritionDiary = async (data, token) => {
             },
             body: JSON.stringify(data),
         })
-        console.log(response);
         return response;
     } catch (error) {
         throw error;

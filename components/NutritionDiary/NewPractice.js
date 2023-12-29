@@ -8,9 +8,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { width, height } from "../../constants/DeviceSize";
 import COLORS from "../../constants/Color";
+import { useAuth } from "../../contexts/authContext";
+import { addNutrition } from "../../utils/User/nutritionDiary/addNutrition";
+import { getNutrition } from "../../utils/User/nutritionDiary/getNutrition";
+import { addExercise } from "../../utils/User/exercise/addExercise";
 
 const NewPractice = (props) => {
-  const setAddPractice = props.setAddPractice;
+  const auth = useAuth();
   const [data, setData] = useState("");
 
   const [time, setTime] = useState("");
@@ -19,28 +23,57 @@ const NewPractice = (props) => {
 
   useEffect(() => {
     if (props.edit === true) {
-        setTime(props.data.time);
-        setActivity(props.data.activity);
-        setDescription(props.data.description);
-        setData(props.data);
+      setTime(props.data.exerciseTime);
+      setActivity(props.data.exercise_name);
+      setDescription(props.data.exercise_decription);
+      setData(props.data);
     }
   }, []);
 
-  const addPractice = () => {
+  const addPractice = async () => {
+    // Thêm nutritionDiaryId vào database
+    if (props.stateToday === false) {
+      const responseNew = await addNutrition(
+        { time: props.todayDate },
+        auth.user.token
+      );
+      if (responseNew.statusCode !== "201") {
+        return;
+      }
+    }
+
+    // Lấy nutritionDiaryId từ database
+    const response = await getNutrition(
+      { time: props.todayDate },
+      auth.user.token
+    );
+    if (response.status !== "success") {
+      return;
+    }
+
     const newPractice = {
-      time: time,
-      activity: activity,
-      description: description,
+      exerciseTime: time,
+      exercise_name: activity,
+      exercise_decription: description,
+      nutritionDiaryId: response.data.id,
     };
-    // Thêm newDish vào mảng addDiary
-    setAddPractice((prevAddPractice) => [...prevAddPractice, newPractice]);
+
+    // Thêm newPractice vào database
+    const responseAdd = await addExercise(newPractice, auth.user.token);
+    if (responseAdd.status === "success") {
+      console.log("Thêm thành công");
+      // Thêm newPractice vào mảng addPractice
+      setAddPractice((prevAddPractice) => [...prevAddPractice, newPractice]);
+    } else {
+      console.log("Thêm thất bại");
+    }
   };
 
   const onPressAddPractice = () => {
     if (props.edit === true) {
-      props.data.time = time;
-      props.data.activity = activity;
-      props.data.description = description;
+      props.data.exerciseTime = time;
+      props.data.exercise_name = activity;
+      props.data.exercise_decription = description;
       props.setIsVisible(false);
     } else {
       addPractice();
@@ -53,19 +86,19 @@ const NewPractice = (props) => {
       <Line
         placeholder="Thời gian"
         setValue={setTime}
-        defaultValue={data.time}
+        defaultValue={data.exerciseTime}
       />
 
       <Line
         placeholder="Tên hoạt động"
         setValue={setActivity}
-        defaultValue={data.activity}
+        defaultValue={data.exercise_name}
       />
 
       <Line
         placeholder="Mô tả hoạt động"
         setValue={setDescription}
-        defaultValue={data.description}
+        defaultValue={data.exercise_decription}
       />
 
       <TouchableOpacity style={styles.addMeal} onPress={onPressAddPractice}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { width, height } from "../../../constants/DeviceSize";
 import ListDayBox from "../../../components/NutritionDiary/ListDayBox";
@@ -6,17 +6,23 @@ import moment from "moment";
 import AppBar from "../../../components/NutritionDiary/AppBar";
 import ModalCalender from "../../../components/NutritionDiary/ModalCalendar";
 import NewNutritionDiary from "../../../components/NutritionDiary/NewNutritionDiary";
-import ModalNewIngredient from "../../../components/NutritionDiary/ModalNewIngredient";
-import TimeLineDish from "../../../components/NutritionDiary/TimeLineDish";
+import TimeLineDiary from "../../../components/NutritionDiary/TimeLineDiary";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import NewPractice from "../../../components/NutritionDiary/NewPractice";
-import COLORS from "../../../constants/Color";
 import TimeLinePractice from "../../../components/NutritionDiary/TimeLinePractice";
+import { getNutrition } from "../../../utils/User/nutritionDiary/getNutrition";
+import { useAuth } from "../../../contexts/authContext";
+import { getAllExercise } from "../../../utils/User/exercise/getAllExercise";
 
 const NutritionDiary = () => {
+  const auth = useAuth();
+  const [loading, setLoading] = useState(false);
   const [selectDate, setSelectDate] = useState(moment());
+  const [nutritionDiaryId, setNutritionDiaryId] = useState("");
+
   const [isVisibleCalender, setIsVisibleCalender] = useState(false);
   const [stateNotification, setStateNotification] = useState(false);
+  const [stateSevenDay, setStateSevenDay] = useState([]);
 
   const [category, setCategory] = useState("Ăn uống");
 
@@ -25,6 +31,58 @@ const NutritionDiary = () => {
 
   const [practice, setPractice] = useState([]);
   const [stateAddPractice, setStateAddPractice] = useState(false);
+
+  useEffect(() => {
+    // Xử lý hiển thị nút chấm đỏ
+    const sevenDayArray = [];
+    const getDiary = async () => {
+      setLoading(true);
+      for (let i = -3; i <= 3; i++) {
+        const day = moment(selectDate).add(i, "days").format("YYYY-MM-DD");
+        const response = await getNutrition({ time: day }, auth.user.token);
+        if (response.status === "success") {
+          sevenDayArray.push(i);
+        }
+        if (i === 0) {
+          if (response.status === "success") {
+            setNutritionDiaryId(response.data.id);
+          } else {
+            setNutritionDiaryId("");
+          }
+        }
+      }
+      setLoading(false);
+      setStateSevenDay(sevenDayArray);
+    };
+    getDiary();
+  }, [selectDate]);
+
+  useEffect(() => {
+    // Xử lý hiển thị dữ liệu excercise
+    const getPractice = async () => {
+      if (nutritionDiaryId === "") {
+        return;
+      }
+      setLoading(true);
+      try {
+        const response = await getAllExercise(
+          { nutritionDiaryId: nutritionDiaryId },
+          auth.user.token
+        );
+        if (response.status === "success") {
+          setPractice(response.data);
+        } else {
+          setPractice([]);
+        }
+      } catch (error) {
+        console.error("Error fetching practice:", error);
+        setPractice([]); // Handle errors appropriately
+      } finally {
+        setLoading(false);
+      }
+    };
+    getPractice();
+  }, [nutritionDiaryId]);
 
   return (
     <SafeAreaView>
@@ -42,7 +100,11 @@ const NutritionDiary = () => {
         setStateAddPractice={setStateAddPractice}
       />
 
-      <ListDayBox selectDate={selectDate} setSelectDate={setSelectDate} />
+      <ListDayBox
+        selectDate={selectDate}
+        setSelectDate={setSelectDate}
+        stateDotsSevenDay={stateSevenDay}
+      />
 
       <ModalCalender
         setSelectDate={setSelectDate}
@@ -78,29 +140,37 @@ const NutritionDiary = () => {
           </Text>
         </TouchableOpacity>
       </View>
-
-      {category === "Ăn uống" ? (
-        <View>
-          {stateAddDiary === true ? (
-            <NewNutritionDiary
-              addDiary={addDiary}
-              setAddDiary={setAddDiary}
-              setStateAddDiary={setStateAddDiary}
-            />
-          ) : (
-            <TimeLineDish listDish={addDiary} />
-          )}
-        </View>
+      {loading === true ? (
+        <Text>Loading...</Text>
       ) : (
         <View>
-          {stateAddPractice === true ? (
-            <NewPractice
-              addPractice={practice}
-              setAddPractice={setPractice}
-              setStateAddPractice={setStateAddPractice}
-            />
+          {category === "Ăn uống" ? (
+            <View>
+              {stateAddDiary === true ? (
+                <NewNutritionDiary
+                  addDiary={addDiary}
+                  setAddDiary={setAddDiary}
+                  setStateAddDiary={setStateAddDiary}
+                  stateToday={stateSevenDay.includes(0)}
+                />
+              ) : (
+                <TimeLineDiary listDish={addDiary} />
+              )}
+            </View>
           ) : (
-            <TimeLinePractice listPractice={practice} />
+            <View>
+              {stateAddPractice === true ? (
+                <NewPractice
+                  addPractice={practice}
+                  setAddPractice={setPractice}
+                  setStateAddPractice={setStateAddPractice}
+                  stateToday={stateSevenDay.includes(0)}
+                  todayDate={selectDate}
+                />
+              ) : (
+                <TimeLinePractice listPractice={practice} />
+              )}
+            </View>
           )}
         </View>
       )}

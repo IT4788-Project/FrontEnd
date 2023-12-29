@@ -33,7 +33,7 @@ const DateBox = props => {
     <TouchableOpacity
       style={[styles.dateBox, {backgroundColor: colorDateBox}]}
       onPress={() => {
-        props.setSelectDate (data);
+        props.setSelectDate (data.format ('YYYY-MM-DD'));
       }}
     >
       <View style={{justifyContent: 'center', alignItems: 'center', flex: 3}}>
@@ -89,7 +89,7 @@ const ListDayBox = props => {
             data={item}
             dateBoxOn={index === 3}
             setSelectDate={setSelectDate}
-            dots={index === 3 - 1}
+            dots={props.stateDotsSevenDay.includes (index - 3)}
           />
         )}
         horizontal={true}

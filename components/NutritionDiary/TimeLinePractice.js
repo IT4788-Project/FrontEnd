@@ -48,7 +48,7 @@ const Practice = (props) => {
     <View>
       <View style={styles.container}>
         <View style={styles.timeAndLine}>
-          <Text>{data.time}</Text>
+          <Text>{data.exerciseTime}</Text>
           <View
             style={[
               styles.line,
@@ -61,8 +61,8 @@ const Practice = (props) => {
           <View style={[styles.line, { backgroundColor: color.line }]} />
 
           <View style={[{ padding: 10, flex: 4 }]}>
-            <Text style={styles.nameMeal}>{data.activity}</Text>
-            <Text>{data.description}</Text>
+            <Text style={styles.nameMeal}>{data.exercise_name}</Text>
+            <Text>{data.exercise_decription}</Text>
           </View>
 
           <View

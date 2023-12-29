@@ -6,7 +6,7 @@ import {Ionicons} from '@expo/vector-icons';
 import {SimpleLineIcons} from '@expo/vector-icons';
 import NewNutritionDiary from './NewNutritionDiary';
 
-const TimeLineDish = props => {
+const TimeLineDiary = props => {
   const listDish = props.listDish;
 
   return (
@@ -215,4 +215,4 @@ const styles = StyleSheet.create ({
   },
 });
 
-export default TimeLineDish;
+export default TimeLineDiary;

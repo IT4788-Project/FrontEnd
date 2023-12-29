@@ -48,7 +48,7 @@ const SettingInforPerson = () => {
     hip: inforUser?.hip,
     waist: inforUser?.waist,
   });
-  
+
   const changeDataUser = (data, categoryData) => {
     setCurrentData((prevState) => ({
       ...prevState,
@@ -128,7 +128,9 @@ const SettingInforPerson = () => {
             title="Ngày sinh"
             keyboardType="visible-password"
             modal={true}
-            value={currentData.birthDay}
+            value={moment(currentData.birthDay, "YYYY-MM-DD").format(
+              "DD/MM/YYYY"
+            )}
             setModalVisible={setIsVisible}
             setCategoryValue={setCategoryValueInput}
           />

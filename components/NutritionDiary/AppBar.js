@@ -10,7 +10,6 @@ import {AntDesign} from '@expo/vector-icons';
 const AppBar = props => {
   const today = props.today;
   const stateNotification = props.stateNotification;
-  const stateAddDiary = props.stateAddDiary;
 
   const formattedDateTime = moment (today).format (`DD [tháng] MM [năm] YYYY`);
   // Chuyển đổi ngày trong tiếng Anh sang tiếng Việt
