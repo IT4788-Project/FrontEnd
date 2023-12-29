@@ -21,7 +21,7 @@ const SettingInfor = props => {
       <View style={{ marginVertical: 20 }}>
         <Text style={styles.textTopic}>Tài khoản của bạn: ????</Text>
       </View>
-      <ButtonNavigation title="Thông tin cá nhân" nextScreen={true} />
+      <ButtonNavigation title="Thông tin cá nhân" nextScreen={true} nameNextScreen="SettingInforPerson"/>
       <ButtonNavigation title="Thông báo" nextScreen={true} />
 
       <Text style={[styles.textTopic, { marginVertical: 20 }]}>

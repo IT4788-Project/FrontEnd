@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../../constants/Color";
 import { width, height } from "../../../constants/DeviceSize";
@@ -21,20 +21,15 @@ import { getOneGoal } from "../../../utils/User/healthyGoals/getOneGoal";
 import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
 import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
 import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
-import { getNutrition } from "../../../utils/User/nutritionDiary/getNutrition";
-import { addNutrition } from "../../../utils/User/nutritionDiary/addNutrition";
-
-import { getAllExercise } from "../../../utils/User/exercise/getAllExercise";
-import { addExercise } from "../../../utils/User/exercise/addExercise";
-import { getExercise } from "../../../utils/User/exercise/getOneExercise";
-import { deleteExercise } from "../../../utils/User/exercise/deleteExercise";
-import { updateExercise } from "../../../utils/User/exercise/updateExercise";
 
 import {useAuth} from "../../../contexts/authContext";
 
 
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
+  const [inforUser, setInforUser] = useState(null);
+  const [healthyGoals, setHealthyGoals] = useState(null);
+
   const _data = [
     { value: 40, label: "16/12", dataPointText: "40" },
     { value: 45, label: "Jan", dataPointText: "45" },
@@ -43,6 +38,7 @@ const InforMe = ({ navigation }) => {
     { value: 43, label: "Jan", dataPointText: "43" },
     { value: 42, label: "Jan", dataPointText: "42" },
   ];
+
   useEffect(() => {
     const fetchData = async () => {
       const token = auth.user.token;
@@ -75,7 +71,7 @@ const InforMe = ({ navigation }) => {
             />
           </TouchableOpacity>
 
-          <Text style={styles.textName}>Họ và tên</Text>
+          <Text style={styles.textName}>{}</Text>
 
           <TouchableOpacity
             style={{ position: "absolute", right: width * 0.05 }}

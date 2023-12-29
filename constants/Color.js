@@ -126,6 +126,14 @@ const COLORS = {
     timeStart: "#A1DDA0",
     timeEnd: "#DDCCA0",
   },
+  settingInforPerson: {
+    modal: {
+      background: "#FFFFFF",
+      border: "#51BCAF",
+      text: "#7ACCC2",
+      button: "#7ACCC2",
+    },
+  },
 };
 
 export default COLORS;
