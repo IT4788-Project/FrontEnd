@@ -9,7 +9,7 @@ export const addInfor = async (data, token) => {
         birthDay: Date || null,
         height: Number || null,
         gender: String (bắt buộc),
-        nutritionGoal: String || null,
+        nutritionalGoal: String || null,
         initialWeight: Number || null,
         currentWeight: Number (bắt buộc),
         targetWeight: Number || null,

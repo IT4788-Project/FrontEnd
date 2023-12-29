@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../../constants/Color";
 import { width, height } from "../../../constants/DeviceSize";
@@ -22,11 +22,14 @@ import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
 import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
 import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
 
-import {useAuth} from "../../../contexts/authContext";
-
+import { useAuth } from "../../../contexts/authContext";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
+  const [inforUser, setInforUser] = useState(null);
+  const [healthyGoals, setHealthyGoals] = useState(null);
+
   const _data = [
     { value: 40, label: "16/12", dataPointText: "40" },
     { value: 45, label: "Jan", dataPointText: "45" },
@@ -35,18 +38,25 @@ const InforMe = ({ navigation }) => {
     { value: 43, label: "Jan", dataPointText: "43" },
     { value: 42, label: "Jan", dataPointText: "42" },
   ];
+
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const token = auth.user.token;
-    //   const data = {
-    //     "currentWeight": 1000,
-    // }
-    //   const res = await changeCurrentWeight(data, token);
-    //   console.log(res);
-    //   return res;
-    // }
-    //fetchData();
-  }, [])
+    const getInforUser = async () => {
+      const response = await getInfor(auth.user.token);
+      if (response.status === "success") {
+        setInforUser(response.data);
+      }
+    };
+    
+    const getHealthyGoals = async () => {
+      const response = await getAllGoals(auth.user.token);
+      if (response.status === "success") {
+        setHealthyGoals(response.data);
+      }
+    }
+
+    getInforUser();
+    getHealthyGoals();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -63,7 +73,7 @@ const InforMe = ({ navigation }) => {
             />
           </TouchableOpacity>
 
-          <Text style={styles.textName}>Họ và tên</Text>
+          <Text style={styles.textName}>{}</Text>
 
           <TouchableOpacity
             style={{ position: "absolute", right: width * 0.05 }}

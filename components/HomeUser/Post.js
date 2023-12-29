@@ -64,7 +64,7 @@ const Post = (props) => {
         }}
       />
 
-      <View
+      <TouchableOpacity
         style={{
           flexDirection: "row",
           marginHorizontal: 15,
@@ -72,6 +72,7 @@ const Post = (props) => {
           alignItems: "center",
           justifyContent: "space-between",
         }}
+        onPress={onPressImage}
       >
         <View
           style={{
@@ -100,7 +101,7 @@ const Post = (props) => {
         <TouchableOpacity>
           <Entypo name="dots-three-horizontal" size={24} color="black" />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={() => setShowFullContent(!showFullContent)}>
         <Text style={styles.inputContent}>

@@ -32,7 +32,7 @@ const HomeUser = ({ navigation }) => {
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>
       <AppBar title="BodyFast" search={true} />
 
-      {/* NavBar height 0.08,  AppBar 0.08*/}
+      {/* NavBar height 0.08,  AppBar 0.08 */}
       <ScrollView style={{ height: height * 0.84 }}>
         <View
           style={{
