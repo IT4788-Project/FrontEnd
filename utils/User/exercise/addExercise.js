@@ -8,7 +8,7 @@ export const addExercise = async (data, token) => {
     data = {
         exercise_name: String (bắt buộc),
         exerciseTime: Time (bắt buộc),
-        exercise_decription: String,
+        exercise_description: String,
         nutritionDiaryId: Number (bắt buộc)
     }
     token = String (bắt buộc)
