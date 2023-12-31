@@ -22,6 +22,9 @@ import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
 import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
 import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
 
+import { addFoodLunch } from "../../../utils/User/foodLunch/addFoodLunch";
+import { updateFoodLunch } from "../../../utils/User/foodLunch/updateFoodLunch";
+
 import {getNutrition} from "../../../utils/User/nutritionDiary/getNutrition";
 
 import {useAuth} from "../../../contexts/authContext";
@@ -32,14 +35,9 @@ const InforMe = ({ navigation }) => {
   const [inforUser, setInforUser] = useState(null);
   const [healthyGoals, setHealthyGoals] = useState(null);
 
-  const _data = [
-    { value: 40, label: "16/12", dataPointText: "40" },
-    { value: 45, label: "Jan", dataPointText: "45" },
-    { value: 48, label: "Jan", dataPointText: "48" },
-    { value: 50, label: "Jan", dataPointText: "50" },
-    { value: 43, label: "Jan", dataPointText: "43" },
-    { value: 42, label: "Jan", dataPointText: "42" },
-  ];
+  const _data = {
+
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +49,7 @@ const InforMe = ({ navigation }) => {
       console.log(res);
       return res;
     }
-    fetchData();
+    //fetchData();
   }, [])
 
   return (

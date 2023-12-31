@@ -1,8 +1,8 @@
-import { addFL } from "../../../services/api/foodLunch";
+import { updateFL } from "../../../services/api/foodLunch";
 
-export const addFoodLunch = async (data, token) => {
+export const updateFoodLunch = async (data, token) => {
     /*
-    Usage: them danh sach food vao trong bua an
+    Usage: cap nhat danh sach food trong bua an
 
     Params: 
     data = {
@@ -44,25 +44,26 @@ export const addFoodLunch = async (data, token) => {
     }
     */
     try {
-        const response = await addFL(data, token);
+        const response = await updateFL(data, token);
         switch (response.statusCode) {
+            case 404:
+                // Not found
+                return { status: 'failed', message: 'Không tìm thấy bữa ăn', code: 404 };
             case 401:
                 // Unauthorized
                 return { status: 'failed', message: 'Lỗi xác minh, vui lòng đăng nhập lại', code: 401 };
             case 400:
                 // Bad request in body
                 return { status: 'failed', message: 'Thông tin không hợp lệ', code: 400 };
-            case 201:
+            case 200:
                 // success
                 // return data for double check
-                return { status: 'success', data: response.data, code: 201 };
+                return { status: 'success', data: response.data, code: 200 };
             case 500:
                 // internal server error
-                return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!', code: 500 };
+                return { status: 'failed', message: 'Lỗi máy chủ', code: 500 };
             default:
-                console.log(response);
-                // null/300
-                return { status: 'failed', message: 'Lỗi bất định!', code: 500 };
+                return { status: 'failed', message: 'Lỗi không xác định', code: 500 };
         }
     } catch (error) {
         throw error;
