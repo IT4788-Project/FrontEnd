@@ -9,7 +9,7 @@ import {
   FlatList,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "../../../components/HomeUser/AppBar";
 import COLORS from "../../../constants/Color";
 import { width, height } from "../../../constants/DeviceSize";
@@ -17,7 +17,12 @@ import ModalNewPost from "../../../components/HomeUser/ModalNewPost";
 import Post from "../../../components/HomeUser/Post";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useAuth } from "../../../contexts/authContext";
+import { addExercise } from "../../../utils/User/exercise/addExercise";
+import { addFoodLunch } from "../../../utils/User/foodLunch/addFoodLunch";
+
 const HomeUser = ({ navigation }) => {
+  const auth = useAuth();
   const [isVisibleNewPost, setIsVisibleNewPost] = React.useState(false);
 
   const onPressNewPost = () => {
@@ -27,6 +32,23 @@ const HomeUser = ({ navigation }) => {
   const onPressAvatar = () => {
     navigation.navigate("PersonalPage");
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = auth.user.token;
+      const data = {
+        "foods": [
+          { "id": 2, "quantity": 200, "unit": "gam" },
+          { "id": 3, "quantity": 200, "unit": "gam" }
+        ],
+        lunchId: 5
+      };
+      const res = await addFoodLunch(data, token);
+      console.log(res);
+      return res;
+    };
+    fetchData();
+  })
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>
