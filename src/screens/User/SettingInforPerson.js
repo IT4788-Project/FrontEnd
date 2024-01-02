@@ -37,16 +37,16 @@ const SettingInforPerson = () => {
   }, []);
 
   const [currentData, setCurrentData] = useState({
-    fullName: inforUser?.fullName,
-    birthDay: inforUser?.birthDay,
-    height: inforUser?.height,
-    gender: inforUser?.gender,
-    nutritionalGoal: inforUser?.nutritionalGoal,
-    initialWeight: inforUser?.initialWeight,
-    currentWeight: inforUser?.currentWeight,
-    targetWeight: inforUser?.targetWeight,
-    hip: inforUser?.hip,
-    waist: inforUser?.waist,
+    fullName: inforUser?.fullName || "Chưa có",
+    birthDay: inforUser?.birthDay || "Chưa có",
+    height: inforUser?.height || "Chưa có",
+    gender: inforUser?.gender || "Chưa có",
+    nutritionalGoal: inforUser?.nutritionalGoal || "Chưa có",
+    initialWeight: inforUser?.initialWeight || "Chưa có",
+    currentWeight: inforUser?.currentWeight || "Chưa có",
+    targetWeight: inforUser?.targetWeight || "Chưa có",
+    hip: inforUser?.hip || "Chưa có",
+    waist: inforUser?.waist || "Chưa có",
   });
 
   const changeDataUser = (data, categoryData) => {
@@ -106,7 +106,8 @@ const SettingInforPerson = () => {
   }, [stateValue]);
 
   const updateInfor = () => {
-    changeInfor(currentData, auth.user.token);
+    const response = changeInfor(currentData, auth.user.token);
+    console.log(response)
   };
 
   return (
@@ -128,9 +129,13 @@ const SettingInforPerson = () => {
             title="Ngày sinh"
             keyboardType="visible-password"
             modal={true}
-            value={moment(currentData.birthDay, "YYYY-MM-DD").format(
-              "DD/MM/YYYY"
-            )}
+            value={
+              currentData.birthDay
+                ? currentData.birthDay
+                : moment(currentData.birthDay, "YYYY-MM-DD").format(
+                    "DD/MM/YYYY"
+                  )
+            }
             setModalVisible={setIsVisible}
             setCategoryValue={setCategoryValueInput}
           />

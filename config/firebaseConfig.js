@@ -8,7 +8,7 @@ const firebaseConfig = {
   storageBucket: 'imagestore-f373f.appspot.com',
   messagingSenderId: '888809142831',
   appId: '1:888809142831:web:3928fce0ca1bb7049f24da',
-  measurementId: 'G-F2R5B2RN22',
+  caloriesmentId: 'G-F2R5B2RN22',
 };
 
 if (!firebase.apps.length) {

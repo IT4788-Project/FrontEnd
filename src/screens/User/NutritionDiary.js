@@ -13,12 +13,13 @@ import TimeLinePractice from "../../../components/NutritionDiary/TimeLinePractic
 import { getNutrition } from "../../../utils/User/nutritionDiary/getNutrition";
 import { useAuth } from "../../../contexts/authContext";
 import { getAllExercise } from "../../../utils/User/exercise/getAllExercise";
+import { getAllLunches } from "../../../utils/User/lunch/getAllLunches";
 
 const NutritionDiary = () => {
   const auth = useAuth();
   const [loading, setLoading] = useState(false);
   const [selectDate, setSelectDate] = useState(moment());
-  const [nutritionDiaryId, setNutritionDiaryId] = useState("");
+  const [nutritionDiaryId, setNutritionDiaryId] = useState(null);
 
   const [isVisibleCalender, setIsVisibleCalender] = useState(false);
   const [stateNotification, setStateNotification] = useState(false);
@@ -33,7 +34,6 @@ const NutritionDiary = () => {
   const [stateAddPractice, setStateAddPractice] = useState(false);
 
   useEffect(() => {
-    setNutritionDiaryId(-1);
     // Xử lý hiển thị nút chấm đỏ
     const sevenDayArray = [];
     const getDiary = async () => {
@@ -59,7 +59,8 @@ const NutritionDiary = () => {
   }, [selectDate]);
 
   useEffect(() => {
-    // Xử lý hiển thị dữ liệu excercise
+    setPractice([]);
+    // Xử lý hiển thị dữ liệu exercise
     const getPractice = async () => {
       if (nutritionDiaryId === "") {
         return;
@@ -85,7 +86,40 @@ const NutritionDiary = () => {
         setLoading(false);
       }
     };
+
     getPractice();
+  }, [nutritionDiaryId]);
+
+  useEffect(() => {
+    const getLunch = async () => {
+      setAddDiary([]);
+      if (nutritionDiaryId === "") {
+        return;
+      }
+      setLoading(true);
+      try {
+        const response = await getAllLunches(
+          { nutritionDiaryId: nutritionDiaryId },
+          auth.user.token
+        );
+        console.log(response)
+        if (response.status === "success") {
+          // setAddDiary(response.data.dishes);
+        } else {
+          if (nutritionDiaryId === "") {
+            setAddDiary([]);
+          }
+          setAddDiary([]);
+        }
+      } catch (error) {
+        console.error("Error fetching diary:", error);
+        setAddDiary([]); // Handle errors appropriately
+      } finally {
+        setLoading(false);
+      }
+
+      getLunch();
+    };
   }, [nutritionDiaryId]);
 
   return (

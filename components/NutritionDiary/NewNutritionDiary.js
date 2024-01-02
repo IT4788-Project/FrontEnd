@@ -4,20 +4,25 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {width, height} from '../../constants/DeviceSize';
-import COLORS from '../../constants/Color';
-import {Ionicons} from '@expo/vector-icons';
-import ModalNewIngredient from './ModalNewIngredient';
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { width, height } from "../../constants/DeviceSize";
+import COLORS from "../../constants/Color";
+import { Ionicons } from "@expo/vector-icons";
+import ModalNewIngredient from "./ModalNewIngredient";
+import { getAllFood } from "../../utils/User/food/getAllFood";
+import { useAuth } from "../../contexts/authContext";
+import { getNutrition } from "../../utils/User/nutritionDiary/getNutrition";
+import { addFoodLunch } from "../../utils/User/foodLunch/addFoodLunch";
+import { addOneLunch } from "../../utils/User/lunch/addOneLunch";
 
-const Line = props => {
-  const onChangeText = text => {
-    props.setValue (text);
+const Line = (props) => {
+  const onChangeText = (text) => {
+    props.setValue(text);
   };
 
   const onPressAdd = () => {
-    props.setIsVisible (true);
+    props.setIsVisible(true);
   };
 
   return (
@@ -28,166 +33,118 @@ const Line = props => {
         placeholder={props.placeholder}
         onChangeText={onChangeText}
         editable={props.editable}
-        defaultValue={props.defaultValue ? String (props.defaultValue) : ''}
-        style={{textAlign: 'left', width: width * 0.75}}
+        defaultValue={props.defaultValue ? String(props.defaultValue) : ""}
+        style={{ textAlign: "left", width: width * 0.75 }}
       />
-      {props.addIngredient === true
-        ? <TouchableOpacity onPress={onPressAdd}>
-            <Ionicons name="add-circle-sharp" size={24} color="black" />
-          </TouchableOpacity>
-        : null}
+      {props.addIngredient === true ? (
+        <TouchableOpacity onPress={onPressAdd}>
+          <Ionicons name="add-circle-sharp" size={24} color="black" />
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };
 
-const NewNutritionDiary = props => {
+const NewNutritionDiary = (props) => {
+  const auth = useAuth();
+  const [loading, setLoading] = useState(false);
   const setAddDiary = props.setAddDiary;
-  const [data, setData] = useState ('');
+  const [data, setData] = useState("");
 
   /**
    * ModalNewIngredient
    */
-  const [isVisible, setIsVisible] = useState (false);
-  const [listIngredient, setListIngredient] = useState ([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [listIngredient, setListIngredient] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    if (props.edit === true) {
+      setData(props.data);
+      setListIngredientChoose(props.data.ingredient);
+    } else {
+      const getAll = async () => {
+        const response = await getAllFood(auth.user.token);
+        if (response.code === 200) {
+          const dataFood = response.data.map((item) => ({
+            id: item.id,
+            nameIngredient: item.name,
+            unit: item.unit,
+            calories: item.calories,
+            quantity: 0,
+            choose: false,
+          }));
+          setListIngredient(dataFood);
+          setListIngredientChoose(dataFood);
+        }
+      };
+      getAll();
+    }
+    setLoading(false);
+  }, []);
 
   /**
    * NewNutritionDiary
    */
-  const [time, setTime] = useState ('');
-  const [meal, setMeal] = useState ('');
-  const [listIngredientChoose, setListIngredientChoose] = useState (
-    listIngredient
-  );
+  const [time, setTime] = useState("");
+  const [meal, setMeal] = useState("");
+  const [listIngredientChoose, setListIngredientChoose] =
+    useState(listIngredient);
 
-  useEffect (() => {
-    if (props.edit === true) {
-      setListIngredientChoose (props.data.ingredient);
-      setData (props.data);
+  const addDish = async () => {
+    // Lấy nutritionDiaryId từ database
+    const response = await getNutrition(
+      { time: props.todayDate },
+      auth.user.token
+    );
+
+    if (response.code !== 200) {
+      return;
     } else {
-      const data = [
-        {
-          STT: 1,
-          nameIngredient: 'thịt lợn',
-          unit: '100 gam',
-          measure: 250,
-        },
-        {
-          STT: 2,
-          nameIngredient: 'Gạo',
-          unit: '100 gam',
-          measure: 130,
-        },
-        {
-          STT: 3,
-          nameIngredient: 'Trứng gà',
-          unit: 'quả',
-          measure: 70,
-        },
-        {
-          STT: 4,
-          nameIngredient: 'thịt bò',
-          unit: '100 gam',
-          measure: 250,
-        },
-        {
-          STT: 5,
-          nameIngredient: 'Rau',
-          unit: '100 gam',
-          measure: 40,
-        },
-        {
-          STT: 6,
-          nameIngredient: 'Đường',
-          unit: '100 gam',
-          measure: 150,
-        },
-        {
-          STT: 7,
-          nameIngredient: 'Tôm',
-          unit: '100 gam',
-          measure: 85,
-        },
-        {
-          STT: 8,
-          nameIngredient: 'Lạc',
-          unit: '100 gam',
-          measure: 500,
-        },
-        {
-          STT: 9,
-          nameIngredient: 'Đậu phụ',
-          unit: '100 gam',
-          measure: 70,
-        },
-        {
-          STT: 10,
-          nameIngredient: 'Cà rốt',
-          unit: '100 gam',
-          measure: 85,
-        },
-        {
-          STT: 11,
-          nameIngredient: 'Cá',
-          unit: '100 gam',
-          measure: 70,
-        },
-        {
-          STT: 12,
-          nameIngredient: 'Khoai tây',
-          unit: '100 gam',
-          measure: 70,
-        },
-        {
-          STT: 13,
-          nameIngredient: 'Cà chua',
-          unit: '100 gam',
-          measure: 18,
-        },
-        {
-          STT: 14,
-          nameIngredient: 'Bắp cải',
-          unit: '100 gam',
-          measure: 25,
-        },
-        {
-          STT: 15,
-          nameIngredient: 'Mỳ tôm',
-          unit: 'gói',
-          measure: 55,
-        },
-      ];
-
-      setListIngredientChoose (
-        data.map (originalData => ({
-          STT: originalData.STT,
-          nameIngredient: originalData.nameIngredient,
-          unit: originalData.unit,
-          quantity: 0,
-          measure: originalData.measure || null,
-          choose: false,
-        }))
-      );
+      // Tạo newLunch
+      const data = {
+        nutritionDiaryId: response.data.id,
+        timeLunch: time,
+        name: meal,
+      };
+      const responseNewLunch = await addOneLunch(data, auth.user.token);
+      if (responseNewLunch.status !== "success") {
+        return;
+      } else {
+        // Thêm food vào lunch
+        const dataFood = {
+          lunchId: responseNewLunch.data.lunch.id,
+          food: listIngredientChoose.map((item) => ({
+            id: item.id,
+            quantity: item.quantity,
+            unit: item.unit,
+          })),
+        };
+        const responseAddFood = await addFoodLunch(dataFood, auth.user.token);
+        console.log(dataFood)
+        console.log(responseAddFood)
+        // Tạo newDish
+        if (responseAddFood.code === 201) {
+          const newDish = {
+            time: time,
+            meal: meal,
+            ingredient: listIngredientChoose,
+          };
+          // Thêm newDish vào mảng addDiary
+          setAddDiary((prevAddDiary) => [...prevAddDiary, newDish]);
+        }
+      }
     }
-  }, []);
-
-  const addDish = () => {
-    const newDish = {
-      time: time,
-      meal: meal,
-      ingredient: listIngredientChoose,
-    };
-    // Thêm newDish vào mảng addDiary
-    setAddDiary (prevAddDiary => [...prevAddDiary, newDish]);
   };
 
   const onPressAddDish = () => {
     if (props.edit === true) {
       props.data.time = time;
       props.data.meal = meal;
-      props.setIsVisible (false);
+      props.setIsVisible(false);
     } else {
-      addDish ();
-      props.setStateAddDiary (false);
+      addDish();
+      props.setStateAddDiary(false);
     }
   };
 
@@ -211,50 +168,51 @@ const NewNutritionDiary = props => {
         addIngredient={true}
         setIsVisible={setIsVisible}
         defaultValue={listIngredientChoose
-          .filter (item => item.choose === true && item.quantity !== 0)
-          .map (item => `${item.nameIngredient} ${item.quantity} ${item.unit}`)
-          .join (', ')}
+          .filter((item) => item.choose === true && item.quantity !== 0)
+          .map((item) => `${item.nameIngredient} ${item.quantity} ${item.unit}`)
+          .join(", ")}
       />
 
       <TouchableOpacity style={styles.addMeal} onPress={onPressAddDish}>
         <Text>Xác nhận</Text>
       </TouchableOpacity>
 
-      <ModalNewIngredient
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        listIngredient={listIngredient}
-        setListIngredientChoose={setListIngredientChoose}
-        listIngredientChoose={listIngredientChoose}
-      />
+      {loading === false ? (
+        <ModalNewIngredient
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          listIngredient={listIngredient}
+          setListIngredientChoose={setListIngredientChoose}
+          listIngredientChoose={listIngredientChoose}
+        />
+      ) : null}
     </View>
   );
 };
 
 export default NewNutritionDiary;
 
-const styles = StyleSheet.create ({
-  container: {
-  },
+const styles = StyleSheet.create({
+  container: {},
   line: {
     marginHorizontal: width * 0.05,
     marginVertical: height * 0.01,
     paddingHorizontal: width * 0.02,
     paddingVertical: height * 0.01,
     borderBottomWidth: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   addMeal: {
     width: width * 0.35,
     height: height * 0.04,
     marginLeft: width * 0.07,
     marginTop: height * 0.02,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 1,
     borderRadius: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
     elevation: 10,
     backgroundColor: COLORS.white,
   },

@@ -35,9 +35,7 @@ const InforMe = ({ navigation }) => {
   const [inforUser, setInforUser] = useState(null);
   const [healthyGoals, setHealthyGoals] = useState(null);
 
-  const _data = {
-
-  };
+  const _data = [];
 
   useEffect(() => {
     const fetchData = async () => {

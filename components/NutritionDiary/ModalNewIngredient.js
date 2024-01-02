@@ -93,7 +93,7 @@ const Line = props => {
         </View>
       </View>
 
-      <Text style={styles.measure}>{data.measure}</Text>
+      <Text style={styles.calories}>{data.calories}</Text>
 
       <Text style={styles.choose}>
         {<Checkbox value={isChecked} onValueChange={valueChangeCheckBox} />}
@@ -131,7 +131,7 @@ const ModalNewIngredient = props => {
           <Text style={styles.nameIngredient}>{'\t'}Tên nguyên liệu</Text>
           <Text style={styles.unit}>Đơn vị tính</Text>
           <Text style={styles.quantity}>Số lượng</Text>
-          <Text style={styles.measure}>Lượng calo</Text>
+          <Text style={styles.calories}>Lượng calo</Text>
           <Text style={styles.choose}>Chọn</Text>
         </View>
 
@@ -182,7 +182,7 @@ const styles = StyleSheet.create ({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  measure: {
+  calories: {
     flex: 2,
     textAlign: 'center',
   },

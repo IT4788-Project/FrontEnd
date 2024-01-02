@@ -20,19 +20,25 @@ const SettingInfor = props => {
       <View style={{ marginVertical: 20 }}>
         <Text style={styles.textTopic}>Tài khoản của bạn</Text>
       </View>
-      <ButtonNavigation title="Thông tin cá nhân" nextScreen={true} nameNextScreen="SettingInforPerson"/>
-      <ButtonNavigation title="Thông báo" nextScreen={true} />
+      <ButtonNavigation
+        title="Thông tin cá nhân"
+        nextScreen={true}
+        nameNextScreen="SettingInforPerson"
+      />
+      <ButtonNavigation title="Thông báo" nextScreen={true} disabled={true} />
 
       <Text style={[styles.textTopic, { marginVertical: 20 }]}>
         Hỗ trợ và thông tin thêm
       </Text>
 
-      <ButtonNavigation title="Trợ giúp & hỗ trợ" nextScreen={true} />
-      <ButtonNavigation title="Chính sách" nextScreen={true} />
+      <ButtonNavigation
+        title="Trợ giúp & hỗ trợ"
+        nextScreen={true}
+        disabled={true}
+      />
+      <ButtonNavigation title="Chính sách" nextScreen={true} disabled={true} />
 
-      <View
-        style={{ width: width, alignItems: 'center' }}
-      >
+      <View style={{ width: width, alignItems: "center" }}>
         <TouchableOpacity
           style={styles.logOutButton}
           onPress={() => {
@@ -42,7 +48,6 @@ const SettingInfor = props => {
           <Text style={styles.textLogOut}>Đăng xuất</Text>
         </TouchableOpacity>
       </View>
-
     </SafeAreaView>
   );
 };

@@ -44,13 +44,13 @@ const Dish = props => {
   const totalCalo = () => {
     let total = 0;
     data.ingredient.forEach (item => {
-      total += item.quantity * item.measure;
+      total += item.quantity * item.calories;
     });
     return {
       nameIngredient: 'Tổng calo',
       unit: undefined,
       quantity: undefined,
-      measure: undefined,
+      calories: undefined,
       choose: total,
       total: true,
     };
@@ -123,7 +123,7 @@ const Dish = props => {
                   </Text>
                   <Text style={styles.caculatorCalo.unit}>Đơn vị tính</Text>
                   <Text style={styles.caculatorCalo.quantity}>Số lượng</Text>
-                  <Text style={styles.caculatorCalo.measure}>Lượng calo</Text>
+                  <Text style={styles.caculatorCalo.calories}>Lượng calo</Text>
                   <Text style={styles.caculatorCalo.choose}>Tổng</Text>
                 </View>
               </View>
@@ -156,9 +156,9 @@ const LineCalo = props => {
       </Text>
       <Text style={styles.caculatorCalo.unit}>{data.unit}</Text>
       <Text style={styles.caculatorCalo.quantity}>{data.quantity}</Text>
-      <Text style={styles.caculatorCalo.measure}>{data.measure}</Text>
+      <Text style={styles.caculatorCalo.calories}>{data.calories}</Text>
       <Text style={styles.caculatorCalo.choose}>
-        {data.total === true ? data.choose : data.quantity * data.measure}
+        {data.total === true ? data.choose : data.quantity * data.calories}
       </Text>
     </View>
   );
@@ -204,7 +204,7 @@ const styles = StyleSheet.create ({
       justifyContent: 'space-around',
       alignItems: 'center',
     },
-    measure: {
+    calories: {
       flex: 2,
       textAlign: 'center',
     },

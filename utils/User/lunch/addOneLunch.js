@@ -36,7 +36,7 @@ export const addOneLunch = async (data, token) => {
                 return { status: 'failed', message: 'Không có thông tin', code: 404 };
             case 201:
                 // success
-                return { status: 'success', data: response.data, code: 201 };
+                return { status: 'success', data: response, code: 201 };
             case 500:
                 // internal server error
                 return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!', code: 500 };

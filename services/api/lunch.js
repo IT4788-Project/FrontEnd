@@ -32,7 +32,7 @@ export const getOne = async (data, token) => {
 
 export const addOne = async (data, token) => {
     try {
-        const response = await fetchData(`api/foods/${data.nutritionDiaryId}`, {
+        const response = await fetchData(`api/lunch/${data.nutritionDiaryId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

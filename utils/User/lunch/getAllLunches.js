@@ -16,7 +16,6 @@ export const getAllLunches = async (data, token) => {
             "id": 3,
             "timeLunch": "20:00:00",
             "name": "nhin di cho lanh",
-            "sumCalories": null,
             "nutritionDiaryId": 1
             }
         ],
