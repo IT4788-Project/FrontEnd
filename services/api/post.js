@@ -52,7 +52,7 @@ export const reactPost = async (data, token) => {
     const postId = data.postId
     try {
         const response = await fetchData(`api/posts/reaction/${postId}`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`

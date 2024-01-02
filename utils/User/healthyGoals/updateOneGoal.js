@@ -38,7 +38,6 @@ export const updateOneGoal = async (data, token) => {
                 // internal server error
                 return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!', code: 500 };
             default:
-                console.log(response);
                 // null/300
                 return { status: 'failed', message: 'Lỗi bất định!', code: 500 };
         }

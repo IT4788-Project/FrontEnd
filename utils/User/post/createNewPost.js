@@ -6,9 +6,12 @@ export const createNewPost = async (data, token) => {
 
     Params:
     data = {
-        content: string,
-        image: list(string),
-        isPublic: boolean
+        "content": "Hello mike fence 2",
+        "images": [
+            "http://image1.com/image/1",
+            "http://image1.com/image/1"
+        ],
+        "isPublic": true
     }
     token = string
 
@@ -19,7 +22,7 @@ export const createNewPost = async (data, token) => {
     */
     try {
         const response = await createPost(data, token)
-        switch (response.status) {
+        switch (response.statusCode) {
             case 401:
                 return { status: 'failed', message: 'Bạn không có quyền truy cập', code: 401 };
             case 400:

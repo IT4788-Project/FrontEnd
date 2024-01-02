@@ -5,7 +5,6 @@ export const getDishByCategory = async (data, token) => {
         const response = await fetchData(`api/dishes/dishCategory/${data.dishCategoryId}`, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
         });
@@ -20,7 +19,6 @@ export const getDishByTag = async (data, token) => {
         const response = await fetchData(`api/dishes/tag/${data.tagId}`, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
         });
@@ -35,7 +33,6 @@ export const getOneDish = async (data, token) => {
         const response = await fetchData(`api/dishes/${data.dishId}`, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
         });
@@ -47,12 +44,11 @@ export const getOneDish = async (data, token) => {
 
 export const getRandomDish = async (token) => {
     try {
-        const response = await fetchData(`/api/dishes`, {
+        const response = await fetchData("api/dishes", {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
-            },
+            }
         });
         return response;
     } catch (error) {

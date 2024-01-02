@@ -20,6 +20,27 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../../../contexts/authContext";
 import { addExercise } from "../../../utils/User/exercise/addExercise";
 import { addFoodLunch } from "../../../utils/User/foodLunch/addFoodLunch";
+import { updateFoodLunch } from "../../../utils/User/foodLunch/updateFoodLunch";
+import { getDishByCate } from "../../../utils/User/dish/getDishByCategory";
+import { getDishByTag } from "../../../utils/User/dish/getDishByTag";
+import { getDishById } from "../../../utils/User/dish/getDishById";
+import { getRandom } from "../../../utils/User/dish/getRandom";
+
+import { getAllDC } from "../../../utils/User/dishCategory/getAllDishCategory";
+import { getAllFood } from "../../../utils/User/food/getAllFood";
+import { getFoodByTag } from "../../../utils/User/food/getFoodByTag";
+
+import { getAllTag } from "../../../utils/User/tag/getAllTag";
+import { getTagByName } from "../../../utils/User/tag/getTagByName";
+
+import { createNewPost } from "../../../utils/User/post/createNewPost";
+import { getAllPost } from "../../../utils/User/post/getAllPost";
+import { getPost } from "../../../utils/User/post/getPost";
+import { followNewUser } from "../../../utils/User/post/followUser";
+import { unfollowUser } from "../../../utils/User/post/unfollowUser";
+import { getFollower } from "../../../utils/User/post/getFollower";
+import { react } from "../../../utils/User/post/react";
+ 
 
 const HomeUser = ({ navigation }) => {
   const auth = useAuth();
@@ -37,14 +58,10 @@ const HomeUser = ({ navigation }) => {
     const fetchData = async () => {
       const token = auth.user.token;
       const data = {
-        "foods": [
-          { "id": 2, "quantity": 200, "unit": "gam" },
-          { "id": 3, "quantity": 200, "unit": "gam" }
-        ],
-        lunchId: 5
-      };
-      const res = await addFoodLunch(data, token);
-      console.log(res);
+          "postId": 2
+    };
+      const res = await react(data, token);
+      console.log("HomeUser", res);
       return res;
     };
     fetchData();

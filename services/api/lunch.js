@@ -6,7 +6,7 @@ export const getAll = async (data, token) => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
         },
         });
         return response;
@@ -21,7 +21,7 @@ export const getOne = async (data, token) => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
         },
         });
         return response;
@@ -36,7 +36,7 @@ export const addOne = async (data, token) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(data),
         });
@@ -52,7 +52,7 @@ export const updateOne = async (data, token) => {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(data),
         });
@@ -68,7 +68,7 @@ export const deleteOne = async (data, token) => {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
         },
         });
         return response;

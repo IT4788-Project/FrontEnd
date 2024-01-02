@@ -3,6 +3,7 @@ import { addFL } from "../../../services/api/foodLunch";
 export const addFoodLunch = async (data, token) => {
     /*
     Usage: them danh sach food vao trong bua an
+    NOTE: ham add chi call 1 lan, moi truy cap tu lan sau phai goi Update
 
     Params: 
     data = {
@@ -60,7 +61,6 @@ export const addFoodLunch = async (data, token) => {
                 // internal server error
                 return { status: 'failed', message: 'Máy chủ đang bận, vui lòng thử lại sau!', code: 500 };
             default:
-                console.log(response);
                 // null/300
                 return { status: 'failed', message: 'Lỗi bất định!', code: 500 };
         }

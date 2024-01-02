@@ -17,15 +17,18 @@ export const followNewUser = async (data, token) => {
     */
     try {
         const response = await follow(data, token)
-        switch (response.status) {
+        switch (response.statusCode) {
             case 401:
                 return { status: 'failed', message: 'Bạn không có quyền truy cập', code: 401 };
             case 400:
                 return { status: 'failed', message: 'Yêu cầu không hợp lệ', code: 400 };
-            case 201:
+            case 200:
                 return { status: 'success', message: 'Theo dõi thành công', code: 200 };
             default:
-                return { status: 'failed', message: 'Lỗi không xác định hoặc máy chủ bảo trì', code: 500 };
+                return response.error ?
+                { status: 'failed', message: response.error, code: 500 }
+                :
+                { status: 'success', message: 'Thành công', code: 200 };
         }
     } catch (e) {
         throw e

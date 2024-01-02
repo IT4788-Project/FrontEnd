@@ -26,9 +26,9 @@ import { addFoodLunch } from "../../../utils/User/foodLunch/addFoodLunch";
 import { updateFoodLunch } from "../../../utils/User/foodLunch/updateFoodLunch";
 
 import {getNutrition} from "../../../utils/User/nutritionDiary/getNutrition";
+import { getAllDC } from "../../../utils/User/dishCategory/getAllDishCategory";
 
 import {useAuth} from "../../../contexts/authContext";
-
 
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
@@ -43,13 +43,13 @@ const InforMe = ({ navigation }) => {
     const fetchData = async () => {
       const token = auth.user.token;
       const data = {
-        "time":"2023-12-31"
+        "time":"2023-12-28"
     }
-      const res = await getNutrition(data, token);
-      console.log(res);
+      const res = await getAllDC(token);
+      console.log("test",res);
       return res;
     }
-    //fetchData();
+    fetchData();
   }, [])
 
   return (

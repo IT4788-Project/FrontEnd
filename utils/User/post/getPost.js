@@ -18,7 +18,7 @@ export const getPost = async (data, token) => {
     */
     try {
         const response = await getDetailPost(data, token)
-        switch (response.status) {
+        switch (response.statusCode) {
             case 401:
                 return { status: 'failed', message: 'Bạn không có quyền truy cập', code: 401 };
             case 400:

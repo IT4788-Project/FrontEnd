@@ -2,7 +2,6 @@ import { fetchData } from "./base";
 
 const addFoodLunch = async (data, token) => {
     try {
-        console.log(data);
         const response = await fetchData(`api/food_lunch/${data.lunchId}`, {
         method: "POST",
         headers: {
