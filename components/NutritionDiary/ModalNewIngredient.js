@@ -106,6 +106,7 @@ const ModalNewIngredient = props => {
   const listIngredientChoose = props.listIngredientChoose;
 
   const onPressAdd = () => {
+    props.setListIngredientChoose (listIngredientChoose);
     props.setIsVisible (false);
   };
 

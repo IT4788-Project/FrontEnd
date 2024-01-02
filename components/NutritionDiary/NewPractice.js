@@ -18,6 +18,8 @@ import { updateExercise } from "../../utils/User/exercise/updateExercise";
 const NewPractice = (props) => {
   const auth = useAuth();
   const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
+  const setAddPractice = props.setAddPractice;
 
   const [time, setTime] = useState("");
   const [activity, setActivity] = useState("");

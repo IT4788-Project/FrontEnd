@@ -14,6 +14,7 @@ import { getNutrition } from "../../../utils/User/nutritionDiary/getNutrition";
 import { useAuth } from "../../../contexts/authContext";
 import { getAllExercise } from "../../../utils/User/exercise/getAllExercise";
 import { getAllLunches } from "../../../utils/User/lunch/getAllLunches";
+import { getOneLunch } from "../../../utils/User/lunch/getOneLunch";
 
 const NutritionDiary = () => {
   const auth = useAuth();
@@ -34,10 +35,11 @@ const NutritionDiary = () => {
   const [stateAddPractice, setStateAddPractice] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+
     // Xử lý hiển thị nút chấm đỏ
     const sevenDayArray = [];
     const getDiary = async () => {
-      setLoading(true);
       for (let i = -3; i <= 3; i++) {
         const day = moment(selectDate).add(i, "days").format("YYYY-MM-DD");
         const response = await getNutrition({ time: day }, auth.user.token);
@@ -52,11 +54,70 @@ const NutritionDiary = () => {
           }
         }
       }
-      setLoading(false);
       setStateSevenDay(sevenDayArray);
     };
     getDiary();
+    setLoading(false);
   }, [selectDate]);
+
+  useEffect(() => {
+    setLoading(true);
+    setAddDiary([]);
+    const getLunch = async () => {
+      if (nutritionDiaryId === "") {
+        return;
+      }
+      try {
+        const response = await getAllLunches(
+          { nutritionDiaryId: nutritionDiaryId },
+          auth.user.token
+        );
+
+        if (response.status === "success") {
+          await Promise.all(
+            response.data.map(async (element) => {
+              const responseOnceLunch = await getOneLunch(
+                {
+                  nutritionDiaryId: nutritionDiaryId,
+                  lunchId: element.id,
+                },
+                auth.user.token
+              );
+              setAddDiary((prevAddDiary) => [
+                ...prevAddDiary,
+                {
+                  id: responseOnceLunch.data.id,
+                  time: responseOnceLunch.data.timeLunch,
+                  meal: responseOnceLunch.data.name,
+                  ingredient: [
+                    ...responseOnceLunch.data.food.map((item) => ({
+                      id: item.id,
+                      nameIngredient: item.name,
+                      unit: item.unit,
+                      quantity: item.food_lunch.quantity,
+                      calories: item.calories,
+                      choose: true,
+                    })),
+                  ],
+                },
+              ]);
+            })
+          );
+        } else {
+          if (nutritionDiaryId === "") {
+            setAddDiary([]);
+          }
+          setAddDiary([]);
+        }
+      } catch (error) {
+        console.error("Error fetching diary:", error);
+        setAddDiary([]); // Handle errors appropriately
+      } finally {
+        setLoading(false);
+      }
+    };
+    getLunch();
+  }, [nutritionDiaryId]);
 
   useEffect(() => {
     setPractice([]);
@@ -86,40 +147,7 @@ const NutritionDiary = () => {
         setLoading(false);
       }
     };
-
     getPractice();
-  }, [nutritionDiaryId]);
-
-  useEffect(() => {
-    const getLunch = async () => {
-      setAddDiary([]);
-      if (nutritionDiaryId === "") {
-        return;
-      }
-      setLoading(true);
-      try {
-        const response = await getAllLunches(
-          { nutritionDiaryId: nutritionDiaryId },
-          auth.user.token
-        );
-        console.log(response)
-        if (response.status === "success") {
-          // setAddDiary(response.data.dishes);
-        } else {
-          if (nutritionDiaryId === "") {
-            setAddDiary([]);
-          }
-          setAddDiary([]);
-        }
-      } catch (error) {
-        console.error("Error fetching diary:", error);
-        setAddDiary([]); // Handle errors appropriately
-      } finally {
-        setLoading(false);
-      }
-
-      getLunch();
-    };
   }, [nutritionDiaryId]);
 
   return (
@@ -193,7 +221,7 @@ const NutritionDiary = () => {
                   todayDate={selectDate}
                 />
               ) : (
-                <TimeLineDiary listDish={addDiary} />
+                <TimeLineDiary listDish={addDiary} todayDate={selectDate} />
               )}
             </View>
           ) : (

@@ -57,9 +57,9 @@ const Practice = (props) => {
       exerciseId: data.id,
       nutritionDiaryId: data.nutritionDiaryId,
     };
-    
+
     const responseDelete = await deleteExercise(dataDelete, auth.user.token);
-    
+
     if (responseDelete.status !== "success") {
       return;
     } else {

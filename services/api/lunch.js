@@ -17,7 +17,7 @@ export const getAll = async (data, token) => {
 
 export const getOne = async (data, token) => {
     try {
-        const response = await fetchData(`api/foods/${data.nutritionDiaryId}/${data.lunchId}`, {
+        const response = await fetchData(`api/lunch/${data.nutritionDiaryId}/${data.lunchId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const addOne = async (data, token) => {
 
 export const updateOne = async (data, token) => {
     try {
-        const response = await fetchData(`api/foods/${data.nutritionDiaryId}/${data.lunchId}`, {
+        const response = await fetchData(`api/lunch/${data.nutritionDiaryId}/${data.lunchId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export const updateOne = async (data, token) => {
 
 export const deleteOne = async (data, token) => {
     try {
-        const response = await fetchData(`api/foods/${data.nutritionDiaryId}/${data.lunchId}`, {
+        const response = await fetchData(`api/lunch/${data.nutritionDiaryId}/${data.lunchId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",

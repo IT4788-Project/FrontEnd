@@ -15,6 +15,9 @@ import { useAuth } from "../../contexts/authContext";
 import { getNutrition } from "../../utils/User/nutritionDiary/getNutrition";
 import { addFoodLunch } from "../../utils/User/foodLunch/addFoodLunch";
 import { addOneLunch } from "../../utils/User/lunch/addOneLunch";
+import moment from "moment";
+import { updateFoodLunch } from "../../utils/User/foodLunch/updateFoodLunch";
+import { updateOneLunch } from "../../utils/User/lunch/updateOneLunch";
 
 const Line = (props) => {
   const onChangeText = (text) => {
@@ -57,11 +60,54 @@ const NewNutritionDiary = (props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [listIngredient, setListIngredient] = useState([]);
 
+  /**
+   * NewNutritionDiary
+   */
+  const [time, setTime] = useState("");
+  const [meal, setMeal] = useState("");
+  const [listIngredientChoose, setListIngredientChoose] =
+    useState(listIngredient);
+
   useEffect(() => {
     setLoading(true);
     if (props.edit === true) {
+      setTime(moment(props.data.time, "HH:mm:ss").format("HH:mm"));
+      setMeal(props.data.meal);
       setData(props.data);
-      setListIngredientChoose(props.data.ingredient);
+
+      const getAll = async () => {
+        const response = await getAllFood(auth.user.token);
+        if (response.code === 200) {
+          const dataFood = response.data.map((item) => ({
+            id: item.id,
+            nameIngredient: item.name,
+            unit: item.unit,
+            calories: item.calories,
+            quantity: 0,
+            choose: false,
+          }));
+
+          setListIngredient(dataFood);
+          setListIngredientChoose(
+            dataFood.map((item) => {
+              const existingIngredient = props.data.ingredient.find(
+                (ingredient) => ingredient.id === item.id
+              );
+              return {
+                id: item.id,
+                nameIngredient: existingIngredient
+                  ? existingIngredient.nameIngredient
+                  : item.nameIngredient,
+                unit: item.unit,
+                calories: item.calories,
+                quantity: existingIngredient ? existingIngredient.quantity : 0,
+                choose: existingIngredient ? existingIngredient.choose : false,
+              };
+            })
+          );
+        }
+      };
+      getAll();
     } else {
       const getAll = async () => {
         const response = await getAllFood(auth.user.token);
@@ -82,14 +128,6 @@ const NewNutritionDiary = (props) => {
     }
     setLoading(false);
   }, []);
-
-  /**
-   * NewNutritionDiary
-   */
-  const [time, setTime] = useState("");
-  const [meal, setMeal] = useState("");
-  const [listIngredientChoose, setListIngredientChoose] =
-    useState(listIngredient);
 
   const addDish = async () => {
     // Lấy nutritionDiaryId từ database
@@ -114,15 +152,15 @@ const NewNutritionDiary = (props) => {
         // Thêm food vào lunch
         const dataFood = {
           lunchId: responseNewLunch.data.lunch.id,
-          food: listIngredientChoose.map((item) => ({
-            id: item.id,
-            quantity: item.quantity,
-            unit: item.unit,
-          })),
+          foods: listIngredientChoose
+            .filter((item) => item.choose === true && item.quantity !== 0)
+            .map((item) => ({
+              id: item.id,
+              quantity: item.quantity,
+              unit: item.unit,
+            })),
         };
         const responseAddFood = await addFoodLunch(dataFood, auth.user.token);
-        console.log(dataFood)
-        console.log(responseAddFood)
         // Tạo newDish
         if (responseAddFood.code === 201) {
           const newDish = {
@@ -137,55 +175,106 @@ const NewNutritionDiary = (props) => {
     }
   };
 
-  const onPressAddDish = () => {
+  const changeDiary = async () => {
+    // Lấy nutritionDiaryId từ database
+    const response = await getNutrition(
+      { time: props.todayDate },
+      auth.user.token
+    );
+    if (response.status !== "success") {
+      return;
+    }
+
+    const dataLunch = {
+      nutritionDiaryId: response.data.id,
+      timeLunch: time,
+      name: meal,
+      lunchId: props.data.id,
+    };
+
+    const dataIngredient = {
+      lunchId: props.data.id,
+      foods: listIngredientChoose
+        .filter((item) => item.choose === true && item.quantity !== 0)
+        .map((item) => ({
+          id: item.id,
+          quantity: item.quantity,
+          unit: item.unit,
+        })),
+    };
+
+    const responseUpdateFoodLunch = await updateFoodLunch(
+      dataIngredient,
+      auth.user.token
+    );
+
+    if (responseUpdateFoodLunch.code === 200) {
+      const responseUpdateLunch = await updateOneLunch(
+        dataLunch,
+        auth.user.token
+      );
+      if (responseUpdateLunch.code === 200) {
+        props.data.time = time;
+        props.data.meal = meal;
+        props.data.ingredient = listIngredientChoose;
+      }
+    }
+  };
+
+  const onPressAddDish = async () => {
     if (props.edit === true) {
-      props.data.time = time;
-      props.data.meal = meal;
+      await changeDiary();
       props.setIsVisible(false);
     } else {
-      addDish();
+      await addDish();
       props.setStateAddDiary(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Line
-        placeholder="Thời gian"
-        setValue={setTime}
-        defaultValue={data.time}
-      />
+      {loading === true ? null : (
+        <View>
+          <Line
+            placeholder="Thời gian"
+            setValue={setTime}
+            defaultValue={data.time}
+          />
 
-      <Line
-        placeholder="Tên bữa ăn"
-        setValue={setMeal}
-        defaultValue={data.meal}
-      />
+          <Line
+            placeholder="Tên bữa ăn"
+            setValue={setMeal}
+            defaultValue={data.meal}
+          />
 
-      <Line
-        placeholder="Nguyên liệu"
-        editable={false}
-        addIngredient={true}
-        setIsVisible={setIsVisible}
-        defaultValue={listIngredientChoose
-          .filter((item) => item.choose === true && item.quantity !== 0)
-          .map((item) => `${item.nameIngredient} ${item.quantity} ${item.unit}`)
-          .join(", ")}
-      />
+          <Line
+            placeholder="Nguyên liệu"
+            editable={false}
+            addIngredient={true}
+            setIsVisible={setIsVisible}
+            defaultValue={listIngredientChoose
+              .filter((item) => item.choose === true && item.quantity !== 0)
+              .map(
+                (item) => `${item.nameIngredient} ${item.quantity} ${item.unit}`
+              )
+              .join(", ")}
+          />
 
-      <TouchableOpacity style={styles.addMeal} onPress={onPressAddDish}>
-        <Text>Xác nhận</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.addMeal} onPress={onPressAddDish}>
+            <Text>Xác nhận</Text>
+          </TouchableOpacity>
 
-      {loading === false ? (
-        <ModalNewIngredient
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-          listIngredient={listIngredient}
-          setListIngredientChoose={setListIngredientChoose}
-          listIngredientChoose={listIngredientChoose}
-        />
-      ) : null}
+          {loading === false ? (
+            <ModalNewIngredient
+              isVisible={isVisible}
+              setIsVisible={setIsVisible}
+              listIngredient={listIngredient}
+              setListIngredientChoose={setListIngredientChoose}
+              listIngredientChoose={listIngredientChoose}
+            />
+          ) : null}
+        </View>
+      )}
     </View>
   );
 };
