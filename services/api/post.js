@@ -98,6 +98,7 @@ export const getDetailPost = async (data, token) => {
 }
 
 export const getListPost = async (token) => {
+    // lay du lieu trang chu khi dang nhap vao
     try {
         const response = await fetchData(`api/posts`, {
             method: 'GET',
@@ -113,6 +114,7 @@ export const getListPost = async (token) => {
 }
 
 export const getFollower = async (token) => {
+    // lay thong tin follow: follower + following
     try {
         const response = fetchData('api/users/follows', {
             method: 'GET',
@@ -126,3 +128,36 @@ export const getFollower = async (token) => {
         throw e;
     }
 }
+
+export const report = async (data, token) => { 
+    const postId = data.postId
+    try {
+        const response = await fetchData(`api/posts/report/${postId}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        return response;
+    } catch (e) {
+        throw e; 
+    }
+}
+
+export const getPostMe = async (token) => {
+    try {
+        const response = await fetchData(`api/posts/by/me`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        return response;
+    } catch (e) {
+        throw e;
+    }
+}
+
+
