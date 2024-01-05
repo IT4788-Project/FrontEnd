@@ -107,7 +107,6 @@ const SettingInforPerson = () => {
 
   const updateInfor = () => {
     const response = changeInfor(currentData, auth.user.token);
-    console.log(response)
   };
 
   return (

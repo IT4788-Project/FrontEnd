@@ -9,6 +9,7 @@ import React, { useEffect } from "react";
 import { width, height } from "../../constants/DeviceSize";
 import COLORS from "../../constants/Color";
 import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import NewNutritionDiary from "./NewNutritionDiary";
 import moment from "moment";
@@ -116,9 +117,14 @@ const Dish = (props) => {
             <TouchableOpacity onPress={onPressCalo}>
               <Ionicons name="book-outline" size={24} color="black" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onPressEdit}>
-              <SimpleLineIcons name="pencil" size={24} color="black" />
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity onPress={onPressEdit} style={{marginBottom: 10}}>
+                <SimpleLineIcons name="pencil" size={24} color="black" />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <AntDesign name="delete" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
