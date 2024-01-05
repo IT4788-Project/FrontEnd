@@ -36,7 +36,6 @@ const NutritionDiary = () => {
 
   useEffect(() => {
     setLoading(true);
-
     // Xử lý hiển thị nút chấm đỏ
     const sevenDayArray = [];
     const getDiary = async () => {
@@ -61,13 +60,13 @@ const NutritionDiary = () => {
   }, [selectDate]);
 
   useEffect(() => {
-    setLoading(true);
     setAddDiary([]);
+    if (nutritionDiaryId === "") {
+      return;
+    }
     const getLunch = async () => {
-      if (nutritionDiaryId === "") {
-        return;
-      }
       try {
+        setLoading(true);
         const response = await getAllLunches(
           { nutritionDiaryId: nutritionDiaryId },
           auth.user.token
@@ -83,7 +82,7 @@ const NutritionDiary = () => {
                 },
                 auth.user.token
               );
-              setAddDiary((prevAddDiary) => [
+              await setAddDiary((prevAddDiary) => [
                 ...prevAddDiary,
                 {
                   id: responseOnceLunch.data.id,
@@ -105,13 +104,13 @@ const NutritionDiary = () => {
           );
         } else {
           if (nutritionDiaryId === "") {
-            setAddDiary([]);
+            setAddDiary(null);
           }
-          setAddDiary([]);
+          setAddDiary(null);
         }
       } catch (error) {
         console.error("Error fetching diary:", error);
-        setAddDiary([]); // Handle errors appropriately
+        setAddDiary(null); // Handle errors appropriately
       } finally {
         setLoading(false);
       }
@@ -121,11 +120,11 @@ const NutritionDiary = () => {
 
   useEffect(() => {
     setPractice([]);
+    if (nutritionDiaryId === "") {
+      return;
+    }
     // Xử lý hiển thị dữ liệu exercise
     const getPractice = async () => {
-      if (nutritionDiaryId === "") {
-        return;
-      }
       setLoading(true);
       try {
         const response = await getAllExercise(
@@ -206,6 +205,7 @@ const NutritionDiary = () => {
           </Text>
         </TouchableOpacity>
       </View>
+
       {loading === true ? (
         <Text>Loading...</Text>
       ) : (

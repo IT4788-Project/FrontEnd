@@ -19,9 +19,13 @@ import ImageUpload from "./ImageUpload";
 import { firebase } from "../../config/firebaseConfig";
 import * as FileSystem from "expo-file-system";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useAuth } from "../../contexts/authContext";
+import { createNewPost } from "../../utils/User/post/createNewPost";
 
 const ModalNewPost = (props) => {
+  const auth = useAuth();
   const [content, setContent] = React.useState("");
+  const [linkImages, setLinkImages] = React.useState([]); // list image uri [
   const [listImage, setListImage] = React.useState([]); // list image uri [
   const [image, setImage] = React.useState(null); // image uri
   const [loading, setLoading] = React.useState(false);
@@ -48,22 +52,44 @@ const ModalNewPost = (props) => {
     props.setIsVisible(false);
   };
 
-  const onPressUpload = () => {
+  const onPressUpload = async () => {
     if (image !== null) {
-      uploadListImage();
+      setLoading(true);
+      await uploadListImage();
+      await uploadContext();
+      setLoading(false);
     } else {
+      setLoading(true);
+      await uploadContext();
       props.setIsVisible(false);
       setListImage([]);
     }
     setContent("");
     setImage(null);
+    setLinkImages([]);
+    setListImage([]);
+  };
+
+  const uploadContext = async () => {
+    const data = {
+      content: content,
+      images: linkImages,
+      isPublic: true,
+    };
+    const response = await createNewPost(data, auth.user.token);
+    if (response.code === 201) {
+      console.log("Tạo bài viết thành công");
+    } else {
+      console.log("Thất bại");
+    }
   };
 
   const uploadListImage = async () => {
     // upload list image to firebase storage
     for (let index = 0; index < listImage.length; index++) {
       const uriImage = listImage[index];
-      await uploadMedia(uriImage);
+      const urlImage = await uploadMedia(uriImage);
+      linkImages.push(urlImage);
       if (index === listImage.length - 1) {
         setListImage([]);
       }
@@ -99,7 +125,6 @@ const ModalNewPost = (props) => {
 
       // Lấy URL của file sau khi tải lên thành công
       const downloadURL = await getDownloadURL(storageRef);
-      console.log("URL of uploaded file:", downloadURL);
 
       props.setIsVisible(false);
 

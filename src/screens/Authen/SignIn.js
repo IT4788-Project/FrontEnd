@@ -117,15 +117,6 @@ export const SignIn = ({navigation}) => {
             </TouchableOpacity>
           </View>
 
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity>
-              <Image source={require('../../../assets/IconGoogle.png')} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require('../../../assets/IconFacebook.png')} />
-            </TouchableOpacity>
-          </View>
-
           <View
             style={{
               flexDirection: 'row',
