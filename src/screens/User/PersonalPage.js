@@ -65,7 +65,6 @@ const PersonalPage = (props) => {
     };
     getPostMe();
   }, []);
-  console.log(follower.followers);
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>

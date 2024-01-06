@@ -18,6 +18,7 @@ import { comment } from "../../utils/User/post/comment";
 const ModalComment = (props) => {
   const auth = useAuth();
   const data = props.data;
+  console.log(data);
 
   const [valueInput, setValueInput] = React.useState("");
   const modalVisible = props.modalVisible;
@@ -29,14 +30,15 @@ const ModalComment = (props) => {
 
   const onPressComment = async () => {
     if (valueInput !== "") {
-      const data = {
+      const valueComment = {
         postId: data.id,
         comment: valueInput,
       };
-    }
-    const response = await comment(data, auth.user.token);
-    if (response.code === 200) {
-      props.data.comment.push(comment);
+      const response = await comment(valueComment, auth.user.token);
+      console.log(valueComment);
+      console.log(response);
+      if (response.code === 200) {
+      }
     }
   };
 
@@ -83,7 +85,7 @@ const ModalComment = (props) => {
                 value={valueInput}
                 onChangeText={(value) => setValueInput(value)}
               />
-              <TouchableOpacity>
+              <TouchableOpacity onPress={onPressComment}>
                 <Ionicons
                   name="send-sharp"
                   size={24}
