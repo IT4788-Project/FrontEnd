@@ -50,21 +50,9 @@ const InforMe = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       {inforUser ? (
-        <ScrollView style={{ height: height * 0.9 }}>
+        <ScrollView style={{ height: height * 0.92 }}>
           <View style={styles.header}>
-            <TouchableOpacity
-              style={{ position: "absolute", left: width * 0.05 }}
-              onPress={() => navigation.navigate("ManageMedal")}
-            >
-              <FontAwesome5
-                name="medal"
-                size={24}
-                color={COLORS.inforMe.textName}
-              />
-            </TouchableOpacity>
-
-            <Text style={styles.textName}>{inforUser.fullName}</Text>
-
+            <Text style={styles.textName}>{inforUser.fullName ? inforUser.fullName : "Tên người dùng"}</Text>
             <TouchableOpacity
               style={{ position: "absolute", right: width * 0.05 }}
               onPress={() => navigation.navigate("SettingInfor")}
@@ -80,7 +68,11 @@ const InforMe = ({ navigation }) => {
           <View style={styles.weightBox}>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
               <Text style={{ fontSize: 18, color: COLORS.inforMe.textName }}>
-                {`Cân nặng hiện tại: ${inforUser.currentWeight}kg`}
+                {`Cân nặng hiện tại: ${
+                  inforUser.currentWeight
+                    ? inforUser.currentWeight + "kg"
+                    : "Chưa có"
+                }`}
               </Text>
             </View>
 
@@ -102,12 +94,16 @@ const InforMe = ({ navigation }) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text
-                  style={styles.textWeight}
-                >{`Ban đầu: ${inforUser.initialWeight}kg`}</Text>
-                <Text
-                  style={styles.textWeight}
-                >{`Mục tiêu: ${inforUser.targetWeight}kg `}</Text>
+                <Text style={styles.textWeight}>{`Ban đầu: ${
+                  inforUser.initialWeight
+                    ? inforUser.initialWeight + "kg"
+                    : "Chưa có"
+                }`}</Text>
+                <Text style={styles.textWeight}>{`Mục tiêu: ${
+                  inforUser.targetWeight
+                    ? inforUser.targetWeight + "kg"
+                    : "Chưa có"
+                }`}</Text>
               </View>
             </View>
           </View>
@@ -115,19 +111,34 @@ const InforMe = ({ navigation }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
-            <Indicator title="Chiều cao" value={`${inforUser.height}cm`} />
+            <Indicator
+              title="Chiều cao"
+              value={`${
+                inforUser.height ? inforUser.height + "cm" : "Chưa có"
+              }`}
+            />
             <Indicator
               title="BMI"
-              value={parseFloat(
-                inforUser.currentWeight / (inforUser.height / 100) ** 2
-              ).toFixed(2)}
+              value={
+                inforUser.currentWeight && inforUser.height
+                  ? parseFloat(
+                      inforUser.currentWeight / (inforUser.height / 100) ** 2
+                    ).toFixed(2)
+                  : "Chưa có"
+              }
             />
           </View>
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
-            <Indicator title="Vòng 3" value={`${inforUser.hip}cm`} />
-            <Indicator title="Vòng 2" value={`${inforUser.waist}cm`} />
+            <Indicator
+              title="Vòng 3"
+              value={`${inforUser.hip ? inforUser.hip + "cm" : "Chưa có"}`}
+            />
+            <Indicator
+              title="Vòng 2"
+              value={`${inforUser.waist ? inforUser.waist + "cm" : "Chưa có"}`}
+            />
           </View>
 
           <View style={{ marginVertical: 20 }}>

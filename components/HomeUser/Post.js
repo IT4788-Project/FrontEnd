@@ -160,7 +160,6 @@ const Post = (props) => {
           data={data}
           modalVisible={isShowModalComment}
           setModalVisible={setIsShowModalComment}
-
         />
       </View>
 

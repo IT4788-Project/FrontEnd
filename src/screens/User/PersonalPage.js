@@ -114,9 +114,8 @@ const PersonalPage = (props) => {
                       borderColor: COLORS.white,
                     }}
                   />
-                  <Text style={styles.textUserName}>{inforMe.userName}</Text>
                 </TouchableOpacity>
-
+                <Text style={styles.textUserName}>{inforMe.userName}</Text>
                 <TouchableOpacity style={styles.follow}>
                   <Text
                     style={{

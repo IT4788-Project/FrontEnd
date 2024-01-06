@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   TextInput,
+  Image,
 } from "react-native";
 import React from "react";
 import { width, height } from "../../constants/DeviceSize";
@@ -14,11 +15,11 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../../contexts/authContext";
 import { comment } from "../../utils/User/post/comment";
+import { ScrollView } from "react-native-gesture-handler";
 
 const ModalComment = (props) => {
   const auth = useAuth();
   const data = props.data;
-  console.log(data);
 
   const [valueInput, setValueInput] = React.useState("");
   const modalVisible = props.modalVisible;
@@ -35,9 +36,8 @@ const ModalComment = (props) => {
         comment: valueInput,
       };
       const response = await comment(valueComment, auth.user.token);
-      console.log(valueComment);
-      console.log(response);
-      if (response.code === 200) {
+
+      if (response.code === 201) {
       }
     }
   };
@@ -68,9 +68,23 @@ const ModalComment = (props) => {
                 style={{ position: "absolute", right: 10 }}
                 onPress={hideModal}
               >
-                <AntDesign name="closecircleo" size={24} color={COLORS.black} />
+                <AntDesign
+                  name="closecircleo"
+                  size={24}
+                  color={COLORS.settingInforPerson.modal.border}
+                />
               </TouchableOpacity>
             </View>
+
+            <ScrollView>
+              {data.comments.map((item, index) => {
+                return (
+                  <View key={index}>
+                    <LineComment data={item} />
+                  </View>
+                );
+              })}
+            </ScrollView>
 
             <View
               style={{
@@ -101,6 +115,35 @@ const ModalComment = (props) => {
 };
 
 export default ModalComment;
+
+export const LineComment = (props) => {
+  const data = props.data;
+
+  const avatarUser =
+    data.user.images[0].image_path !== null
+      ? { uri: data.user.images[0].image_path }
+      : require("../../assets/AvatarBoy.jpg");
+  const nameUser = data.user.name ? data.user.name : "";
+  const comment = data.comment ? data.comment : "";
+
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.settingInforPerson.modal.border,
+        paddingVertical: 10,
+      }}
+    >
+      <Image source={avatarUser} style={styles.imageAvatar} />
+      <View>
+        <Text style={{ fontWeight: "500" }}>{nameUser}</Text>
+        <Text>{comment}</Text>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -148,5 +191,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 10,
     marginTop: 10,
+  },
+  imageAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    marginRight: 10,
   },
 });

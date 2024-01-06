@@ -58,7 +58,7 @@ const HomeUser = ({ navigation }) => {
       <AppBar title="BodyFast" search={true} />
 
       {/* NavBar height 0.08,  AppBar 0.08 */}
-      <ScrollView style={{ height: height * 0.81 }}>
+      <ScrollView style={{ height: height * 0.84 }}>
         <View
           style={{
             flexDirection: "row",
