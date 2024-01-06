@@ -17,14 +17,14 @@ export const react = async (data, token) => {
     */  
     try {
         const response = await reactPost(data, token)
-        switch (response.status) {
+        switch (response.statusCode) {
             case 401:
                 return { status: 'failed', message: 'Bạn không có quyền truy cập', code: 401 };
             default:
                 return response.error ? 
                 { status: 'failed', message: response.error, code: 500 }
                 :
-                { status: 'success', message: 'Thành công', code: 200, data: response };
+                { status: 'success', message: 'Thành công', code: 201, data: response };
         }
     } catch (e) {
         throw e
