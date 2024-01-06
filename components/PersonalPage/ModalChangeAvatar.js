@@ -21,8 +21,9 @@ import * as FileSystem from "expo-file-system";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "../../contexts/authContext";
 import { createNewPost } from "../../utils/User/post/createNewPost";
+import { updateUserImage } from "../../utils/User/userInfor/updateUserImage";
 
-const ModalNewPost = (props) => {
+const ModalChangeAvatar = (props) => {
   const auth = useAuth();
   const [content, setContent] = React.useState("");
   const [linkImages, setLinkImages] = React.useState([]); // list image uri [
@@ -34,15 +35,14 @@ const ModalNewPost = (props) => {
   );
 
   useEffect(() => {
-    if (content.length > 0 || loading === true) {
+    if (image || loading === true) {
       setUploadColor(COLORS.homeUser.newPost.uploadOn);
     } else {
       setUploadColor(COLORS.homeUser.newPost.uploadOff);
     }
 
     if (image !== null) {
-      setListImage([...listImage, image]);
-      setImage(null);
+      setListImage([image]);
     }
   }, [content, image]);
 
@@ -66,16 +66,12 @@ const ModalNewPost = (props) => {
 
   const uploadContext = async () => {
     const data = {
-      content: content,
-      images: linkImages,
-      isPublic: true,
+      image_path: linkImages[0],
     };
-    const response = await createNewPost(data, auth.user.token);
-    console.log(data, response);
-    if (response.code === 201) {
-      console.log("Tạo bài viết thành công");
-    } else {
-      console.log("Thất bại");
+    const response = await updateUserImage(data, auth.user.token);
+    if (response.code === 200) {
+        props.setAvatar({uri : linkImages[0]});
+        console.log("Update image successfully");
     }
   };
 
@@ -160,14 +156,14 @@ const ModalNewPost = (props) => {
             />
           </TouchableOpacity>
 
-          <Text style={styles.textAppBar}>Tạo bài viết</Text>
+          <Text style={styles.textAppBar}>Thay đổi ảnh đại diện</Text>
         </View>
 
         <View
           style={[styles.upload, { backgroundColor: uploadColor.background }]}
         >
           <TouchableOpacity
-            disabled={!(content.length > 0) || loading}
+            disabled={!image || loading}
             onPress={onPressUpload}
           >
             {loading === true ? (
@@ -180,40 +176,14 @@ const ModalNewPost = (props) => {
                   color: uploadColor.text,
                 }}
               >
-                Đăng
+                Cập nhật
               </Text>
             )}
           </TouchableOpacity>
         </View>
       </View>
-      {/**
-        Ảnh đại diện, tên người dùng, trạng thái công khai
-     */}
-      <View
-        style={{
-          flexDirection: "row",
-          marginHorizontal: 20,
-          marginVertical: 10,
-          alignItems: "center",
-        }}
-      >
-        <Image style={{ width: 50, height: 50, borderRadius: 30 }} />
-        <View>
-          <Text style={styles.nameUser}>{props.nameUser}</Text>
-          <View style={styles.state}>
-            <MaterialIcons name="public" size={12} color="black" />
-            <Text style={{ fontSize: 12, marginLeft: 5 }}>Công khai</Text>
-          </View>
-        </View>
-      </View>
-      <ScrollView>
-        <TextInput
-          multiline={true}
-          placeholder="Bạn đang nghĩ gì"
-          style={styles.inputContent}
-          onChangeText={(text) => setContent(text)}
-        />
 
+      <ScrollView>
         {listImage &&
           listImage.map((uri, index) => (
             <Image key={index} source={{ uri: uri }} style={styles.image} />
@@ -225,7 +195,7 @@ const ModalNewPost = (props) => {
   );
 };
 
-export default ModalNewPost;
+export default ModalChangeAvatar;
 
 const styles = StyleSheet.create({
   textAppBar: {

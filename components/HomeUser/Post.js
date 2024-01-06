@@ -7,7 +7,7 @@ import {
   TextInput,
   FlatList,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -16,34 +16,26 @@ import COLORS from "../../constants/Color";
 import { width, height } from "../../constants/DeviceSize";
 import ModalInforImage from "./ModalInforImage";
 import ModalInforPost from "./ModalInforPost";
+import ModalComment from "./ModalComment";
 
 const Post = (props) => {
+  const data = props.data;
   const [showFullContent, setShowFullContent] = React.useState(false);
   const [linkImage, setLinkImage] = React.useState(null);
   const [isShowModalInforImage, setIsShowModalInforImage] =
     React.useState(false);
   const [isShowModalInforPost, setIsShowModalInforPost] = React.useState(false);
+  const [isShowModalComment, setIsShowModalComment] = React.useState(false);
 
-  const longText = `at FlowParserMixin.jsxParseElementAt (C:\Users\PC\Documents\GitHub\IT4788_PTUDDNT_Project\FrontEnd\node_modules\@babel\parser\lib\index.js:6858:32)`;
+  const longText = data.content;
   const shortText = longText.slice(0, 60) + "...";
 
-  const link = [
-    {
-      id: 1,
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
-    },
-    {
-      id: 2,
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
-    },
-    {
-      id: 3,
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
-    },
-  ];
+  const link = data.images.map((item, index) => {
+    return {
+      id: index,
+      image: item.image_path,
+    };
+  });
 
   const onPressImage = () => {
     if (link.length === 1) {
@@ -81,10 +73,12 @@ const Post = (props) => {
           }}
         >
           <TouchableOpacity>
-            <Image
-              source={{ uri: link[0].image }}
-              style={{ width: 45, height: 45, borderRadius: 30 }}
-            />
+            <TouchableOpacity>
+              <Image
+                source={require("../../assets/AvatarBoy.jpg")}
+                style={{ width: 45, height: 45, borderRadius: 30 }}
+              />
+            </TouchableOpacity>
           </TouchableOpacity>
 
           <View>
@@ -127,17 +121,21 @@ const Post = (props) => {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={onPressImage}>
-                <Image
-                  source={{ uri: item.image }}
-                  style={{
-                    width: width / (link.length > 3 ? 3.2 : link.length),
-                    height: 250,
-                    marginHorizontal: 1,
-                    borderRadius: 10,
-                  }}
-                />
-              </TouchableOpacity>
+              <View>
+                {item.image === null ? null : (
+                  <TouchableOpacity onPress={onPressImage}>
+                    <Image
+                      source={{ uri: item.image }}
+                      style={{
+                        width: width / (link.length > 3 ? 3.2 : link.length),
+                        height: 250,
+                        marginHorizontal: 1,
+                        borderRadius: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
             );
           }}
           horizontal={true}
@@ -147,6 +145,7 @@ const Post = (props) => {
           isVisible={isShowModalInforImage}
           setIsVisible={setIsShowModalInforImage}
           linkImage={linkImage}
+          data={data}
         />
 
         <ModalInforPost
@@ -154,6 +153,14 @@ const Post = (props) => {
           isVisible={isShowModalInforPost}
           setIsVisible={setIsShowModalInforPost}
           listImage={link}
+          data={data}
+        />
+
+        <ModalComment
+          data={data}
+          modalVisible={isShowModalComment}
+          setModalVisible={setIsShowModalComment}
+
         />
       </View>
 
@@ -181,14 +188,16 @@ const Post = (props) => {
             <AntDesign name="like1" size={20} color={COLORS.white} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => setIsShowModalComment(true)}
+          >
             <FontAwesome name="commenting" size={20} color={COLORS.white} />
           </TouchableOpacity>
         </View>
 
-        <View style={{ flexDirection: "row" }}>
-          <Text>Hieu, Van và 3 người khác </Text>
-          <Image source={require("../../assets/IconLike.png")} />
+        <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
+          <Text>{`${data.countLike} lượt thích - ${data.countComment} bình luận`}</Text>
         </View>
       </View>
     </View>

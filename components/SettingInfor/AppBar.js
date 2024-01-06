@@ -19,9 +19,13 @@ const AppBar = (props) => {
         />
       </TouchableOpacity>
       <Text style={styles.text}>{props.namePage}</Text>
-      <TouchableOpacity onPress={props.updateInfor}>
-        <MaterialIcons name="update" size={24} color="black" />
-      </TouchableOpacity>
+      {props.update === true ? (
+        <TouchableOpacity onPress={props.updateInfor}>
+          <MaterialIcons name="update" size={24} color="black" />
+        </TouchableOpacity>
+      ) : (
+        <View />
+      )}
     </View>
   );
 };

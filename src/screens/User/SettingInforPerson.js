@@ -111,7 +111,7 @@ const SettingInforPerson = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppBar namePage="Thông tin cá nhân" updateInfor={updateInfor} />
+      <AppBar namePage="Thông tin cá nhân" updateInfor={updateInfor} update={true}/>
 
       {loading === true || inforUser === null ? null : (
         <ScrollView style={{ height: height * 0.84 }}>

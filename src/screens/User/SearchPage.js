@@ -22,6 +22,8 @@ import CategoryDish from "../../../components/SearchPage/CategoryDish";
 const SearchPage = () => {
   const category = ["Nguyên liệu", "Bài viết", "Món ăn"];
   const [selectedCategory, setSelectedCategory] = React.useState(null);
+  const [contentSearch, setContentSearch] = React.useState(null);
+  const [stateSearch, setStateSearch] = React.useState(false);
 
   return (
     <SafeAreaView>
@@ -33,7 +35,12 @@ const SearchPage = () => {
 
         <Text>Tìm kiếm thông tin giúp bữa ăn phù hợp</Text>
 
-        <Search placeholder="Nhập thông tin bạn muốn tìm kiếm" />
+        <Search
+          placeholder="Nhập thông tin bạn muốn tìm kiếm"
+          setContentSearch={setContentSearch}
+          setStateSearch={setStateSearch}
+          stateSearch={stateSearch}
+        />
 
         <View
           style={{
@@ -75,7 +82,11 @@ const SearchPage = () => {
             }}
             statusBarTranslucent={true}
           />
-          <TouchableOpacity style={styles.searchButton}>
+
+          <TouchableOpacity
+            style={styles.searchButton}
+            onPress={() => setStateSearch(!stateSearch)}
+          >
             <Text>Tìm kiếm</Text>
           </TouchableOpacity>
         </View>
@@ -83,7 +94,9 @@ const SearchPage = () => {
         {(selectedCategory === "Nguyên liệu" && (
           <CategoryIngredient data={dataIngredient} />
         )) ||
-          (selectedCategory === "Bài viết" && <CategoryPost />) ||
+          (selectedCategory === "Bài viết" && (
+            <CategoryPost contentSearch={contentSearch} />
+          )) ||
           (selectedCategory === "Món ăn" && <CategoryDish data={data} />)}
       </ScrollView>
     </SafeAreaView>

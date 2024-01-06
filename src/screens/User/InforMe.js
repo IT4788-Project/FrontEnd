@@ -9,130 +9,150 @@ import { LineChart } from "react-native-gifted-charts";
 import AnimatedProgressBar from "react-native-simple-animated-progress-bar";
 import { ScrollView } from "react-native-gesture-handler";
 import { FontAwesome5 } from "@expo/vector-icons";
+import moment from "moment";
 
-import { getInfor } from "../../../utils/User/personalInfors/getInfor";
-import { addInfor } from "../../../utils/User/personalInfors/addInfor";
-import { deleteInfor } from "../../../utils/User/personalInfors/deleteInfor";
-import { changeInfor } from "../../../utils/User/personalInfors/changeInfor";
 import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeightHistory";
-import { changeCurrentWeight } from "../../../utils/User/userWeight/changeCurrentWeight";
-import { getAllGoals } from "../../../utils/User/healthyGoals/getAllGoals";
-import { getOneGoal } from "../../../utils/User/healthyGoals/getOneGoal";
-import { addOneGoal } from "../../../utils/User/healthyGoals/addOneGoal";
-import { deleteOneGoal } from "../../../utils/User/healthyGoals/deleteOneGoal";
-import { updateOneGoal } from "../../../utils/User/healthyGoals/updateOneGoal";
-
-import { addFoodLunch } from "../../../utils/User/foodLunch/addFoodLunch";
-import { updateFoodLunch } from "../../../utils/User/foodLunch/updateFoodLunch";
-
-import {getNutrition} from "../../../utils/User/nutritionDiary/getNutrition";
-import { getAllDC } from "../../../utils/User/dishCategory/getAllDishCategory";
-
-import {useAuth} from "../../../contexts/authContext";
+import { getInfor } from "../../../utils/User/personalInfors/getInfor";
+import { useAuth } from "../../../contexts/authContext";
 
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
   const [inforUser, setInforUser] = useState(null);
   const [healthyGoals, setHealthyGoals] = useState(null);
-
-  const _data = [];
+  const [historyWeight, setHistoryWeight] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const token = auth.user.token;
-      const data = {
-        "time":"2023-12-28"
-    }
-      const res = await getAllDC(token);
-      console.log("test",res);
-      return res;
-    }
-    fetchData();
-  }, [])
+    const getHistoryWeight = async () => {
+      const response = await getUserWeightHistory(auth.user.token);
+      if (response.code === 200) {
+        setHistoryWeight(
+          response.data.map((item, index) => {
+            return {
+              value: item.currentWeight,
+              label: moment(item.createdAt).format("DD/MM"),
+              dataPointText: item.currentWeight,
+            };
+          })
+        );
+      }
+    };
+    getHistoryWeight();
+
+    const getInforUser = async () => {
+      const response = await getInfor(auth.user.token);
+      if (response.code === 200) {
+        setInforUser(response.data);
+      }
+    };
+    getInforUser();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ height: height * 0.92 }}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={{ position: "absolute", left: width * 0.05 }}
-            onPress={() => navigation.navigate("ManageMedal")}
-          >
-            <FontAwesome5
-              name="medal"
-              size={24}
-              color={COLORS.inforMe.textName}
-            />
-          </TouchableOpacity>
+      {inforUser ? (
+        <ScrollView style={{ height: height * 0.9 }}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              style={{ position: "absolute", left: width * 0.05 }}
+              onPress={() => navigation.navigate("ManageMedal")}
+            >
+              <FontAwesome5
+                name="medal"
+                size={24}
+                color={COLORS.inforMe.textName}
+              />
+            </TouchableOpacity>
 
-          <Text style={styles.textName}>{}</Text>
+            <Text style={styles.textName}>{inforUser.fullName}</Text>
 
-          <TouchableOpacity
-            style={{ position: "absolute", right: width * 0.05 }}
-            onPress={() => navigation.navigate("SettingInfor")}
-          >
-            <Fontisto
-              name="player-settings"
-              size={24}
-              color={COLORS.inforMe.textName}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.weightBox}>
-          <View style={{ flexDirection: "row", marginBottom: 20 }}>
-            <Text style={{ fontSize: 18, color: COLORS.inforMe.textName }}>
-              Cân nặng:{" "}
-            </Text>
-            <Text style={{ fontSize: 18 }}>{`${70}kg`}</Text>
+            <TouchableOpacity
+              style={{ position: "absolute", right: width * 0.05 }}
+              onPress={() => navigation.navigate("SettingInfor")}
+            >
+              <Fontisto
+                name="player-settings"
+                size={24}
+                color={COLORS.inforMe.textName}
+              />
+            </TouchableOpacity>
           </View>
 
-          <View style={{ width: width * 0.8 }}>
-            {/** Progress bar: https://reactnativeexample.com/react-native-simple-animated-progress-bar/ */}
-            <AnimatedProgressBar
-              size={8}
-              duration={500}
-              progress={(78 - 70) / (78 - 65.1)}
-              isRtl={false}
-            />
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text style={styles.textWeight}>Ban đầu: 78kg</Text>
-              <Text style={styles.textWeight}>Mục tiêu: 65.1kg</Text>
+          <View style={styles.weightBox}>
+            <View style={{ flexDirection: "row", marginBottom: 20 }}>
+              <Text style={{ fontSize: 18, color: COLORS.inforMe.textName }}>
+                {`Cân nặng hiện tại: ${inforUser.currentWeight}kg`}
+              </Text>
+            </View>
+
+            <View style={{ width: width * 0.8 }}>
+              {/** Progress bar: https://reactnativeexample.com/react-native-simple-animated-progress-bar/ */}
+              <AnimatedProgressBar
+                size={8}
+                duration={500}
+                progress={
+                  (inforUser.currentWeight - inforUser.initialWeight) /
+                  (inforUser.targetWeight - inforUser.initialWeight)
+                }
+                isRtl={false}
+                barWidth={width * 0.8}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text
+                  style={styles.textWeight}
+                >{`Ban đầu: ${inforUser.initialWeight}kg`}</Text>
+                <Text
+                  style={styles.textWeight}
+                >{`Mục tiêu: ${inforUser.targetWeight}kg `}</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <Indicator title="Tổng thời gian tập luyện" value={`${20}h`} />
-          <Indicator title="BMI" value="25.4" />
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <Indicator title="Vòng 3" value={`${20}cm`} />
-          <Indicator title="Vòng 2" value={`${20}cm`} />
-        </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Indicator title="Chiều cao" value={`${inforUser.height}cm`} />
+            <Indicator
+              title="BMI"
+              value={parseFloat(
+                inforUser.currentWeight / (inforUser.height / 100) ** 2
+              ).toFixed(2)}
+            />
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Indicator title="Vòng 3" value={`${inforUser.hip}cm`} />
+            <Indicator title="Vòng 2" value={`${inforUser.waist}cm`} />
+          </View>
 
-        <View style={{ marginVertical: 20 }}>
-          {/** Library :https://gifted-charts.web.app/galleryline */}
-          <LineChart
-            height={height * 0.5}
-            width={width * 0.9}
-            areaChart
-            data={_data}
-            startFillColor={COLORS.inforMe.chart.background}
-            endFillColor="rgb(203, 241, 250)"
-            focusEnabled
-            color={COLORS.inforMe.chart.background}
-            dataPointsColor1={COLORS.inforMe.chart.background}
-            textColor1={COLORS.inforMe.chart.textValue}
-            textShiftY={-10}
-            textFontSize1={12}
-            isAnimated={true}
-            animationDuration={1000}
-          />
-        </View>
-      </ScrollView>
+          <View style={{ marginVertical: 20 }}>
+            {/** Library :https://gifted-charts.web.app/galleryline */}
+            <LineChart
+              height={height * 0.5}
+              width={width * 0.9}
+              areaChart
+              data={historyWeight}
+              startFillColor={COLORS.inforMe.chart.background}
+              endFillColor="rgb(203, 241, 250)"
+              focusEnabled
+              color={COLORS.inforMe.chart.background}
+              dataPointsColor1={COLORS.inforMe.chart.background}
+              textColor1={COLORS.inforMe.chart.textValue}
+              textShiftY={-10}
+              textFontSize1={12}
+              isAnimated={true}
+              animationDuration={1000}
+            />
+          </View>
+        </ScrollView>
+      ) : (
+        <Text>Loading</Text>
+      )}
     </SafeAreaView>
   );
 };

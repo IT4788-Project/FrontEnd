@@ -11,7 +11,7 @@ const CategoryIngredient = (props) => {
       <Text>Nguyên liệu</Text>
 
       {data.map((item, index) => {
-        return <GredientInfor data={item} />;
+        return <GredientInfor data={item} key={index}/>;
       })}
     </View>
   );

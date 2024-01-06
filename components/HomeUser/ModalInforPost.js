@@ -18,6 +18,7 @@ import COLORS from '../../constants/Color';
 import ModalInforImage from './ModalInforImage';
 
 const ModalInforPost = props => {
+  const data = props.data;
   const [showFullContent, setShowFullContent] = React.useState (false);
   const isVisible = props.isVisible;
   const listImage = props.listImage;
@@ -25,7 +26,7 @@ const ModalInforPost = props => {
   const [linkImage, setLinkImage] = React.useState (null);
   const [isShowModalImage, setIsShowModalImage] = React.useState (false);
 
-  const longText = `at FlowParserMixin.jsxParseElementAt (C:\Users\PC\Documents\GitHub\IT4788_PTUDDNT_Project\FrontEnd\node_modules\@babel\parser\lib\index.js:6858:32)`;
+  const longText = data.content;
   const shortText = longText.slice (0, 60) + '...';
 
   const onPressImage = linkImage => {
@@ -40,7 +41,7 @@ const ModalInforPost = props => {
           alignItems: 'center',
           flexDirection: 'row',
           paddingHorizontal: 15,
-          marginBottom: 10,
+          marginVertical: 10,
         }}
       >
         <TouchableOpacity onPress={() => props.setIsVisible (false)}>
@@ -115,8 +116,7 @@ const ModalInforPost = props => {
           </View>
 
           <View style={{flexDirection: 'row'}}>
-            <Text>Hieu, Van và 3 người khác{' '}</Text>
-            <Image source={require ('../../assets/IconLike.png')} />
+            <Text>{`${data.countLike} lượt thích - ${data.countComment} bình luận`}</Text>
           </View>
         </View>
 

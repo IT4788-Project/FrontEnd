@@ -38,7 +38,6 @@ export const SignIn = ({navigation}) => {
         const res = await auth._signIn(email, password);
         switch (res.status) {
           case 'success':
-            Alert.alert('Đăng nhập thành công', res.message);
             break;
           case 'failed':
             Alert.alert('Đăng nhập thất bại', res.message);

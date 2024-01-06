@@ -6,8 +6,6 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  FlatList,
-  Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import AppBar from "../../../components/HomeUser/AppBar";
@@ -19,7 +17,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useAuth } from "../../../contexts/authContext";
 import { getAllPost } from "../../../utils/User/post/getAllPost";
-import { getInfor } from "../../../utils/User/personalInfors/getInfor";
+import { getDisplayInfor } from "../../../utils/User/userInfor/getDisplayInfor";
 
 const HomeUser = ({ navigation }) => {
   const auth = useAuth();
@@ -38,7 +36,6 @@ const HomeUser = ({ navigation }) => {
   useEffect(() => {
     const getAllPostUser = async () => {
       const response = await getAllPost(auth.user.token);
-      console.log(response.data)
       if (response.code === 200) {
         setAllPost(response.data);
       } else {
@@ -46,6 +43,14 @@ const HomeUser = ({ navigation }) => {
       }
     };
     getAllPostUser();
+
+    const getInforUser = async () => {
+      const response = await getDisplayInfor(auth.user.token);
+      if (response.code === 200) {
+        setInforUser(response.data);
+      }
+    };
+    getInforUser();
   }, []);
 
   return (
@@ -53,7 +58,7 @@ const HomeUser = ({ navigation }) => {
       <AppBar title="BodyFast" search={true} />
 
       {/* NavBar height 0.08,  AppBar 0.08 */}
-      <ScrollView style={{ height: height * 0.84 }}>
+      <ScrollView style={{ height: height * 0.81 }}>
         <View
           style={{
             flexDirection: "row",
@@ -63,9 +68,11 @@ const HomeUser = ({ navigation }) => {
         >
           <TouchableOpacity style={styles.newPostImage} onPress={onPressAvatar}>
             <Image
-              source={{
-                uri: "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/515c4063-5da3-4eee-92a1-505a6cd0b4ff.jpeg?alt=media&token=0ef6d5f0-ee91-4b61-995c-b050585990c5",
-              }}
+              source={
+                inforUser?.image
+                  ? { uri: inforUser?.image }
+                  : require("../../../assets/AvartarGirl.jpg")
+              }
               style={{ width: 45, height: 45, borderRadius: 30 }}
             />
           </TouchableOpacity>
@@ -78,10 +85,9 @@ const HomeUser = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <Post nameUser="Lê Minh Hiếu" />
-        <Post nameUser="Lê Minh Hiếu" />
-        <Post nameUser="Lê Minh Hiếu" />
-        <Post nameUser="Lê Minh Hiếu" />
+        {allPost.map((item, index) => {
+          return <Post key={index} data={item} />;
+        })}
       </ScrollView>
 
       <ModalNewPost
