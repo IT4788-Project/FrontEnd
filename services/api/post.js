@@ -65,9 +65,9 @@ export const reactPost = async (data, token) => {
 }
 
 export const commentPost = async (data, token) => {
-    const targetId = data.targetId
+    const postId = data.postId
     try {
-        const response = await fetchData(`api/posts/comment/${targetId}`, {
+        const response = await fetchData(`api/posts/comment/${postId}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
