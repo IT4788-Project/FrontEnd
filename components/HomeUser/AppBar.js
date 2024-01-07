@@ -8,6 +8,11 @@ const AppBar = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
+      {props.search ? (
+        <TouchableOpacity onPress={() => props.setReload(!props.reload)}>
+          <Ionicons name="reload-circle" size={34} color={COLORS.homeUser.appBar.search} />
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };
