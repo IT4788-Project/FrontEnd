@@ -1,6 +1,6 @@
 import { reactPost } from "../../../services/api/post";
 
-export const react = async (data, token) => {
+export const reactToAPost = async (data, token) => {
     /*
     Usage: thả tim vào bài viết
 

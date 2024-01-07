@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Alert,
 } from "react-native";
 import React, { useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -19,8 +20,44 @@ import ModalInforPost from "./ModalInforPost";
 import ModalComment from "./ModalComment";
 import ModalReportSavePost from "./ModalReportSavePost";
 
+import { reactToAPost } from "../../utils/User/post/reactToAPost";
+
+import { useAuth } from "../../contexts/authContext";
+
+// process data to display proper icon
+function checkIfLiked(like_posts, userId) {
+  for (let i = 0; i < like_posts.length; i++) {
+    if (like_posts[i].userId == userId) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const Post = (props) => {
+  // implement data preparation for display reaction state
+  const auth = useAuth(); // for userId
+  const [isLike, setIsLike] = React.useState(false); // false is best
+  useEffect(() => {
+    setIsLike(checkIfLiked(props.data.like_posts, auth.user.userId));
+  }, [])
+
+  const handleLike = async () => {
+    setIsLike(!isLike);
+    isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);
+    await reactToAPost({ postId: props.data.id }, auth.user.token)
+    .then((res) => {
+      if (res.status === 'failed') {
+        setIsLike(!isLike);
+        Alert.alert('Thông báo', res.message);
+      }
+      console.log(res);
+    })
+  }
+  
   const data = props.data;
+  const [likeCount, setLikeCount] = React.useState(data.countLike);
+  const [commentCount, setCommentCount] = React.useState(data.countComment);
   const [showFullContent, setShowFullContent] = React.useState(false);
   const [linkImage, setLinkImage] = React.useState(null);
   const [isShowModalInforImage, setIsShowModalInforImage] =
@@ -202,20 +239,23 @@ const Post = (props) => {
         }}
       >
         <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-          <TouchableOpacity style={styles.icon}>
-            <AntDesign name="like1" size={20} color={COLORS.white} />
+          <TouchableOpacity 
+          style={styles.icon}
+          onPress={handleLike}
+          >
+            <AntDesign name={ isLike ? "like1" : "like2" } size={20} color={ isLike ? "#1877F2" : "black"}/>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.icon}
             onPress={() => setIsShowModalComment(true)}
           >
-            <FontAwesome name="commenting" size={20} color={COLORS.white} />
+            <FontAwesome name="commenting" size={20} color={COLORS.black}/>
           </TouchableOpacity>
         </View>
 
         <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-          <Text>{`${data.countLike} lượt thích - ${data.countComment} bình luận`}</Text>
+          <Text>{`${likeCount} lượt thích - ${commentCount} bình luận`}</Text>
         </View>
       </View>
     </View>
@@ -246,7 +286,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
-    backgroundColor: COLORS.homeUser.post.like.on,
     marginHorizontal: 5,
+    borderColor: "black",
+    borderWidth: 1,
+    backgroundColor: "white",
   },
 });
