@@ -189,8 +189,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.settingInforPerson.modal.border,
     borderWidth: 1,
     borderRadius: 25,
-    padding: 10,
-    marginTop: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
   },
   imageAvatar: {
     width: 40,

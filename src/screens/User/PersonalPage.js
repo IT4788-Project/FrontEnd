@@ -24,7 +24,6 @@ import { useNavigation } from "@react-navigation/native";
 const PersonalPage = (props) => {
   const auth = useAuth();
   const navigation = useNavigation();
-  const [isVisibleCoverImage, setIsVisibleCoverImage] = React.useState(false);
   const [isVisibleAvatar, setIsVisibleAvatar] = React.useState(false);
   const [isVisibleChangeAvatar, setIsVisibleChangeAvatar] =
     React.useState(false);
@@ -36,8 +35,16 @@ const PersonalPage = (props) => {
     require("../../../assets/AvartarGirl.jpg")
   );
 
-  const imageCover =
-    "https://firebasestorage.googleapis.com/v0/b/imagestore-f373f.appspot.com/o/deba0baf-1ebc-4373-baea-0a4ce1bf3713.jpeg?alt=media&token=21b26da7-ee9d-4378-8a91-2e461d46d8f3";
+  const imageCover = () => {
+    const dataCoverImage = [
+      require("../../../assets/CoverImage/z5047650486241_9a2bd18f1dc3ffafd735f0217f133de6.jpg"),
+      require("../../../assets/CoverImage/z5047650487153_a78c5be99d2e15ee4588d0be37904a03.jpg"),
+      require("../../../assets/CoverImage/z5047650501160_fcdbdfb1ace791a201cecad40e22746d.jpg"),
+      require("../../../assets/CoverImage/z5047650502438_210a92310c6fe205dedea4e3a49b9c59.jpg"),
+      require("../../../assets/CoverImage/z5047651515582_c7263dd61151290a9de42d0542061aa1.jpg"),
+    ];
+    return dataCoverImage[Math.floor(Math.random() * dataCoverImage.length)];
+  };
 
   useEffect(() => {
     const dataInforMe = async () => {
@@ -98,9 +105,9 @@ const PersonalPage = (props) => {
           {/* NavBar 0.08, AppBar 0.05 */}
           <ScrollView style={{ height: height * 0.87 }}>
             <View style={{ height: height * 0.5 }}>
-              <TouchableOpacity onPress={() => setIsVisibleCoverImage(true)}>
-                <Image source={{ uri: imageCover }} style={styles.coverImage} />
-              </TouchableOpacity>
+              <View>
+                <Image source={imageCover()} style={styles.coverImage} />
+              </View>
 
               <View style={styles.avatar}>
                 <TouchableOpacity onPress={() => setIsVisibleAvatar(true)}>
@@ -110,7 +117,7 @@ const PersonalPage = (props) => {
                       width: height * 0.2,
                       height: height * 0.2,
                       borderRadius: 100,
-                      borderWidth: 5,
+                      borderWidth: 3,
                       borderColor: COLORS.white,
                     }}
                   />
@@ -164,18 +171,17 @@ const PersonalPage = (props) => {
             <View style={styles.body}>
               {postMe !== null
                 ? postMe.map((item, index) => (
-                    <Post key={index} data={item} nameUser={inforMe.userName} />
+                    <Post
+                      key={index}
+                      data={item}
+                      nameUser={inforMe.userName}
+                      avatar={inforMe.image}
+                      delete={true}
+                    />
                   ))
                 : null}
             </View>
           </ScrollView>
-
-          <ModalInforImage
-            title="Ảnh bìa"
-            isVisible={isVisibleCoverImage}
-            linkImage={imageCover}
-            setIsVisible={setIsVisibleCoverImage}
-          />
 
           <ModalInforImage
             title="Ảnh đại diện"

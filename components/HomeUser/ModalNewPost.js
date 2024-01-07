@@ -71,7 +71,6 @@ const ModalNewPost = (props) => {
       isPublic: true,
     };
     const response = await createNewPost(data, auth.user.token);
-    console.log(data, response);
     if (response.code === 201) {
       console.log("Tạo bài viết thành công");
     } else {
@@ -80,7 +79,6 @@ const ModalNewPost = (props) => {
   };
 
   const uploadListImage = async () => {
-    console.log(listImage);
     // upload list image to firebase storage
     for (let index = 0; index < listImage.length; index++) {
       const uriImage = listImage[index];

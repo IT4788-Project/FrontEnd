@@ -17,6 +17,7 @@ import { width, height } from "../../constants/DeviceSize";
 import ModalInforImage from "./ModalInforImage";
 import ModalInforPost from "./ModalInforPost";
 import ModalComment from "./ModalComment";
+import ModalReportSavePost from "./ModalReportSavePost";
 
 const Post = (props) => {
   const data = props.data;
@@ -26,9 +27,22 @@ const Post = (props) => {
     React.useState(false);
   const [isShowModalInforPost, setIsShowModalInforPost] = React.useState(false);
   const [isShowModalComment, setIsShowModalComment] = React.useState(false);
+  const [isShowModalReport, setIsShowModalReport] = React.useState(false);
 
   const longText = data.content;
   const shortText = longText.slice(0, 60) + "...";
+
+  const avatarUserPost =
+    props.prevScreen === "HomeUser"
+      ? data.user.images[0].image_path
+        ? { uri: data.user.images[0].image_path }
+        : require("../../assets/AvatarBoy.jpg")
+      : props.avatar
+      ? { uri: props.avatar }
+      : require("../../assets/AvatarBoy.jpg");
+  const nameUserPost = (props.prevScreen = "HomeUser"
+    ? data.user.name
+    : props.nameUser);
 
   const link = data.images.map((item, index) => {
     return {
@@ -73,17 +87,15 @@ const Post = (props) => {
           }}
         >
           <TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={require("../../assets/AvatarBoy.jpg")}
-                style={{ width: 45, height: 45, borderRadius: 30 }}
-              />
-            </TouchableOpacity>
+            <Image
+              source={avatarUserPost}
+              style={{ width: 45, height: 45, borderRadius: 30 }}
+            />
           </TouchableOpacity>
 
           <View>
             <TouchableOpacity>
-              <Text style={styles.nameUser}>{props.nameUser}</Text>
+              <Text style={styles.nameUser}>{nameUserPost}</Text>
             </TouchableOpacity>
             <View style={styles.state}>
               <MaterialIcons name="public" size={12} color="black" />
@@ -92,7 +104,7 @@ const Post = (props) => {
           </View>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIsShowModalReport(true)}>
           <Entypo name="dots-three-horizontal" size={24} color="black" />
         </TouchableOpacity>
       </TouchableOpacity>
@@ -144,22 +156,29 @@ const Post = (props) => {
         <ModalInforImage
           isVisible={isShowModalInforImage}
           setIsVisible={setIsShowModalInforImage}
-          linkImage={linkImage}
+          linkImage={{ uri: linkImage }}
           data={data}
         />
 
         <ModalInforPost
-          nameUser="Lê Minh Hiếu"
+          nameUser={nameUserPost}
           isVisible={isShowModalInforPost}
           setIsVisible={setIsShowModalInforPost}
           listImage={link}
           data={data}
+          avatarUserPost={avatarUserPost}
         />
 
         <ModalComment
           data={data}
           modalVisible={isShowModalComment}
           setModalVisible={setIsShowModalComment}
+        />
+
+        <ModalReportSavePost
+          modalVisible={isShowModalReport}
+          setModalVisible={setIsShowModalReport}
+          delete={props.delete}
         />
       </View>
 

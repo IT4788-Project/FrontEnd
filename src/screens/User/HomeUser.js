@@ -86,8 +86,10 @@ const HomeUser = ({ navigation }) => {
         </View>
 
         {allPost.map((item, index) => {
-          return <Post key={index} data={item} />;
+          return <Post key={index} data={item} prevScreen="HomeUser"/>;
         })}
+
+        <View style={{ height: 10 }} />
       </ScrollView>
 
       <ModalNewPost

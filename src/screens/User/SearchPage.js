@@ -33,8 +33,6 @@ const SearchPage = () => {
           style={styles.coverImage}
         />
 
-        <Text>Tìm kiếm thông tin giúp bữa ăn phù hợp</Text>
-
         <Search
           placeholder="Nhập thông tin bạn muốn tìm kiếm"
           setContentSearch={setContentSearch}
