@@ -14,34 +14,49 @@ import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeig
 import { getInfor } from "../../../utils/User/personalInfors/getInfor";
 import { useAuth } from "../../../contexts/authContext";
 
-const InforMe = ({ navigation }) => {
+
+
+const InforMe = ({ route, navigation }) => {
   const auth = useAuth();
   const [inforUser, setInforUser] = useState({});
   const [historyWeight, setHistoryWeight] = useState([]);
 
+  // copy paste
+  async function handleScreenARerender() {
+    console.log("rerender");
+    // thay bang ham reset data
+    await getHistoryWeight();
+    await getInforUser();
+  }
   useEffect(() => {
-    const getHistoryWeight = async () => {
-      const response = await getUserWeightHistory(auth.user.token);
-      if (response.code === 200) {
-        setHistoryWeight(
-          response.data.map((item, index) => {
-            return {
-              value: item.currentWeight,
-              label: moment(item.createdAt).format("DD/MM"),
-              dataPointText: item.currentWeight,
-            };
-          })
-        );
-      }
-    };
-    getHistoryWeight();
+    const unsubscribe = navigation.addListener('focus', handleScreenARerender);
+    return unsubscribe;
+  }, []);
+  // end solution
 
-    const getInforUser = async () => {
-      const response = await getInfor(auth.user.token);
-      if (response.code === 200) {
-        setInforUser(response.data);
-      }
-    };
+  const getHistoryWeight = async () => {
+    const response = await getUserWeightHistory(auth.user.token);
+    if (response.code === 200) {
+      setHistoryWeight(
+        response.data.map((item, index) => {
+          return {
+            value: item.currentWeight,
+            label: moment(item.createdAt).format("DD/MM"),
+            dataPointText: item.currentWeight,
+          };
+        })
+      );
+    }
+  };
+  const getInforUser = async () => {
+    const response = await getInfor(auth.user.token);
+    if (response.code === 200) {
+      setInforUser(response.data);
+    }
+  };
+
+  useEffect(() => {
+    getHistoryWeight();
     getInforUser();
   }, []);
 
@@ -95,7 +110,7 @@ const InforMe = ({ navigation }) => {
                   isRtl={false}
                   barWidth={width * 0.8}
                 />
-                }
+            }
 
             <View
               style={{

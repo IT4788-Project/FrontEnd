@@ -10,7 +10,8 @@ const ButtonNavigation = (props) => {
 
   const onPressButton = () => {
     if (props.nextScreen === true) {
-      navigation.navigate(props.nameNextScreen);
+      // solution ben B
+      navigation.navigate(props.nameNextScreen, { forceRerender: Date.now() });
     } else if (props.modal === true) {
       props.setModalVisible(true);
       props.setCategoryValue(props.title, props.keyboardType);
