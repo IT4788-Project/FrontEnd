@@ -16,8 +16,8 @@ import { useAuth } from "../../../contexts/authContext";
 
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
-  const [inforUser, setInforUser] = useState(null);
-  const [historyWeight, setHistoryWeight] = useState(null);
+  const [inforUser, setInforUser] = useState({});
+  const [historyWeight, setHistoryWeight] = useState([]);
 
   useEffect(() => {
     const getHistoryWeight = async () => {
@@ -47,102 +47,107 @@ const InforMe = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {inforUser ? (
-        <ScrollView style={{ height: height * 0.92 }}>
-          <View style={styles.header}>
-            <Text style={styles.textName}>
-              {inforUser.fullName ? inforUser.fullName : "Tên người dùng"}
-            </Text>
-            <TouchableOpacity
-              style={{ position: "absolute", right: width * 0.05 }}
-              onPress={() => navigation.navigate("SettingInfor")}
-            >
-              <Fontisto
-                name="player-settings"
-                size={24}
-                color={COLORS.inforMe.textName}
-              />
-            </TouchableOpacity>
-          </View>
+      <ScrollView style={{ height: height * 0.92 }}>
+        <View style={styles.header}>
+          <Text style={styles.textName}>
+            {inforUser.fullName ? inforUser.fullName : "Tên người dùng"}
+          </Text>
+          <TouchableOpacity
+            style={{ position: "absolute", right: width * 0.05 }}
+            onPress={() => navigation.navigate("SettingInfor")}
+          >
+            <Fontisto
+              name="player-settings"
+              size={24}
+              color={COLORS.inforMe.textName}
+            />
+          </TouchableOpacity>
+        </View>
 
-          <View style={styles.weightBox}>
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
-              <Text style={{ fontSize: 18, color: COLORS.inforMe.textName }}>
-                {`Cân nặng hiện tại: ${
-                  inforUser.currentWeight
-                    ? inforUser.currentWeight + "kg"
-                    : "Chưa có"
+        <View style={styles.weightBox}>
+          <View style={{ flexDirection: "row", marginBottom: 20 }}>
+            <Text style={{ fontSize: 18, color: COLORS.inforMe.textName }}>
+              {`Cân nặng hiện tại: ${inforUser.currentWeight
+                ? inforUser.currentWeight + "kg"
+                : "Chưa có"
                 }`}
-              </Text>
-            </View>
+            </Text>
+          </View>
 
-            <View style={{ width: width * 0.8 }}>
-              {/** Progress bar: https://reactnativeexample.com/react-native-simple-animated-progress-bar/ */}
-              <AnimatedProgressBar
-                size={8}
-                duration={500}
-                progress={
-                  (inforUser.currentWeight - inforUser.initialWeight) /
-                  (inforUser.targetWeight - inforUser.initialWeight)
+          <View style={{ width: width * 0.8 }}>
+            {
+              inforUser.currentWeight && inforUser.initialWeight && inforUser.targetWeight ?
+                <AnimatedProgressBar
+                  size={8}
+                  duration={500}
+                  progress={
+                    (inforUser.currentWeight - inforUser.initialWeight) /
+                    (inforUser.targetWeight - inforUser.initialWeight)
+                  }
+                  isRtl={false}
+                  barWidth={width * 0.8}
+                />
+                :
+                <AnimatedProgressBar
+                  size={8}
+                  duration={500}
+                  progress={0}
+                  isRtl={false}
+                  barWidth={width * 0.8}
+                />
                 }
-                isRtl={false}
-                barWidth={width * 0.8}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.textWeight}>{`Ban đầu: ${
-                  inforUser.initialWeight
-                    ? inforUser.initialWeight + "kg"
-                    : "Chưa có"
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text style={styles.textWeight}>{`Ban đầu: ${inforUser.initialWeight
+                ? inforUser.initialWeight + "kg"
+                : "Chưa có"
                 }`}</Text>
-                <Text style={styles.textWeight}>{`Mục tiêu: ${
-                  inforUser.targetWeight
-                    ? inforUser.targetWeight + "kg"
-                    : "Chưa có"
+              <Text style={styles.textWeight}>{`Mục tiêu: ${inforUser.targetWeight
+                ? inforUser.targetWeight + "kg"
+                : "Chưa có"
                 }`}</Text>
-              </View>
             </View>
           </View>
+        </View>
 
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
-            <Indicator
-              title="Chiều cao"
-              value={`${
-                inforUser.height ? inforUser.height + "cm" : "Chưa có"
+        <View
+          style={{ flexDirection: "row", justifyContent: "space-around" }}
+        >
+          <Indicator
+            title="Chiều cao"
+            value={`${inforUser.height ? inforUser.height + "cm" : "Chưa có"
               }`}
-            />
-            <Indicator
-              title="BMI"
-              value={
-                inforUser.currentWeight && inforUser.height
-                  ? parseFloat(
-                      inforUser.currentWeight / (inforUser.height / 100) ** 2
-                    ).toFixed(2)
-                  : "Chưa có"
-              }
-            />
-          </View>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
-            <Indicator
-              title="Vòng 3"
-              value={`${inforUser.hip ? inforUser.hip + "cm" : "Chưa có"}`}
-            />
-            <Indicator
-              title="Vòng 2"
-              value={`${inforUser.waist ? inforUser.waist + "cm" : "Chưa có"}`}
-            />
-          </View>
-
+          />
+          <Indicator
+            title="BMI"
+            value={
+              inforUser.currentWeight && inforUser.height
+                ? parseFloat(
+                  inforUser.currentWeight / (inforUser.height / 100) ** 2
+                ).toFixed(2)
+                : "Chưa có"
+            }
+          />
+        </View>
+        <View
+          style={{ flexDirection: "row", justifyContent: "space-around" }}
+        >
+          <Indicator
+            title="Vòng 3"
+            value={`${inforUser.hip ? inforUser.hip + "cm" : "Chưa có"}`}
+          />
+          <Indicator
+            title="Vòng 2"
+            value={`${inforUser.waist ? inforUser.waist + "cm" : "Chưa có"}`}
+          />
+        </View>
+        {inforUser ? (
           <View style={{ marginVertical: 20 }}>
-            {/** Library :https://gifted-charts.web.app/galleryline */}
             <LineChart
               height={height * 0.5}
               width={width * 0.9}
@@ -160,10 +165,10 @@ const InforMe = ({ navigation }) => {
               animationDuration={1000}
             />
           </View>
-        </ScrollView>
-      ) : (
-        <Text>Loading</Text>
-      )}
+        ) : (
+          <Text>Loading</Text>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 };
