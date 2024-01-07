@@ -5,7 +5,7 @@ export const findUserById = async (data, token) => {
     Usage: tìm kiếm thông tin của user theo userId
 
     Params: data = {
-        userId: string
+        userId: number
     }
     token: string
 
