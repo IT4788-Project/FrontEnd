@@ -47,6 +47,30 @@ const TagDish = [
   "Bánh trôi",
   "Bánh chưng",
   "Bánh dày",
+  "Trứng luộc",
+  "Trứng cuộn",
+  "Trứng rán",
+  "Trứng hấp",
+  "Trứng chiên bơ",
+  "Trứng hủ tiếu",
+  "Salad trứng",
+  "Trứng cút luộc",
+  "Trứng cút xào nấm",
+  "Xôi trứng",
+  "Thịt luộc",
+  "Thịt nướng",
+  "Thịt xào",
+  "Thịt hầm",
+  "Thịt kho",
+  "Thịt bò tái chanh",
+  "Thịt heo quay",
+  "Thịt gà nướng",
+  "Thịt ốc xào me",
+
+  
+  
+
+  
   // Thêm các tags khác tương tự ở đây
 ];
 
