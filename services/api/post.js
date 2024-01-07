@@ -160,4 +160,18 @@ export const getPostMe = async (token) => {
     }
 }
 
-
+export const deletePost = async (data, token) => {
+    const postId = data.postId
+    try {
+        const response = await fetchData(`api/posts/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        return response;
+    } catch (e) {
+        throw e;
+    }
+}
