@@ -15,7 +15,7 @@ import { addExercise } from "../../utils/User/exercise/addExercise";
 import moment from "moment";
 import { updateExercise } from "../../utils/User/exercise/updateExercise";
 
-const NewPractice = (props) => {
+const NewPractice = (props) => { 
   const auth = useAuth();
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
@@ -75,6 +75,7 @@ const NewPractice = (props) => {
         newPractice,
       ]);
     } else {
+      console.log(responseAdd)
       console.log("Thêm thất bại");
     }
   };

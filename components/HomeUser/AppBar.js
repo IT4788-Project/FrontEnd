@@ -1,30 +1,20 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
-import COLORS from '../../constants/Color';
-import {Ionicons} from '@expo/vector-icons';
-import { height } from '../../constants/DeviceSize';
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React from "react";
+import COLORS from "../../constants/Color";
+import { Ionicons } from "@expo/vector-icons";
+import { height } from "../../constants/DeviceSize";
 
-const AppBar = props => {
+const AppBar = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
-      {props.search === true
-        ? <TouchableOpacity>
-            <Ionicons
-              name="ios-search-circle-sharp"
-              size={34}
-              color={COLORS.homeUser.appBar.search}
-            />
-          </TouchableOpacity>
-        : null}
-
     </View>
   );
 };
 
 export default AppBar;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     height: height * 0.08,
     marginHorizontal: 30,
@@ -32,14 +22,14 @@ const styles = StyleSheet.create ({
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.homeUser.appBar.line,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   title: {
     fontSize: 36,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: COLORS.homeUser.appBar.title,
-    fontFamily: 'Roboto',
+    fontFamily: "Roboto",
   },
 });

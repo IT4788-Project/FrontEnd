@@ -18,6 +18,7 @@ import { addOneLunch } from "../../utils/User/lunch/addOneLunch";
 import moment from "moment";
 import { updateFoodLunch } from "../../utils/User/foodLunch/updateFoodLunch";
 import { updateOneLunch } from "../../utils/User/lunch/updateOneLunch";
+import { addNutrition } from "../../utils/User/nutritionDiary/addNutrition";
 
 const Line = (props) => {
   const onChangeText = (text) => {
@@ -129,6 +130,21 @@ const NewNutritionDiary = (props) => {
     setLoading(false);
   }, []);
 
+  const addNutritionToday = async () => {
+    // Thêm nutritionDiaryId vào database
+    if (props.stateToday === false) {
+      const responseNew = await addNutrition(
+        { time: props.todayDate },
+        auth.user.token
+      );
+      if (responseNew.status === "success") {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  }
+
   const addDish = async () => {
     // Lấy nutritionDiaryId từ database
     const response = await getNutrition(
@@ -145,6 +161,7 @@ const NewNutritionDiary = (props) => {
         timeLunch: time,
         name: meal,
       };
+      console.log(data);
       const responseNewLunch = await addOneLunch(data, auth.user.token);
       if (responseNewLunch.status !== "success") {
         return;
@@ -226,6 +243,11 @@ const NewNutritionDiary = (props) => {
       await changeDiary();
       props.setIsVisible(false);
     } else {
+      const state = await addNutritionToday();
+      if (state === 0 && props.stateToday === false) {
+        alert("Lỗi thêm nutrition không thành công ");
+        return;
+      }
       await addDish();
       props.setStateAddDiary(false);
     }

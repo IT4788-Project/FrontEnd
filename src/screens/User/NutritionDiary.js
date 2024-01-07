@@ -26,7 +26,7 @@ const NutritionDiary = () => {
   const [stateNotification, setStateNotification] = useState(false);
   const [stateSevenDay, setStateSevenDay] = useState([]);
 
-  const [category, setCategory] = useState("Ăn uống");
+  const [category, setCategory] = useState("Luyện tập");
 
   const [addDiary, setAddDiary] = useState([]);
   const [stateAddDiary, setStateAddDiary] = useState(false);
@@ -36,6 +36,7 @@ const NutritionDiary = () => {
 
   useEffect(() => {
     setLoading(true);
+    setCategory("Luyện tập");
     // Xử lý hiển thị nút chấm đỏ
     const sevenDayArray = [];
     const getDiary = async () => {
@@ -179,19 +180,6 @@ const NutritionDiary = () => {
       />
 
       <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-        <TouchableOpacity onPress={() => setCategory("Ăn uống")}>
-          <Text
-            style={[
-              styles.textCategory,
-              category === "Ăn uống"
-                ? { fontWeight: "bold", color: "blue" }
-                : null,
-            ]}
-          >
-            Ăn uống
-          </Text>
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => setCategory("Luyện tập")}>
           <Text
             style={[
@@ -202,6 +190,19 @@ const NutritionDiary = () => {
             ]}
           >
             Tập luyện
+          </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => setCategory("Ăn uống")}>
+          <Text
+            style={[
+              styles.textCategory,
+              category === "Ăn uống"
+                ? { fontWeight: "bold", color: "blue" }
+                : null,
+            ]}
+          >
+            Ăn uống
           </Text>
         </TouchableOpacity>
       </View>
