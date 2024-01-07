@@ -21,12 +21,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import ModalChangeAvatar from "../../../components/PersonalPage/ModalChangeAvatar";
 import { useNavigation } from "@react-navigation/native";
 
-const PersonalPage = (props) => {
+const PersonalPageById = (props) => {
   const auth = useAuth();
   const navigation = useNavigation();
+  const [data, setData] = React.useState(props.route.params.data);
+
   const [isVisibleAvatar, setIsVisibleAvatar] = React.useState(false);
-  const [isVisibleChangeAvatar, setIsVisibleChangeAvatar] =
-    React.useState(false);
 
   const [inforMe, setInforMe] = React.useState(null);
   const [follower, setFollower] = React.useState(null);
@@ -34,7 +34,6 @@ const PersonalPage = (props) => {
   const [avatar, setAvatar] = React.useState(
     require("../../../assets/AvatarGirl.jpg")
   );
-  console.log(postMe)
 
   const imageCover = () => {
     const dataCoverImage = [
@@ -48,32 +47,19 @@ const PersonalPage = (props) => {
   };
 
   useEffect(() => {
-    const dataInforMe = async () => {
-      const response = await getDisplayInfor(auth.user.token);
-      if (response.code === 200) {
-        setInforMe(response.data);
-        setAvatar({ uri: response.data.image });
-      }
-    };
-    dataInforMe();
+    setPostMe(data.post);
+    setFollower({
+      followers: data.user.followers,
+      followings: data.user.followings,
+    });
+    setInforMe({
+      image: data.user.images[0].image_path,
+      userName: data.user.name,
+      userId: data.user.id,
+    });
+    setAvatar({ uri: data.user.images[0].image_path });
+  }, [data]);
 
-    const getDataFollower = async () => {
-      const response = await getFollower(auth.user.token);
-      if (response.code === 200) {
-        setFollower(response.data);
-      }
-    };
-    getDataFollower();
-
-    const getPostMe = async () => {
-      const response = await getMyPost(auth.user.token);
-      if (response.code === 200) {
-        setPostMe(response.data);
-      }
-    };
-    getPostMe();
-  }, []);
-  
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>
       {inforMe === null ? null : (
@@ -94,13 +80,6 @@ const PersonalPage = (props) => {
                 Trang cá nhân
               </Text>
             </View>
-            <TouchableOpacity onPress={() => setIsVisibleChangeAvatar(true)}>
-              <MaterialIcons
-                name="published-with-changes"
-                size={24}
-                color="black"
-              />
-            </TouchableOpacity>
           </View>
 
           {/* NavBar 0.08, AppBar 0.05 */}
@@ -186,7 +165,6 @@ const PersonalPage = (props) => {
                       data={item}
                       nameUser={inforMe.userName}
                       avatar={inforMe.image}
-                      delete={true}
                     />
                   ))
                 : null}
@@ -201,18 +179,11 @@ const PersonalPage = (props) => {
           />
         </View>
       )}
-
-      <ModalChangeAvatar
-        isVisible={isVisibleChangeAvatar}
-        setIsVisible={setIsVisibleChangeAvatar}
-        changeAvatar={true}
-        setAvatar={setAvatar}
-      />
     </SafeAreaView>
   );
 };
 
-export default PersonalPage;
+export default PersonalPageById;
 
 const styles = StyleSheet.create({
   coverImage: {

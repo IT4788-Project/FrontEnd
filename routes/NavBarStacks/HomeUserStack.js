@@ -4,6 +4,7 @@ import HomeUser from "../../src/screens/User/HomeUser";
 import PersonalPage from "../../src/screens/User/PersonalPage";
 import { NavigationContainer } from "@react-navigation/native";
 import SeeAllFollow from "../../src/screens/User/SeeAllFollow";
+import PersonalPageById from "../../src/screens/User/PersonalPageById";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,11 @@ export const HomeUserStack = () => {
         <Stack.Screen
           name="SeeAllFollow"
           component={SeeAllFollow}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PersonalPageById"
+          component={PersonalPageById}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -77,7 +77,7 @@ const Post = (props) => {
       : props.avatar
       ? { uri: props.avatar }
       : require("../../assets/AvatarBoy.jpg");
-  const nameUserPost = (props.prevScreen = "HomeUser"
+  const nameUserPost = (props.prevScreen === "HomeUser"
     ? data.user.name
     : props.nameUser);
 

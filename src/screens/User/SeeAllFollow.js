@@ -37,18 +37,22 @@ const SeeAllFollow = (props) => {
         </TouchableOpacity>
         <View style={{ width: "80%", alignItems: "center" }}>
           <Text style={{ fontSize: 18, fontWeight: "500" }}>
-            Nguyễn Việt Anh
+            {props.route.params.userName}
           </Text>
         </View>
       </View>
+      <ScrollView>
+        <Text
+          style={styles.text}
+        >{`Có ${props.route.params.follower.followers.length} người theo dõi `}</Text>
 
-      <Text style={styles.text}>30 người theo dõi</Text>
-
-      <PersonFollow />
-      <PersonFollow />
-      <PersonFollow />
-      <PersonFollow />
-      <PersonFollow />
+        <Text
+          style={styles.text}
+        >{`Đang theo dõi ${props.route.params.follower.followings.length} người`}</Text>
+        {props.route.params.follower.followings.map((item, index) => {
+          return <PersonFollow idPerson={item} key={index} />;
+        })}
+      </ScrollView>
     </SafeAreaView>
   );
 };

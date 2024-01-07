@@ -71,7 +71,7 @@ const HomeUser = ({ navigation }) => {
               source={
                 inforUser?.image
                   ? { uri: inforUser?.image }
-                  : require("../../../assets/AvartarGirl.jpg")
+                  : require("../../../assets/AvatarGirl.jpg")
               }
               style={{ width: 45, height: 45, borderRadius: 30 }}
             />
