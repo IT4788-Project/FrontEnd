@@ -103,56 +103,56 @@ export default DishCategory = [
     {
       "id": 9,
       "nameDish": "Thịt nướng",
-      "linkImage": require("../assets/Dish/21.jpg"),
+      "linkImage": require("../assets/Dish/21.png"),
       "dish_description": "Thịt nướng là một món ăn phổ biến, thơm ngon và dễ chuẩn bị. Thịt được ướp gia vị như tiêu, ớt, tỏi, và nước mắm để tăng thêm hương vị. Sau đó, thịt được nướng chín vàng trên lửa than hoặc lửa than hồng. Món thịt nướng thường được phục vụ cùng với các loại sốt như sốt mắc khén hoặc nước mắm pha chua ngọt. Với hương vị đặc trưng và vị ngon, thịt nướng là một lựa chọn ưa thích trong các bữa tiệc và những buổi sum họp gia đình.",
       "tags": ["Thịt lợn", "Rau", "Nước mắm"]
     },
     {
       "id": 10,
       "nameDish": "Trứng Rán",
-      "linkImage": require("../assets/Dish/22.jpg"),
+      "linkImage": require("../assets/Dish/22.png"),
       "dish_description": "Trứng rán là một món ăn nhanh gọn, dễ chế biến và phổ biến trên khắp thế giới. Trứng được đánh nhẹ, sau đó rán chín vàng trên chảo với dầu ăn nóng. Món trứng rán thường được ăn kèm với gia vị như tiêu, muối và có thể thêm các loại rau sống hoặc sốt để tăng thêm hương vị. Thịt trứng mềm và bên ngoài giòn tạo nên một trải nghiệm ăn uống đơn giản nhưng thơm ngon.",
       "tags": ["Trứng", "Nước mắm", "Dầu ăn"]
     },
     {
       "id": 11,
       "nameDish": "Thịt chưng mắm tép",
-      "linkImage": require("../assets/Dish/23.jpg"),
+      "linkImage": require("../assets/Dish/23.png"),
       "dish_description": "Thịt chưng mắm tép là một món ăn ngon và độc đáo, kết hợp giữa vị thịt ngon và hương mắm đặc trưng. Thịt được chưng nhuyễn, sau đó được ướp gia vị như mắm tép, tỏi, tiêu, và đường. Sau khi ướp, thịt được chảo nhanh để giữ độ giòn và mùi mắm thơm nồng. Món thịt chưng mắm tép thường được ăn kèm với rau sống, bánh tráng cuốn hoặc bún để tạo nên một bữa ăn độc đáo và ngon miệng.",
       "tags": ["Thịt lợn", "Mắm tép", "Nước mắm"]
     },
     {
       "id": 12,
       "nameDish": "Thịt rang giềng",
-      "linkImage": require("../assets/Dish/24.jpg"),
+      "linkImage": require("../assets/Dish/24.png"),
       "dish_description": "Thịt rang giềng là một món ăn truyền thống, có hương vị độc đáo và thơm ngon. Thịt được cắt thành từng sợi mảnh và sau đó được rang chín với gia vị như tiêu, muối, tỏi, và ớt. Quá trình rang giềng giúp thịt trở nên giòn, thơm ngon và có màu sắc hấp dẫn. Món thịt rang giềng thường được ăn kèm với cơm trắng hoặc bánh mì, tạo nên một bữa ăn nhẹ nhàng và ngon miệng.",
       "tags": ["Thịt lợn", "Giềng", "Nước mắm"]
     },
     {
       "id": 13,
       "nameDish": "Bò Hầm",
-      "linkImage": require("../assets/Dish/25.jpg"),
+      "linkImage": require("../assets/Dish/25.png"),
       "dish_description": "Bò hầm là một món ăn truyền thống, thơm ngon và bổ dưỡng. Thịt bò được cắt thành từng miếng vừa và ướp gia vị như nước mắm, đường, tiêu, gừng, và tỏi. Sau đó, thịt được hầm chín mềm trong nước dùng có thêm các loại thảo mộc như ngũ vị hương và lá lốt. Món bò hầm thường được ăn kèm với cơm trắng, bánh mì hoặc bánh mì nướng, tạo nên một bữa ăn trọn vẹn với hương vị đậm đà và thơm ngon.",
       "tags": ["Thịt bò", "Nước mắm"]
     },
     {
       "id": 14,
       "nameDish": "Thịt Trâu Xào",
-      "linkImage": require("../assets/Dish/26.jpg"),
+      "linkImage": require("../assets/Dish/26.png"),
       "dish_description": "Thịt trâu xào là một món ăn đặc sắc, thường được chuẩn bị trong các bữa tiệc và dịp đặc biệt. Thịt trâu được cắt thành từng sợi mảnh và sau đó xào chín với nước mắm, tiêu, tỏi, và gia vị khác. Món ăn có hương vị đặc trưng, thơm ngon và thường được ăn kèm với các loại rau sống như rau sống, xà lách hoặc cần tây. Thịt trâu xào thường được ăn cùng với cơm trắng, tạo nên một bữa ăn ngon miệng và đầy dinh dưỡng.",
       "tags": ["Thịt trâu", "Hành lá", "Muối", "Nước mắm"]
     },
     {
       "id": 15,
       "nameDish": "Ba Chỉ Nướng",
-      "linkImage": require("../assets/Dish/27.jpg"),
+      "linkImage": require("../assets/Dish/27.png"),
       "dish_description": "Ba chỉ nướng là một món thịt ngon miệng và phổ biến, thường được chế biến trong các buổi tiệc ngoại ô hoặc những cuộc họp gia đình. Ba chỉ được ướp gia vị như tiêu, muối, tỏi, và nước mắm, sau đó được nướng chín vàng trên lửa than hoặc lò nướng. Món ăn có vị thịt thơm ngon, giòn mềm, và thường được ăn kèm với các loại sốt như sốt mắc khén hoặc sốt nước mắm pha chua ngọt. Ba chỉ nướng là một lựa chọn ưa thích cho những người yêu thích thịt và hương vị đậm đà.",
       "tags": ["Thịt ba chỉ", "Nước mắm", "Mắm tôm"]
     },
     {
       "id": 16,
       "nameDish": "Xương Hầm Bí",
-      "linkImage": require("../assets/Dish/28.jpg"),
+      "linkImage": require("../assets/Dish/28.png"),
       "dish_description": "Xương hầm bí là một món ăn truyền thống, thơm ngon và bổ dưỡng. Xương được hầm chín mềm trong nước dùng có sự thêm gia vị từ bí ngô, gừng, tỏi và các loại thảo mộc. Món ăn có hương vị đậm đà của xương, ngọt của bí ngô và thơm của gia vị. Xương hầm bí thường được ăn kèm với cơm trắng hoặc bánh mì nướng, tạo nên một bữa ăn ấm cúng và ngon miệng, phù hợp cho mùa đông hoặc những dịp gia đình sum họp.",
       "tags": ["Xương", "Muối", "Bí"]
     },
@@ -243,56 +243,56 @@ export default DishCategory = [
     {
       "id": 11,
       "nameDish": "Thịt nướng",
-      "linkImage": require("../assets/Dish/21.jpg"),
+      "linkImage": require("../assets/Dish/21.png"),
       "dish_description": "Thịt nướng là một món ăn phổ biến, thơm ngon và dễ chuẩn bị. Thịt được ướp gia vị như tiêu, ớt, tỏi, và nước mắm để tăng thêm hương vị. Sau đó, thịt được nướng chín vàng trên lửa than hoặc lửa than hồng. Món thịt nướng thường được phục vụ cùng với các loại sốt như sốt mắc khén hoặc nước mắm pha chua ngọt. Với hương vị đặc trưng và vị ngon, thịt nướng là một lựa chọn ưa thích trong các bữa tiệc và những buổi sum họp gia đình.",
       "tags": ["Thịt lợn", "Rau", "Nước mắm"]
     },
     {
       "id": 12,
       "nameDish": "Trứng Rán",
-      "linkImage": require("../assets/Dish/22.jpg"),
+      "linkImage": require("../assets/Dish/22.png"),
       "dish_description": "Trứng rán là một món ăn nhanh gọn, dễ chế biến và phổ biến trên khắp thế giới. Trứng được đánh nhẹ, sau đó rán chín vàng trên chảo với dầu ăn nóng. Món trứng rán thường được ăn kèm với gia vị như tiêu, muối và có thể thêm các loại rau sống hoặc sốt để tăng thêm hương vị. Thịt trứng mềm và bên ngoài giòn tạo nên một trải nghiệm ăn uống đơn giản nhưng thơm ngon.",
       "tags": ["Trứng", "Nước mắm", "Dầu ăn"]
     },
     {
       "id": 13,
       "nameDish": "Thịt chưng mắm tép",
-      "linkImage": require("../assets/Dish/23.jpg"),
+      "linkImage": require("../assets/Dish/23.png"),
       "dish_description": "Thịt chưng mắm tép là một món ăn ngon và độc đáo, kết hợp giữa vị thịt ngon và hương mắm đặc trưng. Thịt được chưng nhuyễn, sau đó được ướp gia vị như mắm tép, tỏi, tiêu, và đường. Sau khi ướp, thịt được chảo nhanh để giữ độ giòn và mùi mắm thơm nồng. Món thịt chưng mắm tép thường được ăn kèm với rau sống, bánh tráng cuốn hoặc bún để tạo nên một bữa ăn độc đáo và ngon miệng.",
       "tags": ["Thịt lợn", "Mắm tép", "Nước mắm"]
     },
     {
       "id": 14,
       "nameDish": "Thịt rang giềng",
-      "linkImage": require("../assets/Dish/24.jpg"),
+      "linkImage": require("../assets/Dish/24.png"),
       "dish_description": "Thịt rang giềng là một món ăn truyền thống, có hương vị độc đáo và thơm ngon. Thịt được cắt thành từng sợi mảnh và sau đó được rang chín với gia vị như tiêu, muối, tỏi, và ớt. Quá trình rang giềng giúp thịt trở nên giòn, thơm ngon và có màu sắc hấp dẫn. Món thịt rang giềng thường được ăn kèm với cơm trắng hoặc bánh mì, tạo nên một bữa ăn nhẹ nhàng và ngon miệng.",
       "tags": ["Thịt lợn", "Giềng", "Nước mắm"]
     },
     {
       "id": 15,
       "nameDish": "Bò Hầm",
-      "linkImage": require("../assets/Dish/25.jpg"),
+      "linkImage": require("../assets/Dish/25.png"),
       "dish_description": "Bò hầm là một món ăn truyền thống, thơm ngon và bổ dưỡng. Thịt bò được cắt thành từng miếng vừa và ướp gia vị như nước mắm, đường, tiêu, gừng, và tỏi. Sau đó, thịt được hầm chín mềm trong nước dùng có thêm các loại thảo mộc như ngũ vị hương và lá lốt. Món bò hầm thường được ăn kèm với cơm trắng, bánh mì hoặc bánh mì nướng, tạo nên một bữa ăn trọn vẹn với hương vị đậm đà và thơm ngon.",
       "tags": ["Thịt bò", "Nước mắm"]
     },
     {
       "id": 16,
       "nameDish": "Thịt Trâu Xào",
-      "linkImage": require("../assets/Dish/26.jpg"),
+      "linkImage": require("../assets/Dish/26.png"),
       "dish_description": "Thịt trâu xào là một món ăn đặc sắc, thường được chuẩn bị trong các bữa tiệc và dịp đặc biệt. Thịt trâu được cắt thành từng sợi mảnh và sau đó xào chín với nước mắm, tiêu, tỏi, và gia vị khác. Món ăn có hương vị đặc trưng, thơm ngon và thường được ăn kèm với các loại rau sống như rau sống, xà lách hoặc cần tây. Thịt trâu xào thường được ăn cùng với cơm trắng, tạo nên một bữa ăn ngon miệng và đầy dinh dưỡng.",
       "tags": ["Thịt trâu", "Hành lá", "Muối", "Nước mắm"]
     },
     {
       "id": 17,
       "nameDish": "Ba Chỉ Nướng",
-      "linkImage": require("../assets/Dish/27.jpg"),
+      "linkImage": require("../assets/Dish/27.png"),
       "dish_description": "Ba chỉ nướng là một món thịt ngon miệng và phổ biến, thường được chế biến trong các buổi tiệc ngoại ô hoặc những cuộc họp gia đình. Ba chỉ được ướp gia vị như tiêu, muối, tỏi, và nước mắm, sau đó được nướng chín vàng trên lửa than hoặc lò nướng. Món ăn có vị thịt thơm ngon, giòn mềm, và thường được ăn kèm với các loại sốt như sốt mắc khén hoặc sốt nước mắm pha chua ngọt. Ba chỉ nướng là một lựa chọn ưa thích cho những người yêu thích thịt và hương vị đậm đà.",
       "tags": ["Thịt ba chỉ", "Nước mắm", "Mắm tôm"]
     },
     {
       "id": 18,
       "nameDish": "Xương Hầm Bí",
-      "linkImage": require("../assets/Dish/28.jpg"),
+      "linkImage": require("../assets/Dish/28.png"),
       "dish_description": "Xương hầm bí là một món ăn truyền thống, thơm ngon và bổ dưỡng. Xương được hầm chín mềm trong nước dùng có sự thêm gia vị từ bí ngô, gừng, tỏi và các loại thảo mộc. Món ăn có hương vị đậm đà của xương, ngọt của bí ngô và thơm của gia vị. Xương hầm bí thường được ăn kèm với cơm trắng hoặc bánh mì nướng, tạo nên một bữa ăn ấm cúng và ngon miệng, phù hợp cho mùa đông hoặc những dịp gia đình sum họp.",
       "tags": ["Xương", "Muối", "Bí"]
     },
@@ -374,49 +374,49 @@ export default DishCategory = [
     {
       "id": 10,
       "nameDish": "Thịt nướng",
-      "linkImage": require("../assets/Dish/21.jpg"),
+      "linkImage": require("../assets/Dish/21.png"),
       "dish_description": "Thịt nướng là một món ăn phổ biến, thơm ngon và dễ chuẩn bị. Thịt được ướp gia vị như tiêu, ớt, tỏi, và nước mắm để tăng thêm hương vị. Sau đó, thịt được nướng chín vàng trên lửa than hoặc lửa than hồng. Món thịt nướng thường được phục vụ cùng với các loại sốt như sốt mắc khén hoặc nước mắm pha chua ngọt. Với hương vị đặc trưng và vị ngon, thịt nướng là một lựa chọn ưa thích trong các bữa tiệc và những buổi sum họp gia đình.",
       "tags": ["Thịt lợn", "Rau", "Nước mắm"]
     },
     {
       "id": 11,
       "nameDish": "Trứng Rán",
-      "linkImage": require("../assets/Dish/22.jpg"),
+      "linkImage": require("../assets/Dish/22.png"),
       "dish_description": "Trứng rán là một món ăn nhanh gọn, dễ chế biến và phổ biến trên khắp thế giới. Trứng được đánh nhẹ, sau đó rán chín vàng trên chảo với dầu ăn nóng. Món trứng rán thường được ăn kèm với gia vị như tiêu, muối và có thể thêm các loại rau sống hoặc sốt để tăng thêm hương vị. Thịt trứng mềm và bên ngoài giòn tạo nên một trải nghiệm ăn uống đơn giản nhưng thơm ngon.",
       "tags": ["Trứng", "Nước mắm", "Dầu ăn"]
     },
     {
       "id": 12,
       "nameDish": "Thịt chưng mắm tép",
-      "linkImage": require("../assets/Dish/23.jpg"),
+      "linkImage": require("../assets/Dish/23.png"),
       "dish_description": "Thịt chưng mắm tép là một món ăn ngon và độc đáo, kết hợp giữa vị thịt ngon và hương mắm đặc trưng. Thịt được chưng nhuyễn, sau đó được ướp gia vị như mắm tép, tỏi, tiêu, và đường. Sau khi ướp, thịt được chảo nhanh để giữ độ giòn và mùi mắm thơm nồng. Món thịt chưng mắm tép thường được ăn kèm với rau sống, bánh tráng cuốn hoặc bún để tạo nên một bữa ăn độc đáo và ngon miệng.",
       "tags": ["Thịt lợn", "Mắm tép", "Nước mắm"]
     },
     {
       "id": 13,
       "nameDish": "Thịt rang giềng",
-      "linkImage": require("../assets/Dish/24.jpg"),
+      "linkImage": require("../assets/Dish/24.png"),
       "dish_description": "Thịt rang giềng là một món ăn truyền thống, có hương vị độc đáo và thơm ngon. Thịt được cắt thành từng sợi mảnh và sau đó được rang chín với gia vị như tiêu, muối, tỏi, và ớt. Quá trình rang giềng giúp thịt trở nên giòn, thơm ngon và có màu sắc hấp dẫn. Món thịt rang giềng thường được ăn kèm với cơm trắng hoặc bánh mì, tạo nên một bữa ăn nhẹ nhàng và ngon miệng.",
       "tags": ["Thịt lợn", "Giềng", "Nước mắm"]
     },
     {
       "id": 14,
       "nameDish": "Bò Hầm",
-      "linkImage": require("../assets/Dish/25.jpg"),
+      "linkImage": require("../assets/Dish/25.png"),
       "dish_description": "Bò hầm là một món ăn truyền thống, thơm ngon và bổ dưỡng. Thịt bò được cắt thành từng miếng vừa và ướp gia vị như nước mắm, đường, tiêu, gừng, và tỏi. Sau đó, thịt được hầm chín mềm trong nước dùng có thêm các loại thảo mộc như ngũ vị hương và lá lốt. Món bò hầm thường được ăn kèm với cơm trắng, bánh mì hoặc bánh mì nướng, tạo nên một bữa ăn trọn vẹn với hương vị đậm đà và thơm ngon.",
       "tags": ["Thịt bò", "Nước mắm"]
     },
     {
       "id": 15,
       "nameDish": "Thịt Trâu Xào",
-      "linkImage": require("../assets/Dish/26.jpg"),
+      "linkImage": require("../assets/Dish/26.png"),
       "dish_description": "Thịt trâu xào là một món ăn đặc sắc, thường được chuẩn bị trong các bữa tiệc và dịp đặc biệt. Thịt trâu được cắt thành từng sợi mảnh và sau đó xào chín với nước mắm, tiêu, tỏi, và gia vị khác. Món ăn có hương vị đặc trưng, thơm ngon và thường được ăn kèm với các loại rau sống như rau sống, xà lách hoặc cần tây. Thịt trâu xào thường được ăn cùng với cơm trắng, tạo nên một bữa ăn ngon miệng và đầy dinh dưỡng.",
       "tags": ["Thịt trâu", "Hành lá", "Muối", "Nước mắm"]
     },
     {
       "id": 16,
       "nameDish": "Ba Chỉ Nướng",
-      "linkImage": require("../assets/Dish/27.jpg"),
+      "linkImage": require("../assets/Dish/27.png"),
       "dish_description": "Ba chỉ nướng là một món thịt ngon miệng và phổ biến, thường được chế biến trong các buổi tiệc ngoại ô hoặc những cuộc họp gia đình. Ba chỉ được ướp gia vị như tiêu, muối, tỏi, và nước mắm, sau đó được nướng chín vàng trên lửa than hoặc lò nướng. Món ăn có vị thịt thơm ngon, giòn mềm, và thường được ăn kèm với các loại sốt như sốt mắc khén hoặc sốt nước mắm pha chua ngọt. Ba chỉ nướng là một lựa chọn ưa thích cho những người yêu thích thịt và hương vị đậm đà.",
       "tags": ["Thịt ba chỉ", "Nước mắm", "Mắm tôm"]
     },
@@ -465,35 +465,35 @@ export default DishCategory = [
     {
       "id": 6,
       "nameDish": "Xương Hầm Bí",
-      "linkImage": require("../assets/Dish/28.jpg"),
+      "linkImage": require("../assets/Dish/28.png"),
       "dish_description": "Xương hầm bí là một món ăn truyền thống, thơm ngon và bổ dưỡng. Xương được hầm chín mềm trong nước dùng có sự thêm gia vị từ bí ngô, gừng, tỏi và các loại thảo mộc. Món ăn có hương vị đậm đà của xương, ngọt của bí ngô và thơm của gia vị. Xương hầm bí thường được ăn kèm với cơm trắng hoặc bánh mì nướng, tạo nên một bữa ăn ấm cúng và ngon miệng, phù hợp cho mùa đông hoặc những dịp gia đình sum họp.",
       "tags": ["Xương", "Muối", "Bí"]
     },
     {
       "id": 7,
       "nameDish": "Dưa Hấu",
-      "linkImage": require("../assets/Dish/29.jpg"),
+      "linkImage": require("../assets/Dish/29.png"),
       "dish_description": "Dưa hấu là một loại trái cây mát lạnh, thơm ngon và rất phổ biến trong mùa hè. Dưa hấu thường được cắt thành từng lát hoặc viên nhỏ để dễ ăn. Trái dưa hấu có vị ngọt, giữ nước và có chất chua nhẹ, tạo cảm giác mát lạnh rất thích hợp để giải nhiệt trong những ngày nắng nóng. Dưa hấu cũng có thể được ăn kèm với muối hoặc các loại gia vị khác để tăng thêm hương vị.",
       "tags": ["Dưa Hấu", "Muối" ]
     },
     {
       "id": 8,
       "nameDish": "Sữa Chua Hoa Quả",
-      "linkImage": require("../assets/Dish/30.jpg"),
+      "linkImage": require("../assets/Dish/30.png"),
       "dish_description": "Sữa chua hoa quả là một món tráng miệng tuyệt vời, kết hợp giữa hương vị chua dịu của sữa chua và độ ngọt của hoa quả tươi. Sữa chua được pha chua ngọt, sau đó được kết hợp với các loại hoa quả như dâu, nho, kiwi, và dưa hấu. Món ăn không chỉ ngon miệng mà còn rất tốt cho sức khỏe vì cung cấp các dưỡng chất từ sữa chua và hoa quả. Sữa chua hoa quả thường được ăn trong những bữa ăn nhẹ hoặc làm món tráng miệng sau các bữa chính.",
       "tags": ["Sữa chua", "Hoa quả", "Sữa đặc"]
     },
     {
       "id": 9,
       "nameDish": "Thạch Hoa Quả",
-      "linkImage": require("../assets/Dish/31.jpg"),
+      "linkImage": require("../assets/Dish/31.png"),
       "dish_description": "Thạch hoa quả là một món tráng miệng mát lạnh và ngon miệng, thường được ưa chuộng trong các buổi tiệc và ngày hè nóng bức. Thạch được làm từ nước cốt dừa, đường, và gelatin, sau đó được pha chế với các loại trái cây như dứa, dưa lưới, lựu, và dưa hấu. Món ăn có vị ngọt, mát và hấp dẫn, đặc biệt là khi thạch được đặt trong tủ lạnh trước khi ăn. Thạch hoa quả là lựa chọn tuyệt vời cho những người thích thưởng thức đồ ngọt và tinh tế.",
       "tags": ["Thạch", "Hoa Quả" ]
     },
     {
       "id": 10,
       "nameDish": "Sinh Số Bơ",
-      "linkImage": require("../assets/Dish/33.jpg"),
+      "linkImage": require("../assets/Dish/32.png"),
       "dish_description": "Sinh số bơ là một món tráng miệng ngon miệng và bổ dưỡng, sử dụng chủ yếu từ trái cây bơ. Bơ được bổ sung đường, đậu phộng, sữa đặc và một chút đậu xanh để tạo nên một hỗn hợp mềm mại, béo ngậy. Món ăn thường được làm thành hình viên nhỏ và trang trí bằng những viên đậu phộng hoặc hạt giống dưa hấu. Sinh số bơ thường là một lựa chọn hấp dẫn cho những người muốn thưởng thức một món tráng miệng tinh tế và giàu dinh dưỡng.",
       "tags": ["Sữa chua", "Bơ", "Sữa đặc"]
     }
@@ -536,28 +536,28 @@ export default DishCategory = [
     {
       "id": 5,
       "nameDish": "Dưa Hấu",
-      "linkImage": require("../assets/Dish/29.jpg"),
+      "linkImage": require("../assets/Dish/29.png"),
       "dish_description": "Dưa hấu là một loại trái cây mát lạnh, thơm ngon và rất phổ biến trong mùa hè. Dưa hấu thường được cắt thành từng lát hoặc viên nhỏ để dễ ăn. Trái dưa hấu có vị ngọt, giữ nước và có chất chua nhẹ, tạo cảm giác mát lạnh rất thích hợp để giải nhiệt trong những ngày nắng nóng. Dưa hấu cũng có thể được ăn kèm với muối hoặc các loại gia vị khác để tăng thêm hương vị.",
       "tags": ["Dưa Hấu", "Muối" ]
     },
     {
       "id": 6,
       "nameDish": "Sữa Chua Hoa Quả",
-      "linkImage": require("../assets/Dish/30.jpg"),
+      "linkImage": require("../assets/Dish/30.png"),
       "dish_description": "Sữa chua hoa quả là một món tráng miệng tuyệt vời, kết hợp giữa hương vị chua dịu của sữa chua và độ ngọt của hoa quả tươi. Sữa chua được pha chua ngọt, sau đó được kết hợp với các loại hoa quả như dâu, nho, kiwi, và dưa hấu. Món ăn không chỉ ngon miệng mà còn rất tốt cho sức khỏe vì cung cấp các dưỡng chất từ sữa chua và hoa quả. Sữa chua hoa quả thường được ăn trong những bữa ăn nhẹ hoặc làm món tráng miệng sau các bữa chính.",
       "tags": ["Sữa chua", "Hoa quả", "Sữa đặc"]
     },
     {
       "id": 7,
       "nameDish": "Thạch Hoa Quả",
-      "linkImage": require("../assets/Dish/31.jpg"),
+      "linkImage": require("../assets/Dish/31.png"),
       "dish_description": "Thạch hoa quả là một món tráng miệng mát lạnh và ngon miệng, thường được ưa chuộng trong các buổi tiệc và ngày hè nóng bức. Thạch được làm từ nước cốt dừa, đường, và gelatin, sau đó được pha chế với các loại trái cây như dứa, dưa lưới, lựu, và dưa hấu. Món ăn có vị ngọt, mát và hấp dẫn, đặc biệt là khi thạch được đặt trong tủ lạnh trước khi ăn. Thạch hoa quả là lựa chọn tuyệt vời cho những người thích thưởng thức đồ ngọt và tinh tế.",
       "tags": ["Thạch", "Hoa Quả" ]
     },
     {
       "id": 8,
       "nameDish": "Sinh Số Bơ",
-      "linkImage": require("../assets/Dish/33.jpg"),
+      "linkImage": require("../assets/Dish/32.png"),
       "dish_description": "Sinh số bơ là một món tráng miệng ngon miệng và bổ dưỡng, sử dụng chủ yếu từ trái cây bơ. Bơ được bổ sung đường, đậu phộng, sữa đặc và một chút đậu xanh để tạo nên một hỗn hợp mềm mại, béo ngậy. Món ăn thường được làm thành hình viên nhỏ và trang trí bằng những viên đậu phộng hoặc hạt giống dưa hấu. Sinh số bơ thường là một lựa chọn hấp dẫn cho những người muốn thưởng thức một món tráng miệng tinh tế và giàu dinh dưỡng.",
       "tags": ["Sữa chua", "Bơ", "Sữa đặc"]
     }
