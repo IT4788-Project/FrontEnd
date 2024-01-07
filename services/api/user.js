@@ -65,3 +65,18 @@ export const getUserDisplayInfor = async (token) => {
         throw error;
     }
 }
+
+export const findUser = async (data, token) => {
+    const userId = data.userId;
+    try {
+        const response = await fetchData(`api/users/findUser/${userId}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
