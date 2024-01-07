@@ -232,6 +232,9 @@ const Post = (props) => {
           modalVisible={isShowModalReport}
           setModalVisible={setIsShowModalReport}
           delete={props.delete}
+          postId={data.id}
+          reload={props.reload}
+          setReload={props.setReload}
         />
       </View>
 

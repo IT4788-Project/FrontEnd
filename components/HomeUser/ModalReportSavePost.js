@@ -6,17 +6,47 @@ import {
   Modal,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React from "react";
 import { width, height } from "../../constants/DeviceSize";
 import COLORS from "../../constants/Color";
+import { deleteMyPost } from "../../utils/User/post/deleteMyPost";
+import { useAuth } from "../../contexts/authContext";
+import { reportPost } from "../../utils/User/post/reportPost";
 
 const ModalReportSavePost = (props) => {
+  const auth = useAuth();
   const modalVisible = props.modalVisible;
   const setModalVisible = props.setModalVisible;
 
   const hideModal = () => {
     setModalVisible(false);
+  };
+
+  const onPressReport = async () => {
+    const response = await reportPost(
+      {
+        postId: props.postId,
+      },
+      auth.user.token
+    );
+    console.log(response)
+    if (response.code === 201) {
+      Alert.alert("Thông báo", "Bạn đã báo cáo bài viết này");
+      props.setModalVisible(false);
+    }
+  };
+
+  const onPressDelete = async () => {
+    const response = await deleteMyPost(
+      { postId: props.postId },
+      auth.user.token
+    );
+    if (response.code === 200) {
+      props.setReload(!props.reload);
+      props.setModalVisible(false);
+    }
   };
 
   return (
@@ -33,12 +63,12 @@ const ModalReportSavePost = (props) => {
 
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={onPressReport}>
               <Text style={styles.textButton}>Báo cáo bài viết</Text>
             </TouchableOpacity>
 
             {props.delete === true ? (
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={onPressDelete}>
                 <Text style={styles.textButton}>Xóa bài viết</Text>
               </TouchableOpacity>
             ) : null}
@@ -95,5 +125,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: COLORS.white,
-  }
+  },
 });

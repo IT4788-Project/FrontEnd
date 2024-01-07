@@ -34,7 +34,7 @@ const PersonalPage = (props) => {
   const [avatar, setAvatar] = React.useState(
     require("../../../assets/AvatarGirl.jpg")
   );
-  console.log(postMe)
+  const [reload, setReload] = React.useState(false);
 
   const imageCover = () => {
     const dataCoverImage = [
@@ -72,7 +72,7 @@ const PersonalPage = (props) => {
       }
     };
     getPostMe();
-  }, []);
+  }, [reload]);
   
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>
@@ -179,6 +179,8 @@ const PersonalPage = (props) => {
                       nameUser={inforMe.userName}
                       avatar={inforMe.image}
                       delete={true}
+                      reload={reload}
+                      setReload={setReload}
                     />
                   ))
                 : null}
