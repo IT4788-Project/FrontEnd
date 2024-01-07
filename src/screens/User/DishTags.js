@@ -12,9 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../../constants/Color";
 import ShortDishRecipe from "../../../components/CookingRecipe/ShortDishRecipe";
 import TagDishConstants from "../../../constants/TagDishConstants";
-import RNMultiSelect, {
-  IMultiSelectDataTypes,
-} from "@freakycoder/react-native-multiple-select";
+import RNMultiSelect from "@freakycoder/react-native-multiple-select";
 
 const DishTags = ({ route, navigation }) => {
   const nameTag = route.params.nameTag;
@@ -23,76 +21,7 @@ const DishTags = ({ route, navigation }) => {
     TagDishConstants.map((tag) => ({ ...tag, isChecked: false }))
   );
 
-  const renderTags = (tags) => {
-    const rows = [];
-    const itemsPerRow = 4;
-
-    for (let i = 0; i < tags.length; i += itemsPerRow) {
-      const rowTags = tags.slice(i, i + itemsPerRow);
-      const row = (
-        <View key={i / itemsPerRow} style={styles.row}>
-          {rowTags.map((tag, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.tag}
-              onPress={() => setSelectTag(tag)}
-            >
-              <Text>{tag}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      );
-      rows.push(row);
-    }
-
-    return rows;
-  };
-
-  const data = [
-    {
-      nameDish: "Cá hồi sốt",
-      linkImage: require("../../../assets/Frame163.png"),
-      like: true,
-      tags: ["Tag1", "Tag2", "Dễ nấu", "Tag4", "Tag5", "Tag6", "Tag7", "Tag8"],
-      dish_description:
-        "Cá hồi sốt chanh dây là món ăn ngon, bổ dưỡng, đơn giản và dễ làm. Món ăn này có thể dùng làm món khai vị hoặc món chính đều rất ngon.",
-    },
-    {
-      nameDish: "Cá hồi áp chảo sốt chanh dây",
-      linkImage: require("../../../assets/image5.png"),
-      like: false,
-      tags: ["Tag1", "Tag2", "Tag3", "Tag4", "Tag5", "Tag6", "Tag7", "Tag8"],
-      dish_description:
-        "Cá hồi sốt chanh dây là món ăn ngon, bổ dưỡng, đơn giản và dễ làm. Món ăn này có thể dùng làm món khai vị hoặc món chính đều rất ngon.",
-    },
-    {
-      nameDish: "Salad green haven",
-      linkImage: require("../../../assets/image6.png"),
-      like: false,
-      tags: [
-        "Calo thấp",
-        "Calo cao",
-        "Tag3",
-        "Tag4",
-        "Tag5",
-        "Tag6",
-        "Tag7",
-        "Tag8",
-        "Tag9",
-        "Tag10",
-      ],
-      dish_description:
-        "Cá hồi sốt chanh dây là món ăn ngon, bổ dưỡng, đơn giản và dễ làm. Món ăn này có thể dùng làm món khai vị hoặc món chính đều rất ngon.",
-    },
-  ];
-
-  function onMultiChange() {
-    return (item) => setSelectedTeams(xorBy(selectedTeams, [item], "id"));
-  }
-
-  function onChange() {
-    return (val) => setSelectedTeam(val);
-  }
+  const data = route.params.data;
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>
