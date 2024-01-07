@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   ScrollView,
   Image,
@@ -24,6 +23,7 @@ const HomeUser = ({ navigation }) => {
   const [allPost, setAllPost] = React.useState([]);
   const [isVisibleNewPost, setIsVisibleNewPost] = React.useState(false);
   const [inforUser, setInforUser] = useState(null);
+  const [reload, setReload] = React.useState(false);
 
   const onPressNewPost = () => {
     setIsVisibleNewPost(true);
@@ -51,11 +51,16 @@ const HomeUser = ({ navigation }) => {
       }
     };
     getInforUser();
-  }, []);
+  }, [reload]);
 
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>
-      <AppBar title="BodyFast" search={true} />
+      <AppBar
+        title="BodyFast"
+        search={true}
+        reload={reload}
+        setReload={setReload}
+      />
 
       {/* NavBar height 0.08,  AppBar 0.08 */}
       <ScrollView style={{ height: height * 0.84 }}>
