@@ -225,6 +225,8 @@ const Post = (props) => {
           data={data}
           modalVisible={isShowModalComment}
           setModalVisible={setIsShowModalComment}
+          commentCount={commentCount}
+          setCommentCount={setCommentCount}
         />
 
         <ModalReportSavePost

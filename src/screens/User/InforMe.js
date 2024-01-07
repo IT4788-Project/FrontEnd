@@ -8,7 +8,6 @@ import Indicator from "../../../components/InforMe/Indicator";
 import { LineChart } from "react-native-gifted-charts";
 import AnimatedProgressBar from "react-native-simple-animated-progress-bar";
 import { ScrollView } from "react-native-gesture-handler";
-import { FontAwesome5 } from "@expo/vector-icons";
 import moment from "moment";
 
 import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeightHistory";
@@ -18,7 +17,6 @@ import { useAuth } from "../../../contexts/authContext";
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
   const [inforUser, setInforUser] = useState(null);
-  const [healthyGoals, setHealthyGoals] = useState(null);
   const [historyWeight, setHistoryWeight] = useState(null);
 
   useEffect(() => {
@@ -52,7 +50,9 @@ const InforMe = ({ navigation }) => {
       {inforUser ? (
         <ScrollView style={{ height: height * 0.92 }}>
           <View style={styles.header}>
-            <Text style={styles.textName}>{inforUser.fullName ? inforUser.fullName : "Tên người dùng"}</Text>
+            <Text style={styles.textName}>
+              {inforUser.fullName ? inforUser.fullName : "Tên người dùng"}
+            </Text>
             <TouchableOpacity
               style={{ position: "absolute", right: width * 0.05 }}
               onPress={() => navigation.navigate("SettingInfor")}

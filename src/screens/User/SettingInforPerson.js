@@ -129,8 +129,8 @@ const SettingInforPerson = () => {
             keyboardType="visible-password"
             modal={true}
             value={
-              currentData.birthDay
-                ? currentData.birthDay
+              currentData.birthDay === null
+                ? null
                 : moment(currentData.birthDay, "YYYY-MM-DD").format(
                     "DD/MM/YYYY"
                   )

@@ -71,6 +71,7 @@ const SignUp = ({ navigation }) => {
             topic="Email"
             setValue={setGmail}
             placeholder="Nhập email"
+            category="email"
           />
 
           <FormInput

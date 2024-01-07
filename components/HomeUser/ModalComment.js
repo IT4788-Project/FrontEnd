@@ -8,7 +8,7 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { width, height } from "../../constants/DeviceSize";
 import COLORS from "../../constants/Color";
 import { AntDesign } from "@expo/vector-icons";
@@ -16,6 +16,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../../contexts/authContext";
 import { comment } from "../../utils/User/post/comment";
 import { ScrollView } from "react-native-gesture-handler";
+import { findUserById } from "../../utils/User/userInfor/findUserById";
+import { getDisplayInfor } from "../../utils/User/userInfor/getDisplayInfor";
 
 const ModalComment = (props) => {
   const auth = useAuth();
@@ -29,6 +31,17 @@ const ModalComment = (props) => {
     setModalVisible(false);
   };
 
+  const [displayAccount, setDisplayAccount] = React.useState(null);
+  useEffect(() => {
+    const getAccount = async () => {
+      const response = await getDisplayInfor(auth.user.token);
+      if (response.code === 200) {
+        setDisplayAccount(response.data);
+      }
+    };
+    getAccount();
+  }, []);
+
   const onPressComment = async () => {
     if (valueInput !== "") {
       const valueComment = {
@@ -38,6 +51,24 @@ const ModalComment = (props) => {
       const response = await comment(valueComment, auth.user.token);
 
       if (response.code === 201) {
+        const newComment = {
+          comment: valueInput,
+          date: null,
+          user: {
+            id: null,
+            name: displayAccount.userName,
+            images: [
+              {
+                image_path: displayAccount.image,
+              },
+            ],
+          },
+        };
+        data.comments.push(newComment);
+        props.setCommentCount(props.commentCount + 1)
+        setValueInput("");
+      } else {
+        console.log(response.message);
       }
     }
   };
@@ -139,7 +170,7 @@ export const LineComment = (props) => {
       <Image source={avatarUser} style={styles.imageAvatar} />
       <View>
         <Text style={{ fontWeight: "500" }}>{nameUser}</Text>
-        <Text>{comment}</Text>
+        <Text style={{ width: width * 0.6 }}>{comment}</Text>
       </View>
     </View>
   );
