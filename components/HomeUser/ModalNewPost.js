@@ -195,7 +195,10 @@ const ModalNewPost = (props) => {
           alignItems: "center",
         }}
       >
-        <Image style={{ width: 50, height: 50, borderRadius: 30 }} />
+        <Image
+          style={{ width: 50, height: 50, borderRadius: 30 }}
+          source={props.avatar}
+        />
         <View>
           <Text style={styles.nameUser}>{props.nameUser}</Text>
           <View style={styles.state}>

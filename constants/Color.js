@@ -66,7 +66,7 @@ const COLORS = {
     },
     post: {
       like: {
-        off: "#EFF8FF",
+        off: "#7CB8E7",
         on: "#1877F2",
       },
     },

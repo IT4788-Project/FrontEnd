@@ -105,7 +105,7 @@ const PersonalPage = (props) => {
 
           {/* NavBar 0.08, AppBar 0.05 */}
           <ScrollView style={{ height: height * 0.87 }}>
-            <View style={{ height: height * 0.5 }}>
+            <View style={{ height: height * 0.45 }}>
               <View>
                 <Image source={imageCover()} style={styles.coverImage} />
               </View>
@@ -125,14 +125,6 @@ const PersonalPage = (props) => {
                 </TouchableOpacity>
                 <Text style={styles.textUserName}>{inforMe.userName}</Text>
                 <TouchableOpacity style={styles.follow}>
-                  <Text
-                    style={{
-                      color: COLORS.personalPage.follow.text,
-                      fontSize: 16,
-                    }}
-                  >
-                    Theo dõi
-                  </Text>
                 </TouchableOpacity>
 
                 <View
@@ -237,14 +229,10 @@ const styles = StyleSheet.create({
     color: COLORS.black,
   },
   follow: {
-    marginVertical: height * 0.02,
+    marginVertical: height * 0.01,
     marginHorizontal: width * 0.05,
     width: width * 0.9,
-    height: height * 0.05,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: COLORS.personalPage.follow.border,
-    borderRadius: 20,
   },
 });

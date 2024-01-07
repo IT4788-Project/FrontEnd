@@ -18,11 +18,6 @@ const DishRecipe = ({ route, navigation }) => {
   const data = route.params.data;
   const tags = data.tags;
 
-  const colorLike =
-    data.like === true
-      ? COLORS.cookingRecipe.likeOn
-      : COLORS.cookingRecipe.likeOff;
-
   const renderTags = () => {
     const rows = [];
     const itemsPerRow = 4;
@@ -43,6 +38,7 @@ const DishRecipe = ({ route, navigation }) => {
 
     return rows;
   };
+  
   return (
     <SafeAreaView>
       <ScrollView style={{ height: height * 0.92 }}>
@@ -67,12 +63,6 @@ const DishRecipe = ({ route, navigation }) => {
               onPress={() => navigation.navigate("DishRecipe", { data: data })}
             >
               <Text style={styles.textDishRecipe}>{data.nameDish}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.like, { backgroundColor: colorLike.background }]}
-            >
-              <AntDesign name="like1" size={20} color={colorLike.icon} />
             </TouchableOpacity>
           </View>
 

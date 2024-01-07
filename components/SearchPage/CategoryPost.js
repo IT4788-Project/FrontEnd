@@ -36,7 +36,7 @@ const CategoryPost = (props) => {
           {allPost
             .filter((item) => item.content.includes(props.contentSearch))
             .map((item, index) => {
-              return <Post data={item} key={index} />;
+              return <Post data={item} key={index} nameUser={item.user.name} avatar={item.user.images[0].image_path}/>;
             })}
         </View>
       )}

@@ -12,6 +12,7 @@ const Search = (props) => {
   return (
     <View style={styles.container}>
       <TextInput
+        defaultValue={props.contentSearch}
         placeholder={props.placeholder}
         onChangeText={(text) => setValue(text)}
       />

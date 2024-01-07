@@ -14,6 +14,7 @@ import COLORS from "../../../constants/Color";
 import { width, height } from "../../../constants/DeviceSize";
 import ShortDishRecipe from "../../../components/CookingRecipe/ShortDishRecipe";
 import { useNavigation } from "@react-navigation/native";
+import Dish from "../../../constants/Dish";
 
 const CookingRecipe = () => {
   const data = [
@@ -74,14 +75,14 @@ const CookingRecipe = () => {
           <View style={{ flexDirection: "row" }}>
             <Category category="Món chính" />
             <Category category="Đồ ăn nhẹ" />
-            <Category category="Tráng miệng hôm nay" />
+            <Category category="Tráng miệng" />
           </View>
         </View>
 
         <View style={styles.dishRecipe}>
           <Text style={styles.title}>Công thức của tuần</Text>
 
-          {data.map((item, index) => (
+          {Dish.map((item, index) => (
             <ShortDishRecipe key={index} data={item} />
           ))}
         </View>

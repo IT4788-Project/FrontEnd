@@ -23,7 +23,6 @@ const PersonFollow = (props) => {
     };
     getDataUser();
   }, []);
-  console.log(userInfor)
 
   return (
     <View>

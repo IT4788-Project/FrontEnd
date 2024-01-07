@@ -9,11 +9,6 @@ const ShortDishRecipe = (props) => {
   const navigation = useNavigation();
   const data = props.data;
 
-  const colorLike =
-    data.like === true
-      ? COLORS.cookingRecipe.likeOn
-      : COLORS.cookingRecipe.likeOff;
-
   const tags = data.tags;
 
   const renderTags = () => {
@@ -48,12 +43,6 @@ const ShortDishRecipe = (props) => {
           }
         >
           <Text style={styles.textDishRecipe}>{data.nameDish}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.like, { backgroundColor: colorLike.background }]}
-        >
-          <AntDesign name="like1" size={20} color={colorLike.icon} />
         </TouchableOpacity>
       </View>
 

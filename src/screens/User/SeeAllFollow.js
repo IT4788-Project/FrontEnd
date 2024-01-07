@@ -45,6 +45,9 @@ const SeeAllFollow = (props) => {
         <Text
           style={styles.text}
         >{`Có ${props.route.params.follower.followers.length} người theo dõi `}</Text>
+        {props.route.params.follower.followers.map((item, index) => {
+          return <PersonFollow idPerson={item} key={index} />;
+        })}
 
         <Text
           style={styles.text}

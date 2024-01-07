@@ -86,7 +86,7 @@ const HomeUser = ({ navigation }) => {
         </View>
 
         {allPost.map((item, index) => {
-          return <Post key={index} data={item} prevScreen="HomeUser"/>;
+          return <Post key={index} data={item} prevScreen="HomeUser" />;
         })}
 
         <View style={{ height: 10 }} />
@@ -95,7 +95,12 @@ const HomeUser = ({ navigation }) => {
       <ModalNewPost
         isVisible={isVisibleNewPost}
         setIsVisible={setIsVisibleNewPost}
-        nameUser="Việt anh"
+        nameUser={inforUser?.userName}
+        avatar={
+          inforUser?.image
+            ? { uri: inforUser?.image }
+            : require("../../../assets/AvatarGirl.jpg")
+        }
       />
     </SafeAreaView>
   );

@@ -23,6 +23,8 @@ import ModalReportSavePost from "./ModalReportSavePost";
 import { reactToAPost } from "../../utils/User/post/reactToAPost";
 
 import { useAuth } from "../../contexts/authContext";
+import { findUserById } from "../../utils/User/userInfor/findUserById";
+import { useNavigation } from "@react-navigation/native";
 
 // process data to display proper icon
 function checkIfLiked(like_posts, userId) {
@@ -37,24 +39,26 @@ function checkIfLiked(like_posts, userId) {
 const Post = (props) => {
   // implement data preparation for display reaction state
   const auth = useAuth(); // for userId
+  const navigation = useNavigation();
   const [isLike, setIsLike] = React.useState(false); // false is best
   useEffect(() => {
     setIsLike(checkIfLiked(props.data.like_posts, auth.user.userId));
-  }, [])
+  }, []);
 
   const handleLike = async () => {
     setIsLike(!isLike);
     isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);
-    await reactToAPost({ postId: props.data.id }, auth.user.token)
-    .then((res) => {
-      if (res.status === 'failed') {
-        setIsLike(!isLike);
-        Alert.alert('Thông báo', res.message);
+    await reactToAPost({ postId: props.data.id }, auth.user.token).then(
+      (res) => {
+        if (res.status === "failed") {
+          setIsLike(!isLike);
+          Alert.alert("Thông báo", res.message);
+        }
+        console.log(res);
       }
-      console.log(res);
-    })
-  }
-  
+    );
+  };
+
   const data = props.data;
   const [likeCount, setLikeCount] = React.useState(data.countLike);
   const [commentCount, setCommentCount] = React.useState(data.countComment);
@@ -77,9 +81,8 @@ const Post = (props) => {
       : props.avatar
       ? { uri: props.avatar }
       : require("../../assets/AvatarBoy.jpg");
-  const nameUserPost = (props.prevScreen === "HomeUser"
-    ? data.user.name
-    : props.nameUser);
+  const nameUserPost =
+    props.prevScreen === "HomeUser" ? data.user.name : props.nameUser;
 
   const link = data.images.map((item, index) => {
     return {
@@ -94,6 +97,19 @@ const Post = (props) => {
       setIsShowModalInforImage(true);
     } else {
       setIsShowModalInforPost(true);
+    }
+  };
+
+  const onPressNextPerson = async () => {
+    const response = await findUserById(
+      { userId: data.author },
+      auth.user.token
+    );
+    if (response.code === 200) {
+      navigation.navigate("PersonalPageById", {
+        data: response.data,
+        prevScreen: "HomeUser",
+      });
     }
   };
 
@@ -123,7 +139,7 @@ const Post = (props) => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressNextPerson}>
             <Image
               source={avatarUserPost}
               style={{ width: 45, height: 45, borderRadius: 30 }}
@@ -131,7 +147,7 @@ const Post = (props) => {
           </TouchableOpacity>
 
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPressNextPerson}>
               <Text style={styles.nameUser}>{nameUserPost}</Text>
             </TouchableOpacity>
             <View style={styles.state}>
@@ -239,18 +255,23 @@ const Post = (props) => {
         }}
       >
         <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-          <TouchableOpacity 
-          style={styles.icon}
-          onPress={handleLike}
-          >
-            <AntDesign name={ isLike ? "like1" : "like2" } size={20} color={ isLike ? "#1877F2" : "black"}/>
+          <TouchableOpacity style={styles.icon} onPress={handleLike}>
+            <AntDesign
+              name={isLike ? "like1" : "like2"}
+              size={20}
+              color={
+                isLike
+                  ? COLORS.homeUser.post.like.on
+                  : COLORS.homeUser.post.like.off
+              }
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.icon}
             onPress={() => setIsShowModalComment(true)}
           >
-            <FontAwesome name="commenting" size={20} color={COLORS.black}/>
+            <FontAwesome name="commenting" size={20} color={COLORS.homeUser.post.like.on} />
           </TouchableOpacity>
         </View>
 
