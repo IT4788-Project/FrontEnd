@@ -60,7 +60,7 @@ const Post = (props) => {
 
   const data = props.data;
   const [likeCount, setLikeCount] = React.useState(data.countLike);
-  const [commentCount, setCommentCount] = React.useState(data.countComment);
+  const [commentCount, setCommentCount] = React.useState(data.comments.length);
   const [showFullContent, setShowFullContent] = React.useState(false);
   const [linkImage, setLinkImage] = React.useState(null);
   const [isShowModalInforImage, setIsShowModalInforImage] =

@@ -13,11 +13,17 @@ import moment from "moment";
 import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeightHistory";
 import { getInfor } from "../../../utils/User/personalInfors/getInfor";
 import { useAuth } from "../../../contexts/authContext";
+import { Ionicons } from "@expo/vector-icons";
 
 const InforMe = ({ navigation }) => {
   const auth = useAuth();
   const [inforUser, setInforUser] = useState({});
   const [historyWeight, setHistoryWeight] = useState([]);
+  const [reload, setReload] = useState(false);
+
+  const setNotReload = () => {
+    setReload(!reload);
+  };
 
   useEffect(() => {
     const getHistoryWeight = async () => {
@@ -43,18 +49,32 @@ const InforMe = ({ navigation }) => {
       }
     };
     getInforUser();
-  }, []);
+  }, [reload]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ height: height * 0.92 }}>
         <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => setReload(!reload)}
+            style={{ position: "absolute", left: width * 0.05 }}
+          >
+            <Ionicons
+              name="reload-circle"
+              size={34}
+              color={COLORS.inforMe.textName}
+            />
+          </TouchableOpacity>
           <Text style={styles.textName}>
             {inforUser.fullName ? inforUser.fullName : "Tên người dùng"}
           </Text>
           <TouchableOpacity
             style={{ position: "absolute", right: width * 0.05 }}
-            onPress={() => navigation.navigate("SettingInfor")}
+            onPress={() =>
+              navigation.navigate("SettingInfor", {
+                setNotReload: setNotReload,
+              })
+            }
           >
             <Fontisto
               name="player-settings"
@@ -67,35 +87,37 @@ const InforMe = ({ navigation }) => {
         <View style={styles.weightBox}>
           <View style={{ flexDirection: "row", marginBottom: 20 }}>
             <Text style={{ fontSize: 18, color: COLORS.inforMe.textName }}>
-              {`Cân nặng hiện tại: ${inforUser.currentWeight
-                ? inforUser.currentWeight + "kg"
-                : "Chưa có"
-                }`}
+              {`Cân nặng hiện tại: ${
+                inforUser.currentWeight
+                  ? inforUser.currentWeight + "kg"
+                  : "Chưa có"
+              }`}
             </Text>
           </View>
 
           <View style={{ width: width * 0.8 }}>
-            {
-              inforUser.currentWeight && inforUser.initialWeight && inforUser.targetWeight ?
-                <AnimatedProgressBar
-                  size={8}
-                  duration={500}
-                  progress={
-                    (inforUser.currentWeight - inforUser.initialWeight) /
-                    (inforUser.targetWeight - inforUser.initialWeight)
-                  }
-                  isRtl={false}
-                  barWidth={width * 0.8}
-                />
-                :
-                <AnimatedProgressBar
-                  size={8}
-                  duration={500}
-                  progress={0}
-                  isRtl={false}
-                  barWidth={width * 0.8}
-                />
+            {inforUser.currentWeight &&
+            inforUser.initialWeight &&
+            inforUser.targetWeight ? (
+              <AnimatedProgressBar
+                size={8}
+                duration={500}
+                progress={
+                  (inforUser.currentWeight - inforUser.initialWeight) /
+                  (inforUser.targetWeight - inforUser.initialWeight)
                 }
+                isRtl={false}
+                barWidth={width * 0.8}
+              />
+            ) : (
+              <AnimatedProgressBar
+                size={8}
+                duration={500}
+                progress={0}
+                isRtl={false}
+                barWidth={width * 0.8}
+              />
+            )}
 
             <View
               style={{
@@ -103,40 +125,37 @@ const InforMe = ({ navigation }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Text style={styles.textWeight}>{`Ban đầu: ${inforUser.initialWeight
-                ? inforUser.initialWeight + "kg"
-                : "Chưa có"
-                }`}</Text>
-              <Text style={styles.textWeight}>{`Mục tiêu: ${inforUser.targetWeight
-                ? inforUser.targetWeight + "kg"
-                : "Chưa có"
-                }`}</Text>
+              <Text style={styles.textWeight}>{`Ban đầu: ${
+                inforUser.initialWeight
+                  ? inforUser.initialWeight + "kg"
+                  : "Chưa có"
+              }`}</Text>
+              <Text style={styles.textWeight}>{`Mục tiêu: ${
+                inforUser.targetWeight
+                  ? inforUser.targetWeight + "kg"
+                  : "Chưa có"
+              }`}</Text>
             </View>
           </View>
         </View>
 
-        <View
-          style={{ flexDirection: "row", justifyContent: "space-around" }}
-        >
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <Indicator
             title="Chiều cao"
-            value={`${inforUser.height ? inforUser.height + "cm" : "Chưa có"
-              }`}
+            value={`${inforUser.height ? inforUser.height + "cm" : "Chưa có"}`}
           />
           <Indicator
             title="BMI"
             value={
               inforUser.currentWeight && inforUser.height
                 ? parseFloat(
-                  inforUser.currentWeight / (inforUser.height / 100) ** 2
-                ).toFixed(2)
+                    inforUser.currentWeight / (inforUser.height / 100) ** 2
+                  ).toFixed(2)
                 : "Chưa có"
             }
           />
         </View>
-        <View
-          style={{ flexDirection: "row", justifyContent: "space-around" }}
-        >
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <Indicator
             title="Vòng 3"
             value={`${inforUser.hip ? inforUser.hip + "cm" : "Chưa có"}`}

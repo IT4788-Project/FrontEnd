@@ -23,7 +23,7 @@ const SettingInfor = props => {
       <ButtonNavigation
         title="Thông tin cá nhân"
         nextScreen={true}
-        nameNextScreen="SettingInforPerson"
+        nameNextScreen="SettingInforPerson"z
       />
       <ButtonNavigation title="Thông báo" nextScreen={true} disabled={true} />
 
