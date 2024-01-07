@@ -52,7 +52,11 @@ const PersonalPage = (props) => {
       const response = await getDisplayInfor(auth.user.token);
       if (response.code === 200) {
         setInforMe(response.data);
-        setAvatar({ uri: response.data.image });
+        setAvatar(
+          response.data.image
+            ? { uri: response.data.image }
+            : require("../../../assets/AvatarBoy.jpg")
+        );
       }
     };
     dataInforMe();
@@ -73,7 +77,7 @@ const PersonalPage = (props) => {
     };
     getPostMe();
   }, [reload]);
-  
+
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white }}>
       {inforMe === null ? null : (
@@ -124,8 +128,7 @@ const PersonalPage = (props) => {
                   />
                 </TouchableOpacity>
                 <Text style={styles.textUserName}>{inforMe.userName}</Text>
-                <TouchableOpacity style={styles.follow}>
-                </TouchableOpacity>
+                <TouchableOpacity style={styles.follow}></TouchableOpacity>
 
                 <View
                   style={{
