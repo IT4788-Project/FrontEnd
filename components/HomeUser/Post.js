@@ -54,7 +54,6 @@ const Post = (props) => {
           setIsLike(!isLike);
           Alert.alert("Thông báo", res.message);
         }
-        console.log(res);
       }
     );
   };

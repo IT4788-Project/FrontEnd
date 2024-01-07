@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect } from "react";
 import { width, height } from "../../../constants/DeviceSize";
@@ -21,11 +22,29 @@ import { MaterialIcons } from "@expo/vector-icons";
 import ModalChangeAvatar from "../../../components/PersonalPage/ModalChangeAvatar";
 import { useNavigation } from "@react-navigation/native";
 
+import { followNewUser } from "../../../utils/User/post/followUser";
+import { unfollowUser } from "../../../utils/User/post/unfollowUser";
+
+
+function checkFollowed(followers, userId) {
+  console.log("userId: ", userId)
+  for (let i = 0; i < followers.length; i++) {
+    if (followers[i] == userId) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const PersonalPageById = (props) => {
+  const followers = props.route.params.data.user.followers;
   const auth = useAuth();
   const navigation = useNavigation();
   const [data, setData] = React.useState(props.route.params.data);
-
+  // trạng thái theo dõi
+  const [isFollowed, setIsFollowed] = React.useState(
+    () => checkFollowed(followers, auth.user.userId)
+    );
   const [isVisibleAvatar, setIsVisibleAvatar] = React.useState(false);
 
   const [inforMe, setInforMe] = React.useState(null);
@@ -34,6 +53,29 @@ const PersonalPageById = (props) => {
   const [avatar, setAvatar] = React.useState(
     require("../../../assets/AvatarGirl.jpg")
   );
+  // handle sự kiện theo dõi
+  const handleFollow = async () => {
+    setIsFollowed(!isFollowed);
+    if (isFollowed) {
+      await unfollowUser({ targetId: data.user.id }, auth.user.token).then(
+        (res) => {
+          if (res.status === "failed") {
+            setIsFollowed(!isFollowed);
+            Alert.alert("Thông báo", res.message);
+          }
+        }
+      );
+    } else {
+      await followNewUser({ targetId: data.user.id }, auth.user.token).then(
+        (res) => {
+          if (res.status === "failed") {
+            setIsFollowed(!isFollowed);
+            Alert.alert("Thông báo", res.message);
+          }
+        }
+      );
+    }
+  }
 
   const imageCover = () => {
     const dataCoverImage = [
@@ -103,14 +145,19 @@ const PersonalPageById = (props) => {
                   />
                 </TouchableOpacity>
                 <Text style={styles.textUserName}>{inforMe.userName}</Text>
-                <TouchableOpacity style={styles.follow}>
+                <TouchableOpacity
+                  style={styles.follow}
+                  onPress={handleFollow}
+                >
                   <Text
                     style={{
                       color: COLORS.personalPage.follow.text,
                       fontSize: 16,
                     }}
                   >
-                    Theo dõi
+                    {
+                      isFollowed ? "Bỏ theo dõi" : "Theo dõi"
+                    }
                   </Text>
                 </TouchableOpacity>
 
@@ -124,16 +171,14 @@ const PersonalPageById = (props) => {
                 >
                   {follower && (
                     <View>
-                      <Text style={{ fontSize: 16 }}>{`Có ${
-                        follower.followers.length === 0
+                      <Text style={{ fontSize: 16 }}>{`Có ${follower.followers.length === 0
                           ? 0
                           : follower.followers.length
-                      } người theo dõi`}</Text>
-                      <Text style={{ fontSize: 16 }}>{`Đang theo dõi ${
-                        follower.followings.length === 0
+                        } người theo dõi`}</Text>
+                      <Text style={{ fontSize: 16 }}>{`Đang theo dõi ${follower.followings.length === 0
                           ? 0
                           : follower.followings.length
-                      } người`}</Text>
+                        } người`}</Text>
                     </View>
                   )}
                   <TouchableOpacity
@@ -160,13 +205,13 @@ const PersonalPageById = (props) => {
             <View style={styles.body}>
               {postMe !== null
                 ? postMe.map((item, index) => (
-                    <Post
-                      key={index}
-                      data={item}
-                      nameUser={inforMe.userName}
-                      avatar={inforMe.image}
-                    />
-                  ))
+                  <Post
+                    key={index}
+                    data={item}
+                    nameUser={inforMe.userName}
+                    avatar={inforMe.image}
+                  />
+                ))
                 : null}
             </View>
           </ScrollView>
