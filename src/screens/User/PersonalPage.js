@@ -34,7 +34,6 @@ const PersonalPage = (props) => {
   const [avatar, setAvatar] = React.useState(
     require("../../../assets/AvatarGirl.jpg")
   );
-  console.log(postMe)
 
   const imageCover = () => {
     const dataCoverImage = [
