@@ -219,6 +219,8 @@ const Post = (props) => {
           listImage={link}
           data={data}
           avatarUserPost={avatarUserPost}
+          commentCount={commentCount}
+          setCommentCount={setCommentCount}
         />
 
         <ModalComment

@@ -23,10 +23,6 @@ const InforMe = ({ route, navigation }) => {
   const [historyWeight, setHistoryWeight] = useState([]);
   const [reload, setReload] = useState(false);
 
-  const setNotReload = () => {
-    setReload(!reload);
-  };
-
   // copy paste
   async function handleScreenARerender() {
     console.log("rerender");
@@ -70,7 +66,7 @@ const InforMe = ({ route, navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ height: height * 0.92 }}>
         <View style={styles.header}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => setReload(!reload)}
             style={{ position: "absolute", left: width * 0.05 }}
           >
@@ -79,16 +75,14 @@ const InforMe = ({ route, navigation }) => {
               size={34}
               color={COLORS.inforMe.textName}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Text style={styles.textName}>
             {inforUser.fullName ? inforUser.fullName : "Tên người dùng"}
           </Text>
           <TouchableOpacity
             style={{ position: "absolute", right: width * 0.05 }}
             onPress={() =>
-              navigation.navigate("SettingInfor", {
-                setNotReload: setNotReload,
-              })
+              navigation.navigate("SettingInfor", )
             }
           >
             <Fontisto

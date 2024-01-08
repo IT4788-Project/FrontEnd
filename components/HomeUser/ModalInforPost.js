@@ -68,7 +68,7 @@ const ModalInforPost = (props) => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity disabled={true}>
             <Image
               source={props.avatarUserPost}
               style={{ width: 45, height: 45, borderRadius: 30 }}
@@ -76,7 +76,7 @@ const ModalInforPost = (props) => {
           </TouchableOpacity>
 
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity disabled={true}>
               <Text style={styles.nameUser}>{props.nameUser}</Text>
             </TouchableOpacity>
             <View style={styles.state}>
@@ -117,13 +117,16 @@ const ModalInforPost = (props) => {
               <AntDesign name="like1" size={20} color={COLORS.white} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.icon} onPress={() => setIsShowModalComment(true)}>
+            <TouchableOpacity
+              style={styles.icon}
+              onPress={() => setIsShowModalComment(true)}
+            >
               <FontAwesome name="commenting" size={20} color={COLORS.white} />
             </TouchableOpacity>
           </View>
 
           <View style={{ flexDirection: "row" }}>
-            <Text>{`${data.countLike} lượt thích - ${data.countComment} bình luận`}</Text>
+            <Text>{`${data.countLike} lượt thích - ${props.commentCount} bình luận`}</Text>
           </View>
         </View>
 
@@ -158,9 +161,12 @@ const ModalInforPost = (props) => {
         setModalVisible={setIsShowModalReport}
       />
 
-      <ModalComment data={data} 
+      <ModalComment
+        data={data}
         modalVisible={isShowModalComment}
         setModalVisible={setIsShowModalComment}
+        commentCount={props.commentCount}
+        setCommentCount={props.setCommentCount}
       />
     </Modal>
   );
