@@ -22,7 +22,7 @@ const PersonFollow = (props) => {
       }
     };
     getDataUser();
-  }, []);
+  }, [props]);
 
   return (
     <View>
@@ -30,10 +30,11 @@ const PersonFollow = (props) => {
         <TouchableOpacity
           style={styles.container}
           onPress={() =>
-            navigation.navigate("PersonalPageById", {
+            { console.log('navigate to personal page with id: ', userInfor.user.id)
+              navigation.navigate("PersonalPageById", {
               data: userInfor,
               prevScreen: "SeeAllFollow",
-            })
+            })}
           }
         >
           <View>

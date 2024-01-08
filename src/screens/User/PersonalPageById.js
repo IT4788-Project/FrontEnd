@@ -27,7 +27,6 @@ import { unfollowUser } from "../../../utils/User/post/unfollowUser";
 
 
 function checkFollowed(followers, userId) {
-  console.log("userId: ", userId)
   for (let i = 0; i < followers.length; i++) {
     if (followers[i] == userId) {
       return true;
@@ -40,7 +39,7 @@ const PersonalPageById = (props) => {
   const followers = props.route.params.data.user.followers;
   const auth = useAuth();
   const navigation = useNavigation();
-  const [data, setData] = React.useState(props.route.params.data);
+  const data = props.route.params.data;
   // trạng thái theo dõi
   const [isFollowed, setIsFollowed] = React.useState(
     () => checkFollowed(followers, auth.user.userId)
