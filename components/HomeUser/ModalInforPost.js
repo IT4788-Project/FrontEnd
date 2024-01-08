@@ -5,10 +5,9 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  FlatList,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, {useEffect} from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -21,7 +20,7 @@ import ModalReportSavePost from "./ModalReportSavePost";
 import ModalComment from "./ModalComment";
 
 const ModalInforPost = (props) => {
-  const data = props.data;
+  const data = props.data;  
   const [showFullContent, setShowFullContent] = React.useState(false);
   const [isShowModalReport, setIsShowModalReport] = React.useState(false);
   const [isShowModalComment, setIsShowModalComment] = React.useState(false);
@@ -113,9 +112,9 @@ const ModalInforPost = (props) => {
           }}
         >
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity style={styles.icon}>
+            {/* <TouchableOpacity style={styles.icon}>
               <AntDesign name="like1" size={20} color={COLORS.white} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity
               style={styles.icon}
