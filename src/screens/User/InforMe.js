@@ -14,6 +14,37 @@ import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeig
 import { getInfor } from "../../../utils/User/personalInfors/getInfor";
 import { useAuth } from "../../../contexts/authContext";
 
+function calculateProgress(currentWeight, initialWeight, targetWeight) {
+  // if there's data
+  if (currentWeight && initialWeight && targetWeight) {
+    // if current weight is not in range of initial and target weight
+    if ((currentWeight-initialWeight)*(currentWeight-targetWeight) >= 0) {
+      // check if the plan is to gain weight or lose weight
+      if (initialWeight > targetWeight) {
+        // if the plan is to lose weight
+        if (currentWeight >= initialWeight) {
+          // if for now, the user is gaining weight
+          return 0;
+        } else {
+          return 100
+        }
+      } else {
+        // if the plan is to gain weight
+        if (currentWeight <= initialWeight) {
+          // if for now, the user is losing weight
+          return 0;
+        } else {
+          return 100
+        }
+      }
+    } else {
+      // if current weight is in range of initial and target weight
+      // make it positive
+      return Math.abs((currentWeight - initialWeight) / (targetWeight - initialWeight)) * 100;
+    }
+  } else return 0;
+}
+
 const InforMe = ({ route, navigation }) => {
   const auth = useAuth();
   const [inforUser, setInforUser] = useState({});
@@ -104,8 +135,11 @@ const InforMe = ({ route, navigation }) => {
                 size={8}
                 duration={500}
                 progress={
-                  (inforUser.currentWeight - inforUser.initialWeight) /
-                  (inforUser.targetWeight - inforUser.initialWeight)
+                  calculateProgress(
+                    inforUser.currentWeight,
+                    inforUser.initialWeight,
+                    inforUser.targetWeight
+                  ) / 100
                 }
                 isRtl={false}
                 barWidth={width * 0.8}
