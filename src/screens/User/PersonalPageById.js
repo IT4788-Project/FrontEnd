@@ -25,7 +25,6 @@ import { useNavigation } from "@react-navigation/native";
 import { followNewUser } from "../../../utils/User/post/followUser";
 import { unfollowUser } from "../../../utils/User/post/unfollowUser";
 
-
 function checkFollowed(followers, userId) {
   for (let i = 0; i < followers.length; i++) {
     if (followers[i] == userId) {
@@ -41,16 +40,16 @@ const PersonalPageById = (props) => {
   const navigation = useNavigation();
   const data = props.route.params.data;
   // trạng thái theo dõi
-  const [isFollowed, setIsFollowed] = React.useState(
-    () => checkFollowed(followers, auth.user.userId)
-    );
+  const [isFollowed, setIsFollowed] = React.useState(() =>
+    checkFollowed(followers, auth.user.userId)
+  );
   const [isVisibleAvatar, setIsVisibleAvatar] = React.useState(false);
 
   const [inforMe, setInforMe] = React.useState(null);
   const [follower, setFollower] = React.useState(null);
   const [postMe, setPostMe] = React.useState(null);
   const [avatar, setAvatar] = React.useState(
-    require("../../../assets/AvatarGirl.jpg")
+    require("../../../assets/AvatarBoy.jpg")
   );
   // handle sự kiện theo dõi
   const handleFollow = async () => {
@@ -74,7 +73,7 @@ const PersonalPageById = (props) => {
         }
       );
     }
-  }
+  };
 
   const imageCover = () => {
     const dataCoverImage = [
@@ -91,14 +90,18 @@ const PersonalPageById = (props) => {
     setPostMe(data.post);
     setFollower({
       followers: data.user.followers,
-      followings: data.user.followings,
+      followings: data.user.followings.filter((item) => item !== data.user.id),
     });
     setInforMe({
       image: data.user.images[0].image_path,
       userName: data.user.name,
       userId: data.user.id,
     });
-    setAvatar({ uri: data.user.images[0].image_path });
+    setAvatar(
+      data.user.images[0].image_path
+        ? { uri: data.user.images[0].image_path }
+        : require("../../../assets/AvatarBoy.jpg")
+    );
   }, [data]);
 
   return (
@@ -144,19 +147,14 @@ const PersonalPageById = (props) => {
                   />
                 </TouchableOpacity>
                 <Text style={styles.textUserName}>{inforMe.userName}</Text>
-                <TouchableOpacity
-                  style={styles.follow}
-                  onPress={handleFollow}
-                >
+                <TouchableOpacity style={styles.follow} onPress={handleFollow}>
                   <Text
                     style={{
                       color: COLORS.personalPage.follow.text,
                       fontSize: 16,
                     }}
                   >
-                    {
-                      isFollowed ? "Bỏ theo dõi" : "Theo dõi"
-                    }
+                    {isFollowed ? "Bỏ theo dõi" : "Theo dõi"}
                   </Text>
                 </TouchableOpacity>
 
@@ -170,14 +168,16 @@ const PersonalPageById = (props) => {
                 >
                   {follower && (
                     <View>
-                      <Text style={{ fontSize: 16 }}>{`Có ${follower.followers.length === 0
+                      <Text style={{ fontSize: 16 }}>{`Có ${
+                        follower.followers.length === 0
                           ? 0
                           : follower.followers.length
-                        } người theo dõi`}</Text>
-                      <Text style={{ fontSize: 16 }}>{`Đang theo dõi ${follower.followings.length === 0
+                      } người theo dõi`}</Text>
+                      <Text style={{ fontSize: 16 }}>{`Đang theo dõi ${
+                        follower.followings.length === 0
                           ? 0
                           : follower.followings.length
-                        } người`}</Text>
+                      } người`}</Text>
                     </View>
                   )}
                   <TouchableOpacity
@@ -204,13 +204,13 @@ const PersonalPageById = (props) => {
             <View style={styles.body}>
               {postMe !== null
                 ? postMe.map((item, index) => (
-                  <Post
-                    key={index}
-                    data={item}
-                    nameUser={inforMe.userName}
-                    avatar={inforMe.image}
-                  />
-                ))
+                    <Post
+                      key={index}
+                      data={item}
+                      nameUser={inforMe.userName}
+                      avatar={inforMe.image}
+                    />
+                  ))
                 : null}
             </View>
           </ScrollView>

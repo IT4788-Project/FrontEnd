@@ -17,6 +17,10 @@ const ModalChangeInfor = (props) => {
   const setModalVisible = props.setModalVisible;
 
   const hideModal = () => {
+    if (valueInput === "") {
+      setModalVisible(false);
+      return;
+    }
     setModalVisible(false);
     props.setValue(valueInput)
   };

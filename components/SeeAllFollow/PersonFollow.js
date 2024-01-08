@@ -29,17 +29,24 @@ const PersonFollow = (props) => {
       {userInfor !== null ? (
         <TouchableOpacity
           style={styles.container}
-          onPress={() =>
-            { console.log('navigate to personal page with id: ', userInfor.user.id)
-              navigation.navigate("PersonalPageById", {
+          onPress={() => {
+            console.log(
+              "navigate to personal page with id: ",
+              userInfor.user.id
+            );
+            navigation.navigate("PersonalPageById", {
               data: userInfor,
               prevScreen: "SeeAllFollow",
-            })}
-          }
+            });
+          }}
         >
           <View>
             <Image
-              source={{ uri: userInfor.user.images[0].image_path }}
+              source={
+                userInfor.user.images[0].image_path
+                  ? { uri: userInfor.user.images[0].image_path }
+                  : require('../../assets/AvatarBoy.jpg')
+              }
               style={{
                 width: width * 0.2,
                 height: width * 0.2,

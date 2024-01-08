@@ -213,7 +213,8 @@ const InforMe = ({ route, navigation }) => {
               color={COLORS.inforMe.chart.background}
               dataPointsColor1={COLORS.inforMe.chart.background}
               textColor1={COLORS.inforMe.chart.textValue}
-              textShiftY={-10}
+              textShiftY={-20}
+              textShiftX={-3}
               textFontSize1={12}
               isAnimated={true}
               animationDuration={1000}
