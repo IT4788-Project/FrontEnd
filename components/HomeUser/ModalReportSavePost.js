@@ -31,7 +31,7 @@ const ModalReportSavePost = (props) => {
       },
       auth.user.token
     );
-    console.log(response)
+    console.log(response);
     if (response.code === 201) {
       Alert.alert("Thông báo", "Bạn đã báo cáo bài viết này");
       props.setModalVisible(false);
@@ -63,15 +63,15 @@ const ModalReportSavePost = (props) => {
 
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.button} onPress={onPressReport}>
-              <Text style={styles.textButton}>Báo cáo bài viết</Text>
-            </TouchableOpacity>
-
             {props.delete === true ? (
               <TouchableOpacity style={styles.button} onPress={onPressDelete}>
                 <Text style={styles.textButton}>Xóa bài viết</Text>
               </TouchableOpacity>
-            ) : null}
+            ) : (
+              <TouchableOpacity style={styles.button} onPress={onPressReport}>
+                <Text style={styles.textButton}>Báo cáo bài viết</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </Modal>
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: width,
-    height: height * 0.25,
+    height: height * 0.2,
     backgroundColor: COLORS.settingInforPerson.modal.background,
     borderColor: COLORS.settingInforPerson.modal.border,
     borderTopEndRadius: 40,

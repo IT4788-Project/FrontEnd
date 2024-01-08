@@ -49,6 +49,7 @@ const ForgotPassword = ({ navigation }) => {
             topic="Email xác thực"
             placeholder="Nhập email xác thực"
             setValue={setMail}
+            category="email"
           />
 
           <View

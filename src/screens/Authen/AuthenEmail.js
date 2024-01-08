@@ -52,6 +52,7 @@ const AuthenEmail = () => {
               ? <FormInput
                   topic="Email đăng ký"
                   placeholder="Nhập email đăng ký"
+                  category="email"
                 />
               : <FormInput
                   topic="Mã xác thực"

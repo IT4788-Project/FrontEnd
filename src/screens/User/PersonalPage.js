@@ -64,7 +64,13 @@ const PersonalPage = (props) => {
     const getDataFollower = async () => {
       const response = await getFollower(auth.user.token);
       if (response.code === 200) {
-        setFollower(response.data);
+        setFollower({
+          followers: response.data.followers,
+          followings: response.data.followings.filter(
+            (item) => item != auth.user.userId
+          ),
+        });
+        console.log(follower)
       }
     };
     getDataFollower();
