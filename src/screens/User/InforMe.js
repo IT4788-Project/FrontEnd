@@ -8,20 +8,18 @@ import Indicator from "../../../components/InforMe/Indicator";
 import { LineChart } from "react-native-gifted-charts";
 import AnimatedProgressBar from "react-native-simple-animated-progress-bar";
 import { ScrollView } from "react-native-gesture-handler";
-import moment from "moment";
+import moment, { max } from "moment";
 
 import { getUserWeightHistory } from "../../../utils/User/userWeight/getUserWeightHistory";
 import { getInfor } from "../../../utils/User/personalInfors/getInfor";
 import { useAuth } from "../../../contexts/authContext";
-import { Ionicons } from "@expo/vector-icons";
-
-
 
 const InforMe = ({ route, navigation }) => {
   const auth = useAuth();
   const [inforUser, setInforUser] = useState({});
   const [historyWeight, setHistoryWeight] = useState([]);
   const [reload, setReload] = useState(false);
+  const [maxWeight, setMaxWeight] = useState(0);
 
   // copy paste
   async function handleScreenARerender() {
@@ -31,7 +29,7 @@ const InforMe = ({ route, navigation }) => {
     await getInforUser();
   }
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', handleScreenARerender);
+    const unsubscribe = navigation.addListener("focus", handleScreenARerender);
     return unsubscribe;
   }, []);
   // end solution
@@ -48,6 +46,12 @@ const InforMe = ({ route, navigation }) => {
           };
         })
       );
+      var mWeight = 0;
+      response.data.forEach((element) => {
+        if (parseInt(element.currentWeight) > mWeight)
+          mWeight = parseInt(element.currentWeight);
+      });
+      setMaxWeight(mWeight);
     }
   };
   const getInforUser = async () => {
@@ -66,24 +70,12 @@ const InforMe = ({ route, navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ height: height * 0.92 }}>
         <View style={styles.header}>
-          {/* <TouchableOpacity
-            onPress={() => setReload(!reload)}
-            style={{ position: "absolute", left: width * 0.05 }}
-          >
-            <Ionicons
-              name="reload-circle"
-              size={34}
-              color={COLORS.inforMe.textName}
-            />
-          </TouchableOpacity> */}
           <Text style={styles.textName}>
             {inforUser.fullName ? inforUser.fullName : "Tên người dùng"}
           </Text>
           <TouchableOpacity
             style={{ position: "absolute", right: width * 0.05 }}
-            onPress={() =>
-              navigation.navigate("SettingInfor", )
-            }
+            onPress={() => navigation.navigate("SettingInfor")}
           >
             <Fontisto
               name="player-settings"
@@ -191,6 +183,7 @@ const InforMe = ({ route, navigation }) => {
               textFontSize1={12}
               isAnimated={true}
               animationDuration={1000}
+              maxValue={parseInt(maxWeight) + 10}
             />
           </View>
         ) : (
